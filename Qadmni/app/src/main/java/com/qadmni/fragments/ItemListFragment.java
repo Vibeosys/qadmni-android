@@ -7,6 +7,7 @@ import android.support.v4.view.PagerTabStrip;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.qadmni.R;
 
@@ -16,6 +17,8 @@ import com.qadmni.R;
 public class ItemListFragment extends Fragment {
     public static final String ARG_OBJECT = "object";
     PagerTabStrip pagerTabStrip;
+    TextView textView;
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -23,10 +26,14 @@ public class ItemListFragment extends Fragment {
         // properly.
         View rootView = inflater.inflate(
                 R.layout.fragment_item_list_collection, container, false);
-        Bundle args = getArguments();
-        /*((TextView) rootView.findViewById(android.R.id.text1)).setText(
-                Integer.toString(args.getInt(ARG_OBJECT)));*/
-        pagerTabStrip = (PagerTabStrip)rootView.findViewById(R.id.pager_title_strip);
+        /*Bundle args = getArguments();
+        textView = ((TextView) rootView.findViewById(android.R.id.text1));
+        int i = args.getInt(ARG_OBJECT);
+        if (args != null) {
+            textView.setText("" + i);
+        }*/
+
+        // pagerTabStrip = (PagerTabStrip)rootView.findViewById(R.id.pager_title_strip);
         return rootView;
     }
 }

@@ -20,9 +20,6 @@ public class CategoryFragmentAdapter extends FragmentStatePagerAdapter {
     public CategoryFragmentAdapter(FragmentManager fm, ArrayList<CategoryListResponseDTO> categoryListResponseDTOs) {
         super(fm);
         this.categoryListResponseDTOs = categoryListResponseDTOs;
-        Log.d("TAG", "TAG");
-        Log.d("TAG", "TAG");
-        Log.d("TAG", "TAG");
     }
 
     @Override
