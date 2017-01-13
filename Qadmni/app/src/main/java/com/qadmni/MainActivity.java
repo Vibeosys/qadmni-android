@@ -70,9 +70,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        /*if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -83,17 +83,19 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_myCart) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_myOrders) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_favourite) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_profile) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_language) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_partner_login) {
+
+        } else if (id == R.id.nav_logout) {
 
         }
 
