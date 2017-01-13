@@ -8,13 +8,9 @@ import com.qadmni.data.BaseDTO;
 public class BaseRequestDTO extends BaseDTO {
     private UserRequestDTO user;
     private String data;
+    private String langCode;
 
     public BaseRequestDTO() {
-    }
-
-    public BaseRequestDTO(UserRequestDTO user, String data) {
-        this.user = user;
-        this.data = data;
     }
 
     public UserRequestDTO getUser() {
@@ -32,4 +28,14 @@ public class BaseRequestDTO extends BaseDTO {
     public void setData(String data) {
         this.data = data;
     }
+
+    public String getLangCode() {
+        return langCode;
+    }
+
+    public void setLangCode(String langCode) {
+        this.langCode = langCode;
+    }
+
+
 }

@@ -18,4 +18,9 @@
     <string name="str_btn_save">Save</string>
     <string name="str_english">English</string>
     <string name="str_arabic">العربية</string>
+
+    <string name="dlg_ok">Ok</string>
+    <string name="dlg_cancel">Cancel</string>
+    <string name="str_err_server_err">Server Error</string>
+    <string name="please_wait">Please wait…</string>
 </resources>

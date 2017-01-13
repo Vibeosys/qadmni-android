@@ -26,6 +26,7 @@ public class SessionManager {
         return mSessionManager;
 
     }
+
     private static void loadProjectSharedPreferences() {
         if (mProjectSharedPref == null) {
             mProjectSharedPref = mContext.getSharedPreferences(PROJECT_PREFERENCES, Context.MODE_PRIVATE);
@@ -40,14 +41,16 @@ public class SessionManager {
                 Log.e("SharedPref", "No shared preferences are changed");
         }
     }
+
     private static boolean addOrUpdateSharedPreferences() {
 
         SharedPreferences.Editor editor = mProjectSharedPref.edit();
-      //  editor.putString(PropertyTypeConstants.LOGIN_ENDPOINT_URI, mPropertyFileReader.getUserLoginUrl());
+        editor.putString(PropertyTypeConstants.GET_CATEGORY_LIST, mPropertyFileReader.getCategoryListUrl());
 
         editor.apply();
         return true;
     }
+
     private static void setValuesInSharedPrefs(String sharedPrefKey, long sharedPrefValue) {
         SharedPreferences.Editor editor = mProjectSharedPref.edit();
         editor.putLong(sharedPrefKey, sharedPrefValue);
@@ -58,5 +61,17 @@ public class SessionManager {
         SharedPreferences.Editor editor = mProjectSharedPref.edit();
         editor.putString(sharedPrefKey, sharedPrefValue);
         editor.apply();
+    }
+
+    public String getCategoryListUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.GET_CATEGORY_LIST, null);
+    }
+
+    public String getUserSelectedLang() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.USER_SELECTED_LANGUAGE, "En");
+    }
+
+    public void setUserSelectedLang(String UserLang) {
+        setValuesInSharedPrefs(PropertyTypeConstants.USER_SELECTED_LANGUAGE, UserLang);
     }
 }

@@ -42,4 +42,7 @@ public class PropertyFileReader {
         String versionNumber = mProperties.getProperty(PropertyTypeConstants.VERSION_NUMBER);
         return Float.valueOf(versionNumber);
     }
+    public String getCategoryListUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_CATEGORY_LIST);
+    }
 }

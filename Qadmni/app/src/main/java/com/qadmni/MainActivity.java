@@ -2,9 +2,11 @@ package com.qadmni;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,13 +17,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.VolleyError;
+import com.qadmni.activity.BaseActivity;
 import com.qadmni.activity.SelectLangaugeActivity;
 import com.qadmni.adapter.CategoryFragmentAdapter;
+import com.qadmni.data.requestDataDTO.BaseRequestDTO;
+import com.qadmni.data.requestDataDTO.UserRequestDTO;
+import com.qadmni.data.responseDataDTO.CategoryListResponseDTO;
+import com.qadmni.utils.ServerRequestConstants;
+import com.qadmni.utils.ServerSyncManager;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
+
+public class MainActivity extends BaseActivity
+        implements NavigationView.OnNavigationItemSelectedListener, ServerSyncManager.OnSuccessResultReceived,
+        ServerSyncManager.OnErrorResultReceived {
     private CategoryFragmentAdapter categoryFragmentAdapter;
     private ViewPager mViewPager;
+    private ArrayList<CategoryListResponseDTO> categoryListResponseDTOs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +51,21 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        categoryFragmentAdapter =
-                new CategoryFragmentAdapter(
-                        getSupportFragmentManager());
+
         mViewPager = (ViewPager) findViewById(R.id.pager);
 
-        mViewPager.setAdapter(categoryFragmentAdapter);
+
+        callToGetCategoryWebService();
+        mServerSyncManager.setOnStringErrorReceived(this);
+        mServerSyncManager.setOnStringResultReceived(this);
+
+
+    }
+
+    private void callToGetCategoryWebService() {
+        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+        mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_GET_CATEGORY,
+                mSessionManager.getCategoryListUrl(), baseRequestDTO);
 
     }
 
@@ -96,6 +118,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_language) {
             Intent intent = new Intent(getApplicationContext(), SelectLangaugeActivity.class);
             startActivity(intent);
+            finish();
 
         } else if (id == R.id.nav_partner_login) {
 
@@ -106,5 +129,32 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
+        progressDialog.dismiss();
+        customAlterDialog(getResources().getString(R.string.str_err_server_err), error.getMessage());
+
+    }
+
+    @Override
+    public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
+        progressDialog.dismiss();
+        customAlterDialog(getResources().getString(R.string.str_err_server_err), errorMessage);
+    }
+
+    @Override
+    public void onResultReceived(@NonNull String data, int requestToken) {
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_GET_CATEGORY:
+                ArrayList<CategoryListResponseDTO> categoryListResponseDTOs = CategoryListResponseDTO.deSerializedToJson(data);
+                categoryFragmentAdapter = new CategoryFragmentAdapter(
+                                getSupportFragmentManager(), categoryListResponseDTOs);
+                mViewPager.setAdapter(categoryFragmentAdapter);
+                break;
+        }
+
     }
 }

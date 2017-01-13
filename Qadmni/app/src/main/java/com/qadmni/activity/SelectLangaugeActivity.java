@@ -1,5 +1,6 @@
 package com.qadmni.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,16 +9,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.qadmni.MainActivity;
 import com.qadmni.R;
 import com.qadmni.utils.LocaleHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectLangaugeActivity extends AppCompatActivity {
+public class SelectLangaugeActivity extends BaseActivity {
     private Spinner mSpinner;
     private TextView btnSave;
     private String lang = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +44,10 @@ public class SelectLangaugeActivity extends AppCompatActivity {
                 if (position == 0) {
                     lang = "en";
 
+
                 } else if (position == 1) {
                     lang = "ar";
+
                 }
             }
 
@@ -55,9 +60,23 @@ public class SelectLangaugeActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (lang.equals("en")) {
+                    mSessionManager.setUserSelectedLang("En");
+                } else if (lang.equals("ar")) {
+                    mSessionManager.setUserSelectedLang("Ar");
+                }
                 LocaleHelper.setLocale(getApplicationContext(), lang);
                 recreate();
+
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+
     }
 }

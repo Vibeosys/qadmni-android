@@ -39,11 +39,7 @@ public class ServerSyncManager {
     }
 
     public void uploadDataToServer(int requestToken, String url, BaseRequestDTO params) {
-        /*if (mSessionManager.getUserId() == 0 || mSessionManager.getUserName() == null
-                || mSessionManager.getUserName().isEmpty()) {
-            Log.e("UserNotAuth", "User is not authenticated before upload");
-            return;
-        }*/
+
         String uploadJson = prepareUploadJsonFromData(params);
         Log.i(TAG, "## Data request" + url);
         uploadJsonToServer(uploadJson, url, requestToken);
@@ -61,7 +57,7 @@ public class ServerSyncManager {
 
         //get the values from session manager
         UserRequestDTO userRequestDTO = new UserRequestDTO();
-
+        params.setLangCode(mSessionManager.getUserSelectedLang());
         params.setUser(userRequestDTO);
         String uploadJson = params.serializeString();
         Log.i(TAG, "## request json" + uploadJson);
@@ -89,7 +85,6 @@ public class ServerSyncManager {
                     return;
                 }
                 if (responseDTO.getErrorCode() == 110) {
-                    callToLogOut();
                     return;
                 }
                 if (responseDTO.getErrorCode() > 0) {
@@ -117,15 +112,6 @@ public class ServerSyncManager {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         vollyRequest.add(uploadRequest);
-    }
-
-    private void callToLogOut() {
-
-
-      /*  Intent loginIntent = new Intent(mContext, LoginActivity.class);
-        loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        mContext.startActivity(loginIntent);*/
-        //finish();
     }
 
     public interface OnSuccessResultReceived {
