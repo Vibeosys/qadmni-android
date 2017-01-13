@@ -1,5 +1,6 @@
 package com.qadmni;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.qadmni.activity.SelectLangaugeActivity;
 import com.qadmni.adapter.CategoryFragmentAdapter;
 
 public class MainActivity extends AppCompatActivity
@@ -92,6 +94,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
 
         } else if (id == R.id.nav_language) {
+            Intent intent = new Intent(getApplicationContext(), SelectLangaugeActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_partner_login) {
 

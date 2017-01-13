@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#886d9f</color>
     <color name="colorPrimaryLight">#ecdcf9</color>
     <color name="colorAccent">#9c4d13</color>
+    <color name="secondaryText">#d863666b</color>
+    <color name="divider_colour">#a8b6b3b1</color>
+    <color name="btn_green_colour">#39cf8e</color>
 </resources>

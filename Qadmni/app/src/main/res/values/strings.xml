@@ -14,4 +14,8 @@
     <string name="str_logout">Logout</string>
     <string name="search_items">Search</string>
     <string name="your_cart">My Cart</string>
+    <string name="str_select_language">Select Language</string>
+    <string name="str_btn_save">Save</string>
+    <string name="str_english">English</string>
+    <string name="str_arabic">العربية</string>
 </resources>
