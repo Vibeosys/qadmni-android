@@ -23,7 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SelectLangaugeActivity"></activity>
+        <activity android:name=".activity.SelectLangaugeActivity" />
+        <activity android:name=".activity.VenderLoginActivity" />
+        <activity android:name=".activity.VenderRegistrationActivity" />
+        <activity android:name=".activity.VenderShopDetailsActivity"></activity>
     </application>
 
 </manifest>

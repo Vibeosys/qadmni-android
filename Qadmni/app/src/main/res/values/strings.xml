@@ -23,4 +23,24 @@
     <string name="dlg_cancel">Cancel</string>
     <string name="str_err_server_err">Server Error</string>
     <string name="please_wait">Please wait…</string>
+
+    <string name="str_name_hint">Name</string>
+    <string name="str_user_password">Password</string>
+    <string name="str_confirm_user_password">Confirm Password</string>
+    <string name="str_email_hint">Email</string>
+    <string name="str_ph_hint">Phone</string>
+    <string name="str_subscribe_btn">Subscribe Now</string>
+    <string name="str_next">Next</string>
+    <string name="str_err_name_empty">Please enter your name</string>
+    <string name="str_err_pass_emty">Please enter password</string>
+    <string name="str_err_email_empty">Please enter your email</string>
+    <string name="str_err_ph_empty">Plase enter phone number</string>
+    <string name="str_err_pass_wrong">Please enter correct password</string>
+    <string name="str_err_ph_wrong">Please enter correct phone number</string>
+    <string name="str_err_email_wrong">Please enter correct email id</string>
+
+    <string name="str_shop_details">Shop details</string>
+    <string name="str_shop_name_hint">Business Name</string>
+    <string name="str_shop_location_hint">Business Location</string>
+    <string name="str_register_now">Register Now</string>
 </resources>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/register_back"
+    tools:context="com.qadmni.activity.VenderShopDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/loginTransparnt"
+        android:orientation="vertical">
+
+        <com.qadmni.views.ImageViewArabic
+            android:layout_width="wrap_content"
+            android:layout_height="100sp"
+            android:layout_margin="4dp"
+            android:src="@drawable/qadmni_img_logo_english" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginStart="22dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_weight="1"
+                        android:paddingStart="5dp"
+                        android:text="@string/str_shop_details"
+                        android:textColor="@android:color/white"
+                        android:textSize="22sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@android:color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="22dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginTop="22dp"
+                    android:background="@drawable/white_with_curve"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+
+                    <EditText
+                        android:id="@+id/edt_shop_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/ic_shop_24_white"
+                        android:hint="@string/str_shop_name_hint"
+                        android:inputType="textEmailAddress"
+                        android:paddingStart="5dp"
+                        android:singleLine="true"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/white"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@android:color/white" />
+
+                    <EditText
+                        android:id="@+id/edt_shop_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@android:color/transparent"
+                        android:drawableEnd="@drawable/ic_keyboard_arrow_right_white_24dp"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/ic_marker_24_white"
+                        android:hint="@string/str_shop_location_hint"
+                        android:inputType="textEmailAddress"
+                        android:paddingEnd="4dp"
+                        android:paddingStart="5dp"
+                        android:singleLine="true"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="@android:color/white"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="22dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/white_with_curve"
+                    android:text="@string/str_register_now"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>
