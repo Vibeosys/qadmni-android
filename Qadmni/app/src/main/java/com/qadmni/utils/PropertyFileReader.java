@@ -13,6 +13,7 @@ public class PropertyFileReader {
     private static PropertyFileReader mPropertyFileReader = null;
     private static Context mContext;
     protected static Properties mProperties;
+
     public static PropertyFileReader getInstance(Context context) {
         if (mPropertyFileReader != null)
             return mPropertyFileReader;
@@ -22,6 +23,7 @@ public class PropertyFileReader {
         mPropertyFileReader = new PropertyFileReader();
         return mPropertyFileReader;
     }
+
     protected static Properties getProperties() {
         try {
             AssetManager assetManager = mContext.getAssets();
@@ -35,14 +37,21 @@ public class PropertyFileReader {
 
         return mProperties;
     }
+
     protected String getEndPointUri() {
         return mProperties.getProperty(PropertyTypeConstants.API_ENDPOINT_URI);
     }
+
     public float getVersion() {
         String versionNumber = mProperties.getProperty(PropertyTypeConstants.VERSION_NUMBER);
         return Float.valueOf(versionNumber);
     }
+
     public String getCategoryListUrl() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_CATEGORY_LIST);
+    }
+
+    public String registerShopUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.REGISTER_SHOP);
     }
 }

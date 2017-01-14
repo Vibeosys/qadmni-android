@@ -85,16 +85,16 @@
                         android:layout_height="1dp"
                         android:background="@android:color/white" />
 
-                    <EditText
-                        android:id="@+id/edt_shop_location"
+                    <TextView
+                        android:id="@+id/txt_shop_location"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:gravity="center_vertical"
                         android:background="@android:color/transparent"
                         android:drawableEnd="@drawable/ic_keyboard_arrow_right_white_24dp"
                         android:drawablePadding="10dp"
                         android:drawableStart="@drawable/ic_marker_24_white"
                         android:hint="@string/str_shop_location_hint"
-                        android:inputType="textEmailAddress"
                         android:paddingEnd="4dp"
                         android:paddingStart="5dp"
                         android:singleLine="true"

@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import com.android.volley.VolleyError;
 import com.qadmni.R;
+import com.qadmni.data.requestDataDTO.RegisterVenderReqDTO;
 import com.qadmni.utils.ServerSyncManager;
 import com.qadmni.utils.Validator;
 
@@ -49,8 +50,6 @@ public class VenderRegistrationActivity extends BaseActivity implements View.OnC
         switch (id) {
             case R.id.btn_next:
                 checkEmail();
-                Intent iRegister = new Intent(getApplicationContext(), VenderShopDetailsActivity.class);
-                startActivity(iRegister);
                 break;
 
         }
@@ -103,6 +102,13 @@ public class VenderRegistrationActivity extends BaseActivity implements View.OnC
             focusView.requestFocus();
         } else {
             //send request to server for email check
+            RegisterVenderReqDTO registerVenderReqDTO = new RegisterVenderReqDTO();
+            registerVenderReqDTO.setProducerName(strName);
+            registerVenderReqDTO.setEmailId(strEmail);
+            registerVenderReqDTO.setPassword(strPassword);
+            Intent iBusinessDetails = new Intent(getApplicationContext(), VenderShopDetailsActivity.class);
+            iBusinessDetails.putExtra(VenderShopDetailsActivity.SHOP_DETAILS, registerVenderReqDTO);
+            startActivity(iBusinessDetails);
         }
     }
 

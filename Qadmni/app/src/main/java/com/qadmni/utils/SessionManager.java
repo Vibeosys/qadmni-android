@@ -46,7 +46,7 @@ public class SessionManager {
 
         SharedPreferences.Editor editor = mProjectSharedPref.edit();
         editor.putString(PropertyTypeConstants.GET_CATEGORY_LIST, mPropertyFileReader.getCategoryListUrl());
-
+        editor.putString(PropertyTypeConstants.REGISTER_SHOP, mPropertyFileReader.registerShopUrl());
         editor.apply();
         return true;
     }
@@ -73,5 +73,9 @@ public class SessionManager {
 
     public void setUserSelectedLang(String UserLang) {
         setValuesInSharedPrefs(PropertyTypeConstants.USER_SELECTED_LANGUAGE, UserLang);
+    }
+
+    public String registerBusiness() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.REGISTER_SHOP, null);
     }
 }

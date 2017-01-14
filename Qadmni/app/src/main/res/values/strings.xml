@@ -43,4 +43,9 @@
     <string name="str_shop_name_hint">Business Name</string>
     <string name="str_shop_location_hint">Business Location</string>
     <string name="str_register_now">Register Now</string>
+    <string name="str_google_map_key">AIzaSyBuGL93_0g-5yKKsyfO8ypX7z7B0VCSqOc</string>
+    <string name="str_location_not_found">Location is not found</string>
+    <string name="str_select">Select</string>
+    <string name="str_err_shop_name_empty">Please enter shop name</string>
+    <string name="str_register_murchent_success">Merchant registered successfully</string>
 </resources>

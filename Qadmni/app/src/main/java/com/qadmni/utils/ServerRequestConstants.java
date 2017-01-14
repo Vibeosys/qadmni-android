@@ -5,4 +5,5 @@ package com.qadmni.utils;
  */
 public class ServerRequestConstants {
     public static final int REQUEST_GET_CATEGORY = 111;
+    public static final int REQUEST_VENDER_REG = 112;
 }
