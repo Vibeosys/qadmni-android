@@ -8,12 +8,11 @@
     tools:context="com.qadmni.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <android.support.v4.view.ViewPager
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:padding="4dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="4dp">
 
         <android.support.v4.view.PagerTabStrip
             android:id="@+id/pager_title_strip"
@@ -21,12 +20,9 @@
             android:layout_height="45dp"
             android:layout_gravity="top"
             android:background="#FFFFFF"
-            android:textColor="#111111"
-            android:paddingTop="4dp"
-            android:padding="4dp"
             android:elevation="2dp"
-            android:textAppearance="@style/PagerTabStripText"
-            android:paddingBottom="4dp" />
+            android:gravity="center"
+            android:textAppearance="@style/PagerTabStripText" />
 
     </android.support.v4.view.ViewPager>
 </RelativeLayout>

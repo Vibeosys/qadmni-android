@@ -8,4 +8,8 @@
     <color name="divider_colour">#a8b6b3b1</color>
     <color name="btn_green_colour">#39cf8e</color>
     <color name="loginTransparnt">#9e000000</color>
+    <color name="over_layer">#a82e2b28</color>
+    <color name="colorRating">#ffcc00</color>
+    <color name="primaryText">#eb2f3031</color>
+    <color name="primaryText2">#bf2f3031</color>
 </resources>

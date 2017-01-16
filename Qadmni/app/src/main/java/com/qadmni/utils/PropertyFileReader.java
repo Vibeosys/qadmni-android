@@ -54,4 +54,8 @@ public class PropertyFileReader {
     public String registerShopUrl() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.REGISTER_SHOP);
     }
+
+    public String getItemListUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_ITEM_LIST);
+    }
 }

@@ -48,4 +48,8 @@
     <string name="str_select">Select</string>
     <string name="str_err_shop_name_empty">Please enter shop name</string>
     <string name="str_register_murchent_success">Merchant registered successfully</string>
+    <string name="salad_by">by</string>
+    <string name="salad_distance">Km</string>
+    <string name="salad_time">min</string>
+    <string name="sar">SAR</string>
 </resources>

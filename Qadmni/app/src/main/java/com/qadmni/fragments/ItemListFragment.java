@@ -1,23 +1,36 @@
 package com.qadmni.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerTabStrip;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.qadmni.R;
+import com.qadmni.data.CategoryMasterDTO;
+import com.qadmni.data.requestDataDTO.BaseRequestDTO;
+import com.qadmni.data.requestDataDTO.GetItemListDTO;
+import com.qadmni.data.responseDataDTO.CategoryListResponseDTO;
+import com.qadmni.utils.ServerRequestConstants;
+import com.qadmni.utils.ServerSyncManager;
 
 /**
  * Created by shrinivas on 13-01-2017.
  */
-public class ItemListFragment extends Fragment {
-    public static final String ARG_OBJECT = "object";
-    PagerTabStrip pagerTabStrip;
-    TextView textView;
+public class ItemListFragment extends BaseFragment implements ServerSyncManager.OnSuccessResultReceived,
+        ServerSyncManager.OnErrorResultReceived {
+    public static final String ARG_OBJECT = "objectPar";
+    private CategoryMasterDTO categoryMasterDTO;
+    private ListView mListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -26,14 +39,51 @@ public class ItemListFragment extends Fragment {
         // properly.
         View rootView = inflater.inflate(
                 R.layout.fragment_item_list_collection, container, false);
-        /*Bundle args = getArguments();
-        textView = ((TextView) rootView.findViewById(android.R.id.text1));
-        int i = args.getInt(ARG_OBJECT);
+        mListView = (ListView) rootView.findViewById(R.id.item_list);
+        Bundle args = getArguments();
         if (args != null) {
-            textView.setText("" + i);
-        }*/
+            categoryMasterDTO = args.getParcelable(ARG_OBJECT);
 
-        // pagerTabStrip = (PagerTabStrip)rootView.findViewById(R.id.pager_title_strip);
+        }
+        mServerSyncManager.setOnStringErrorReceived(this);
+        mServerSyncManager.setOnStringResultReceived(this);
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        callToWebService();
+    }
+
+    private void callToWebService() {
+        String categoryIdStr = "" + categoryMasterDTO.getCategoryId();
+        GetItemListDTO getItemListDTO = new GetItemListDTO(categoryIdStr);
+        Gson gson = new Gson();
+        String serializedJsonString = gson.toJson(getItemListDTO);
+        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+        baseRequestDTO.setData(serializedJsonString);
+        mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_GET_ITEM_LIST,
+                 mSessionManager.getItemListUrl(), baseRequestDTO);
+
+    }
+
+
+    @Override
+    public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
+        progressDialog.dismiss();
+        // customAlterDialog(getResources().getString(R.string.str_err_server_err), error.getMessage());
+    }
+
+    @Override
+    public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
+        progressDialog.dismiss();
+        //   customAlterDialog(getResources().getString(R.string.str_err_server_err), errorMessage);
+    }
+
+    @Override
+    public void onResultReceived(@NonNull String data, int requestToken) {
+        progressDialog.dismiss();
+        //  customAlterDialog(getResources().getString(R.string.str_err_server_err), "Success");
     }
 }
