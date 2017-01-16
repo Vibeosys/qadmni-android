@@ -14,7 +14,7 @@ import android.view.MenuItem;
 
 import com.android.volley.VolleyError;
 import com.qadmni.activity.BaseActivity;
-import com.qadmni.activity.SelectLangaugeActivity;
+import com.qadmni.activity.SelectLanguageActivity;
 import com.qadmni.adapters.CategoryFragmentAdapter;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.responseDataDTO.CategoryListResponseDTO;
@@ -110,7 +110,7 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_profile) {
 
         } else if (id == R.id.nav_language) {
-            Intent intent = new Intent(getApplicationContext(), SelectLangaugeActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SelectLanguageActivity.class);
             startActivity(intent);
             finish();
 

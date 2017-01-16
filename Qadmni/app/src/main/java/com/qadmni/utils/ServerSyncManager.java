@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.requestDataDTO.UserRequestDTO;
+import com.qadmni.data.requestDataDTO.VendorReqDTO;
 import com.qadmni.data.responseDataDTO.BaseResponseDTO;
 
 
@@ -54,11 +55,19 @@ public class ServerSyncManager {
     }
 
     private String prepareUploadJsonFromData(BaseRequestDTO params) {
-
         //get the values from session manager
-        UserRequestDTO userRequestDTO = new UserRequestDTO();
+        int userType = mSessionManager.getUserType();
+        if (userType == UserType.USER_VENDOR) {
+            VendorReqDTO userRequestDTO = new VendorReqDTO(mSessionManager.getVendorId(),
+                    mSessionManager.getVendorPassword());
+            params.setUser(userRequestDTO.serializeString());
+        } else {
+            /*CustomerReqDTO customerReqDTO = new CustomerReqDTO(mSessionManager.getUserId(),
+                    mSessionManager.getUserEmail());
+            //get the values from session manager
+            params.setUser(customerReqDTO.serializeString());*/
+        }
         params.setLangCode(mSessionManager.getUserSelectedLang());
-        params.setUser(userRequestDTO);
         String uploadJson = params.serializeString();
         Log.i(TAG, "## request json" + uploadJson);
         return uploadJson;

@@ -59,4 +59,7 @@
     <string name="str_new_quadmni">New to qadmni?</string>
     <string name="str_create_acc">Create account</string>
     <string name="str_err_username_empty">Please enter username</string>
+    <string name="title_activity_vendor_main">VendorMainActivity</string>
+    <string name="str_add_new_product">Add New Product</string>
+    <string name="my_subscription">My Subscriptions</string>
 </resources>

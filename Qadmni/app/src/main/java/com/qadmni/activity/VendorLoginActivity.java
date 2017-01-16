@@ -123,7 +123,7 @@ public class VendorLoginActivity extends BaseActivity implements View.OnClickLis
                 vendorDTO.setPassword(password);
                 UserAuth userAuth = new UserAuth();
                 userAuth.saveVendorInfo(vendorDTO, getApplicationContext());
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), VendorMainActivity.class));
                 finish();
                 break;
         }

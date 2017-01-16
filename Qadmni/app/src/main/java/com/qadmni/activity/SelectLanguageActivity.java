@@ -16,7 +16,7 @@ import com.qadmni.utils.LocaleHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectLangaugeActivity extends BaseActivity {
+public class SelectLanguageActivity extends BaseActivity {
     private Spinner mSpinner;
     private TextView btnSave;
     private String lang = "";

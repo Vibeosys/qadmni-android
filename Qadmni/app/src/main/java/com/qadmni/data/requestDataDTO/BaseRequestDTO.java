@@ -6,18 +6,18 @@ import com.qadmni.data.BaseDTO;
  * Created by shrinivas on 12-01-2017.
  */
 public class BaseRequestDTO extends BaseDTO {
-    private UserRequestDTO user;
+    private String user;
     private String data;
     private String langCode;
 
     public BaseRequestDTO() {
     }
 
-    public UserRequestDTO getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(UserRequestDTO user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
