@@ -2,7 +2,6 @@ package com.qadmni.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -12,11 +11,11 @@ import android.widget.EditText;
 
 import com.android.volley.VolleyError;
 import com.qadmni.R;
-import com.qadmni.data.requestDataDTO.RegisterVenderReqDTO;
+import com.qadmni.data.requestDataDTO.RegisterVendorReqDTO;
 import com.qadmni.utils.ServerSyncManager;
 import com.qadmni.utils.Validator;
 
-public class VenderRegistrationActivity extends BaseActivity implements View.OnClickListener,
+public class VendorRegistrationActivity extends BaseActivity implements View.OnClickListener,
         ServerSyncManager.OnErrorResultReceived, ServerSyncManager.OnSuccessResultReceived {
 
     private EditText edtName, edtPassword, edtConfirmPass, edtEmail, edtPhone;
@@ -102,12 +101,12 @@ public class VenderRegistrationActivity extends BaseActivity implements View.OnC
             focusView.requestFocus();
         } else {
             //send request to server for email check
-            RegisterVenderReqDTO registerVenderReqDTO = new RegisterVenderReqDTO();
-            registerVenderReqDTO.setProducerName(strName);
-            registerVenderReqDTO.setEmailId(strEmail);
-            registerVenderReqDTO.setPassword(strPassword);
+            RegisterVendorReqDTO registerVendorReqDTO = new RegisterVendorReqDTO();
+            registerVendorReqDTO.setProducerName(strName);
+            registerVendorReqDTO.setEmailId(strEmail);
+            registerVendorReqDTO.setPassword(strPassword);
             Intent iBusinessDetails = new Intent(getApplicationContext(), VenderShopDetailsActivity.class);
-            iBusinessDetails.putExtra(VenderShopDetailsActivity.SHOP_DETAILS, registerVenderReqDTO);
+            iBusinessDetails.putExtra(VenderShopDetailsActivity.SHOP_DETAILS, registerVendorReqDTO);
             startActivity(iBusinessDetails);
         }
     }

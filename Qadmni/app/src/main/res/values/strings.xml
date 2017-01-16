@@ -52,4 +52,11 @@
     <string name="salad_distance">Km</string>
     <string name="salad_time">min</string>
     <string name="sar">SAR</string>
+    <string name="str_err_shop_address_empty">Please select address correctly</string>
+    <string name="str_user_name_hint">User Name</string>
+    <string name="str_login_to_acc">Login to your account</string>
+    <string name="str_user_forgot_password">Cannot access your account?</string>
+    <string name="str_new_quadmni">New to qadmni?</string>
+    <string name="str_create_acc">Create account</string>
+    <string name="str_err_username_empty">Please enter username</string>
 </resources>

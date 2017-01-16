@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by akshay on 14-01-2017.
  */
-public class RegisterVenderReqDTO extends BaseDTO implements Serializable {
+public class RegisterVendorReqDTO extends BaseDTO implements Serializable {
 
     private String producerName;
     private String emailId;
@@ -20,7 +20,7 @@ public class RegisterVenderReqDTO extends BaseDTO implements Serializable {
     private String pushNotificationId;
     private String osVersionType;
 
-    public RegisterVenderReqDTO() {
+    public RegisterVendorReqDTO() {
     }
 
     public String getProducerName() {

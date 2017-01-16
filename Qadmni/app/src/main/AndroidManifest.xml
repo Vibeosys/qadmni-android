@@ -24,11 +24,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <!--<meta-data
             android:name="com.google.android.maps.v2.API_KEY"
@@ -42,8 +38,14 @@
             android:required="true" />
 
         <activity android:name=".activity.SelectLangaugeActivity" />
-        <activity android:name=".activity.VenderLoginActivity" />
-        <activity android:name=".activity.VenderRegistrationActivity">
+        <activity android:name=".activity.VendorLoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.VendorRegistrationActivity">
 
         </activity>
         <activity android:name=".activity.VenderShopDetailsActivity"></activity>

@@ -27,6 +27,13 @@ public class SessionManager {
 
     }
 
+    public static SessionManager Instance() throws IllegalArgumentException {
+        if (mSessionManager != null)
+            return mSessionManager;
+        else
+            throw new IllegalArgumentException("No instance is yet created");
+    }
+
     private static void loadProjectSharedPreferences() {
         if (mProjectSharedPref == null) {
             mProjectSharedPref = mContext.getSharedPreferences(PROJECT_PREFERENCES, Context.MODE_PRIVATE);
@@ -47,7 +54,8 @@ public class SessionManager {
         SharedPreferences.Editor editor = mProjectSharedPref.edit();
         editor.putString(PropertyTypeConstants.GET_CATEGORY_LIST, mPropertyFileReader.getCategoryListUrl());
         editor.putString(PropertyTypeConstants.REGISTER_SHOP, mPropertyFileReader.registerShopUrl());
-        editor.putString(PropertyTypeConstants.GET_ITEM_LIST,mPropertyFileReader.getItemListUrl());
+        editor.putString(PropertyTypeConstants.GET_ITEM_LIST, mPropertyFileReader.getItemListUrl());
+        editor.putString(PropertyTypeConstants.VENDOR_LOGIN_URL, mPropertyFileReader.vendorLoginUrl());
         editor.apply();
         return true;
     }
@@ -79,7 +87,94 @@ public class SessionManager {
     public String registerBusiness() {
         return mProjectSharedPref.getString(PropertyTypeConstants.REGISTER_SHOP, null);
     }
+
     public String getItemListUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.GET_ITEM_LIST, null);
     }
+
+    public String loginVendorUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.VENDOR_LOGIN_URL, null);
+    }
+
+    public void setVendorId(long vendorId) {
+        setValuesInSharedPrefs(PropertyTypeConstants.VENDOR_ID, vendorId);
+    }
+
+    public long getVendorId() {
+        return mProjectSharedPref.getLong(PropertyTypeConstants.VENDOR_ID, 0);
+    }
+
+    public void setVendorName(String vendorName) {
+        setValuesInSharedPrefs(PropertyTypeConstants.VENDOR_NAME, vendorName);
+    }
+
+    public String getVendorName() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.VENDOR_NAME, null);
+    }
+
+    public void setVendorEmailId(String emailId) {
+        setValuesInSharedPrefs(PropertyTypeConstants.VENDOR_EMAIL, emailId);
+    }
+
+    public String getVendorEmailId() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.VENDOR_EMAIL, null);
+    }
+
+    public void setVendorPassword(String vendorPassword) {
+        setValuesInSharedPrefs(PropertyTypeConstants.VENDOR_PASSWORD, vendorPassword);
+    }
+
+    public String getVendorPassword() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.VENDOR_PASSWORD, null);
+    }
+
+    public void setUserType(int userType) {
+        setValuesInSharedPrefs(PropertyTypeConstants.APP_USER_TYPE, userType);
+    }
+
+    public int getUserType() {
+        return mProjectSharedPref.getInt(PropertyTypeConstants.APP_USER_TYPE, 0);
+    }
+
+    public void setBusinessNameEn(String businessNameEn) {
+        setValuesInSharedPrefs(PropertyTypeConstants.BUSINESS_NAME_EN, businessNameEn);
+    }
+
+    public String getBusinessNameEn() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.BUSINESS_NAME_EN, null);
+    }
+
+    public void setBusinessNameAr(String businessNameAr) {
+        setValuesInSharedPrefs(PropertyTypeConstants.BUSINESS_NAME_AR, businessNameAr);
+    }
+
+    public String getBusinessNameAr() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.BUSINESS_NAME_AR, null);
+    }
+
+    public void setBusinessAddress(String businessAddress) {
+        setValuesInSharedPrefs(PropertyTypeConstants.BUSINESS_ADDRESS, businessAddress);
+    }
+
+    public String getBusinessAddress() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.BUSINESS_ADDRESS, null);
+    }
+
+    public void setBusinessLat(double businessLat) {
+        setValuesInSharedPrefs(PropertyTypeConstants.BUSINESS_LAT, String.valueOf(businessLat));
+    }
+
+    public double getBusinessLat() {
+        return Double.parseDouble(mProjectSharedPref.getString(PropertyTypeConstants.BUSINESS_LAT, "" + 0));
+    }
+
+    public void setBusinessLong(double businessLong) {
+        setValuesInSharedPrefs(PropertyTypeConstants.BUSINESS_LONG, String.valueOf(businessLong));
+    }
+
+    public double getBusinessLong() {
+        return Double.parseDouble(mProjectSharedPref.getString(PropertyTypeConstants.BUSINESS_LONG, "" + 0));
+    }
+
+
 }

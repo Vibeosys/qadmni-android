@@ -3,7 +3,6 @@ package com.qadmni.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -14,15 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.qadmni.R;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
-import com.qadmni.data.requestDataDTO.RegisterVenderReqDTO;
+import com.qadmni.data.requestDataDTO.RegisterVendorReqDTO;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
 
@@ -36,7 +31,7 @@ public class VenderShopDetailsActivity extends BaseActivity implements View.OnCl
     private LatLng shopLatLng;
     private String shopAddress, shopName;
     private TextView txtShopLocation;
-    private RegisterVenderReqDTO registerVenderReqDTO;
+    private RegisterVendorReqDTO registerVendorReqDTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +41,7 @@ public class VenderShopDetailsActivity extends BaseActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vender_shop_details);
         getSupportActionBar().hide();
-        registerVenderReqDTO = (RegisterVenderReqDTO) getIntent().getExtras().getSerializable(SHOP_DETAILS);
+        registerVendorReqDTO = (RegisterVendorReqDTO) getIntent().getExtras().getSerializable(SHOP_DETAILS);
         edtShopName = (EditText) findViewById(R.id.edt_shop_name);
         txtShopLocation = (TextView) findViewById(R.id.txt_shop_location);
         btnRegister = (Button) findViewById(R.id.btn_register);
@@ -80,6 +75,10 @@ public class VenderShopDetailsActivity extends BaseActivity implements View.OnCl
             focusView = edtShopName;
             check = true;
             edtShopName.setError(getString(R.string.str_err_shop_name_empty));
+        } else if (shopAddress.isEmpty()) {
+            focusView = txtShopLocation;
+            check = true;
+            txtShopLocation.setError(getString(R.string.str_err_shop_address_empty));
         }
 
         if (check) {
@@ -87,18 +86,18 @@ public class VenderShopDetailsActivity extends BaseActivity implements View.OnCl
         } else {
             //Request to server
             progressDialog.show();
-            registerVenderReqDTO.setBusinessNameEn(strBusinessName);
-            registerVenderReqDTO.setBusinessNameAr(strBusinessNameAr);
-            registerVenderReqDTO.setBusinessAddress(shopAddress);
-            registerVenderReqDTO.setBusinessLat(shopLatLng.latitude);
-            registerVenderReqDTO.setBusinessLong(shopLatLng.longitude);
-            registerVenderReqDTO.setPushNotificationId("asdjasdjo");
-            registerVenderReqDTO.setOsVersionType("AR");
+            registerVendorReqDTO.setBusinessNameEn(strBusinessName);
+            registerVendorReqDTO.setBusinessNameAr(strBusinessNameAr);
+            registerVendorReqDTO.setBusinessAddress(shopAddress);
+            registerVendorReqDTO.setBusinessLat(shopLatLng.latitude);
+            registerVendorReqDTO.setBusinessLong(shopLatLng.longitude);
+            registerVendorReqDTO.setPushNotificationId("asdjasdjo");
+            registerVendorReqDTO.setOsVersionType("AR");
             Gson gson = new Gson();
-            String serializedJsonString = gson.toJson(registerVenderReqDTO);
+            String serializedJsonString = gson.toJson(registerVendorReqDTO);
             BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
             baseRequestDTO.setData(serializedJsonString);
-            mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_VENDER_REG,
+            mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_VENDOR_REG,
                     mSessionManager.registerBusiness(), baseRequestDTO);
         }
     }
@@ -117,7 +116,7 @@ public class VenderShopDetailsActivity extends BaseActivity implements View.OnCl
     public void onResultReceived(@NonNull String data, int requestToken) {
         progressDialog.dismiss();
         switch (requestToken) {
-            case ServerRequestConstants.REQUEST_VENDER_REG:
+            case ServerRequestConstants.REQUEST_VENDOR_REG:
                 Toast.makeText(getApplicationContext(), getString(R.string.str_register_murchent_success), Toast.LENGTH_SHORT).show();
                 break;
         }
@@ -131,6 +130,9 @@ public class VenderShopDetailsActivity extends BaseActivity implements View.OnCl
                 shopLatLng = data.getExtras().getParcelable(SearchAddressActivity.SELECTED_PLACE_LAT_LNG);
                 shopAddress = data.getStringExtra(SearchAddressActivity.SELECTED_PLACE_ADDRESS);
                 txtShopLocation.setText(shopAddress);
+            } else {
+                shopLatLng = null;
+                shopAddress = "";
             }
 
         }
