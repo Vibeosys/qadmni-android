@@ -41,4 +41,6 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     //For rating bar
     compile 'com.iarcuschin:simpleratingbar:0.1.3'
+    //recycler view
+    compile 'com.android.support:recyclerview-v7:25.0.0'
 }

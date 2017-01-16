@@ -56,6 +56,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.REGISTER_SHOP, mPropertyFileReader.registerShopUrl());
         editor.putString(PropertyTypeConstants.GET_ITEM_LIST, mPropertyFileReader.getItemListUrl());
         editor.putString(PropertyTypeConstants.VENDOR_LOGIN_URL, mPropertyFileReader.vendorLoginUrl());
+        editor.putString(PropertyTypeConstants.VENDOR_ITEMS, mPropertyFileReader.vendorListUrl());
         editor.apply();
         return true;
     }
@@ -63,6 +64,12 @@ public class SessionManager {
     private static void setValuesInSharedPrefs(String sharedPrefKey, long sharedPrefValue) {
         SharedPreferences.Editor editor = mProjectSharedPref.edit();
         editor.putLong(sharedPrefKey, sharedPrefValue);
+        editor.apply();
+    }
+
+    private static void setValuesInSharedPrefs(String sharedPrefKey, int sharedPrefValue) {
+        SharedPreferences.Editor editor = mProjectSharedPref.edit();
+        editor.putInt(sharedPrefKey, sharedPrefValue);
         editor.apply();
     }
 
@@ -177,4 +184,7 @@ public class SessionManager {
     }
 
 
+    public String getVendorItems() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.VENDOR_ITEMS, null);
+    }
 }

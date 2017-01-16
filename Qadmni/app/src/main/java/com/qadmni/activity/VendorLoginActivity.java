@@ -102,16 +102,27 @@ public class VendorLoginActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
-
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_VENDOR_LOGIN:
+                customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+                break;
+        }
     }
 
     @Override
     public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
-
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_VENDOR_LOGIN:
+                customAlterDialog(getString(R.string.str_login_err_title), errorMessage);
+                break;
+        }
     }
 
     @Override
     public void onResultReceived(@NonNull String data, int requestToken) {
+        progressDialog.dismiss();
         switch (requestToken) {
             case ServerRequestConstants.REQUEST_VENDOR_LOGIN:
                 VendorLoginResDTO vendorLoginResDTO = VendorLoginResDTO.deserializeJson(data);

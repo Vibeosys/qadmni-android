@@ -11,6 +11,7 @@ public class PropertyTypeConstants {
     public static final String REGISTER_SHOP = "api.endpoint.registershop";
     public static final String GET_ITEM_LIST = "api.endpoint.itemlist";
     public static final String VENDOR_LOGIN_URL = "api.endpoint.vendorlogin";
+    public static final String VENDOR_ITEMS = "api.endpoint.vendorlist";
 
     public static final String APP_USER_TYPE = "user.type";
 

@@ -49,5 +49,12 @@
                 android:layout_weight="0.5"
                 android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
         </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/item_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|top"
+            android:elevation="3dp" />
     </LinearLayout>
 </RelativeLayout>

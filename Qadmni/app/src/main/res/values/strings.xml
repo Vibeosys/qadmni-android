@@ -62,4 +62,12 @@
     <string name="title_activity_vendor_main">VendorMainActivity</string>
     <string name="str_add_new_product">Add New Product</string>
     <string name="my_subscription">My Subscriptions</string>
+    <string name="str_server_err_title">Server Error</string>
+    <string name="str_server_err_desc">Something went wrong on server try again</string>
+    <string name="str_login_err_title">Login Error</string>
+
+    <string name="str_details">Details</string>
+    <string name="str_details_product">delicious ice cream made up of coconut and cream ...</string>
+    <string name="str_avail_soon">Available for sell</string>
+    <string name="str_update">UPDATE</string>
 </resources>

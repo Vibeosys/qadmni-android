@@ -12,4 +12,6 @@
     <color name="colorRating">#ffcc00</color>
     <color name="primaryText">#eb2f3031</color>
     <color name="primaryText2">#bf2f3031</color>
+    <color name="btn_green_colour1">#33b77e</color>
+    <color name="accentText">#FF4081</color>
 </resources>

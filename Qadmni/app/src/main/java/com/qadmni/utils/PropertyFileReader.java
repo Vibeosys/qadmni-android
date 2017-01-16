@@ -62,4 +62,8 @@ public class PropertyFileReader {
     public String vendorLoginUrl() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.VENDOR_LOGIN_URL);
     }
+
+    public String vendorListUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.VENDOR_ITEMS);
+    }
 }
