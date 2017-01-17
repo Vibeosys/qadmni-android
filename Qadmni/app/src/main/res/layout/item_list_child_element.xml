@@ -19,14 +19,19 @@
             android:orientation="vertical"
             android:weightSum="2">
 
-            <RelativeLayout
+            <FrameLayout
                 android:id="@+id/viewBackgroundImage"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_weight="0"
-                android:background="@drawable/test_profile_image"
                 android:orientation="horizontal">
 
+                <com.android.volley.toolbox.NetworkImageView
+                    android:id="@+id/imgProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/test_profile_image" />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -97,7 +102,7 @@
                     </LinearLayout>
 
                 </RelativeLayout>
-            </RelativeLayout>
+            </FrameLayout>
 
 
             <LinearLayout

@@ -19,6 +19,7 @@ import java.util.Objects;
  */
 public class CategoryFragmentAdapter extends FragmentStatePagerAdapter {
     ArrayList<CategoryListResponseDTO> categoryListResponseDTOs = new ArrayList<>();
+    ArrayList<Integer> count = new ArrayList<>();
     CategoryMasterDTO categoryMasterDTO;
 
     public CategoryFragmentAdapter(FragmentManager fm, ArrayList<CategoryListResponseDTO> categoryListResponseDTOs) {
@@ -28,13 +29,14 @@ public class CategoryFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        categoryMasterDTO = new CategoryMasterDTO(categoryListResponseDTOs.get(i));
-        Fragment fragment = new ItemListFragment();
-        Bundle args = new Bundle();
-        // Our object is just an integer :-P
-        args.putParcelable(ItemListFragment.ARG_OBJECT, categoryMasterDTO);
-        fragment.setArguments(args);
-        return fragment;
+
+            categoryMasterDTO = new CategoryMasterDTO(categoryListResponseDTOs.get(i));
+            Fragment fragment = new ItemListFragment();
+            Bundle args = new Bundle();
+            // Our object is just an integer :-P
+            args.putParcelable(ItemListFragment.ARG_OBJECT, categoryMasterDTO);
+            fragment.setArguments(args);
+            return fragment;
     }
 
     @Override
@@ -49,5 +51,21 @@ public class CategoryFragmentAdapter extends FragmentStatePagerAdapter {
         return " " + categoryListResponseDTO.getCategory();
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        ItemListFragment fragment = (ItemListFragment) object;
+        Bundle args = fragment.getArguments();
+        if (args != null) {
+            categoryMasterDTO = args.getParcelable(ItemListFragment.ARG_OBJECT);
+            int position = categoryListResponseDTOs.indexOf(categoryMasterDTO);
+            if (position >= 0) {
+                return position;
+            } else {
+                return POSITION_NONE;
+            }
+        }
+
+        return POSITION_NONE;
+    }
 
 }

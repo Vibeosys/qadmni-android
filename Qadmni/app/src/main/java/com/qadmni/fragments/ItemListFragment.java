@@ -16,12 +16,19 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.qadmni.R;
+import com.qadmni.adapters.CategoryFragmentAdapter;
+import com.qadmni.adapters.ItemListAdapter;
 import com.qadmni.data.CategoryMasterDTO;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.requestDataDTO.GetItemListDTO;
 import com.qadmni.data.responseDataDTO.CategoryListResponseDTO;
+import com.qadmni.data.responseDataDTO.ItemInfoList;
+import com.qadmni.data.responseDataDTO.ItemListResponseDTO;
+import com.qadmni.data.responseDataDTO.ProducerLocations;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
+
+import java.util.ArrayList;
 
 /**
  * Created by shrinivas on 13-01-2017.
@@ -54,6 +61,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
     public void onResume() {
         super.onResume();
         callToWebService();
+
     }
 
     private void callToWebService() {
@@ -64,7 +72,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
         baseRequestDTO.setData(serializedJsonString);
         mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_GET_ITEM_LIST,
-                 mSessionManager.getItemListUrl(), baseRequestDTO);
+                mSessionManager.getItemListUrl(), baseRequestDTO);
 
     }
 
@@ -84,6 +92,18 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
     @Override
     public void onResultReceived(@NonNull String data, int requestToken) {
         progressDialog.dismiss();
-        //  customAlterDialog(getResources().getString(R.string.str_err_server_err), "Success");
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_GET_ITEM_LIST:
+                ItemListResponseDTO itemListResponseDTO = ItemListResponseDTO.deserializeJson(data);
+                ArrayList<ItemInfoList> itemInfoLists = ItemInfoList.deSerializedToJson(itemListResponseDTO.getItemInfoLists());
+                ArrayList<ProducerLocations> producerLocationses = ProducerLocations.deSerializedToJson(itemListResponseDTO.getProducerLocations());
+
+                ItemListAdapter itemListAdapter = new ItemListAdapter(itemInfoLists, getContext());
+                mListView.setAdapter(itemListAdapter);
+                break;
+        }
+
     }
+
+
 }
