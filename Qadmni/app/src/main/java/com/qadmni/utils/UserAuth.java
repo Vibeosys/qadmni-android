@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.qadmni.activity.VendorLoginActivity;
+import com.qadmni.data.CustomerDTO;
 import com.qadmni.data.VendorDTO;
 
 /**
@@ -77,7 +78,7 @@ public class UserAuth {
 
     }
 
-    public static boolean CleanAuthenticationInfo() {
+    public static boolean CleanVendorAuthenticationInfo() {
 
         SessionManager theSessionManager = SessionManager.Instance();
         theSessionManager.setVendorId(0);
@@ -93,15 +94,27 @@ public class UserAuth {
         return true;
     }
 
-    /*public void saveUserInfo(UserDTO subscriberDTO, Context context) {
-        if (subscriberDTO == null)
+    public void saveUserInfo(CustomerDTO customerDTO, Context context) {
+        if (customerDTO == null)
             return;
         SessionManager theSessionManager = SessionManager.getInstance(context);
-        theSessionManager.setUserId(subscriberDTO.getUserId());
-        theSessionManager.setUserFName(subscriberDTO.getFirstName());
-        theSessionManager.setUserLName(subscriberDTO.getLastName());
-        theSessionManager.setUserEmail(subscriberDTO.getEmail());
-        theSessionManager.setUserPass(subscriberDTO.getPassword());
+        theSessionManager.setCustomerId(customerDTO.getCustomerId());
+        theSessionManager.setCustomerName(customerDTO.getName());
+        theSessionManager.setCustomerPh(customerDTO.getPhone());
+        theSessionManager.setUserEmail(customerDTO.getEmailId());
+        theSessionManager.setUserPass(customerDTO.getPassword());
         theSessionManager.setUserType(UserType.USER_CUSTOMER);
-    }*/
+    }
+
+    public static boolean CleanCustomerAuthenticationInfo() {
+
+        SessionManager theSessionManager = SessionManager.Instance();
+        theSessionManager.setCustomerId(0);
+        theSessionManager.setCustomerName(null);
+        theSessionManager.setCustomerPh(null);
+        theSessionManager.setUserEmail(null);
+        theSessionManager.setUserPass(null);
+        theSessionManager.setUserType(UserType.USER_OTHER);
+        return true;
+    }
 }

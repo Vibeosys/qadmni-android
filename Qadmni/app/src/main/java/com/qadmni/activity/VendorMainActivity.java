@@ -7,7 +7,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -125,7 +124,7 @@ public class VendorMainActivity extends BaseActivity
     }
 
     private void callToLogOut() {
-        UserAuth.CleanAuthenticationInfo();
+        UserAuth.CleanVendorAuthenticationInfo();
         Intent intent = new Intent(getApplicationContext(), VendorLoginActivity.class);
         startActivity(intent);
         finish();

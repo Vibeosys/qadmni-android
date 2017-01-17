@@ -12,6 +12,7 @@ public class PropertyTypeConstants {
     public static final String GET_ITEM_LIST = "api.endpoint.itemlist";
     public static final String VENDOR_LOGIN_URL = "api.endpoint.vendorlogin";
     public static final String VENDOR_ITEMS = "api.endpoint.vendorlist";
+    public static final String CUSTOMER_LOGIN = "api.endpoint.customerlogin";
 
     public static final String APP_USER_TYPE = "user.type";
 
@@ -24,4 +25,10 @@ public class PropertyTypeConstants {
     public static final String BUSINESS_ADDRESS = "user.vendor.businessaddress";
     public static final String BUSINESS_LAT = "user.vendor.businesslat";
     public static final String BUSINESS_LONG = "user.vendor.businesslong";
+
+    public static final String CUSTOMER_ID = "user.customer.id";
+    public static final String CUSTOMER_NAME = "user.customer.name";
+    public static final String CUSTOMER_EMAIL = "user.customer.email";
+    public static final String CUSTOMER_PASSWORD = "user.customer.password";
+    public static final String CUSTOMER_PHONE = "user.customer.phone";
 }

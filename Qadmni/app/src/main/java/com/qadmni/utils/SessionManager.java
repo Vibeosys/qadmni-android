@@ -57,6 +57,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.GET_ITEM_LIST, mPropertyFileReader.getItemListUrl());
         editor.putString(PropertyTypeConstants.VENDOR_LOGIN_URL, mPropertyFileReader.vendorLoginUrl());
         editor.putString(PropertyTypeConstants.VENDOR_ITEMS, mPropertyFileReader.vendorListUrl());
+        editor.putString(PropertyTypeConstants.CUSTOMER_LOGIN, mPropertyFileReader.customerLoginUrl());
         editor.apply();
         return true;
     }
@@ -186,5 +187,49 @@ public class SessionManager {
 
     public String getVendorItems() {
         return mProjectSharedPref.getString(PropertyTypeConstants.VENDOR_ITEMS, null);
+    }
+
+    public String loginCostomerUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.CUSTOMER_LOGIN, null);
+    }
+
+    public void setCustomerId(long customerId) {
+        setValuesInSharedPrefs(PropertyTypeConstants.CUSTOMER_ID, customerId);
+    }
+
+    public long getCustomerId() {
+        return mProjectSharedPref.getLong(PropertyTypeConstants.CUSTOMER_ID, 0);
+    }
+
+    public void setCustomerName(String customerName) {
+        setValuesInSharedPrefs(PropertyTypeConstants.CUSTOMER_NAME, customerName);
+    }
+
+    public String getCustomerName() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.CUSTOMER_NAME, null);
+    }
+
+    public void setCustomerPh(String customerPh) {
+        setValuesInSharedPrefs(PropertyTypeConstants.CUSTOMER_PHONE, customerPh);
+    }
+
+    public String getCustomerPh() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.CUSTOMER_PHONE, null);
+    }
+
+    public void setUserEmail(String userEmail) {
+        setValuesInSharedPrefs(PropertyTypeConstants.CUSTOMER_EMAIL, userEmail);
+    }
+
+    public String getUserEmail() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.CUSTOMER_EMAIL, null);
+    }
+
+    public void setUserPass(String userPass) {
+        setValuesInSharedPrefs(PropertyTypeConstants.CUSTOMER_PASSWORD, userPass);
+    }
+
+    public String getUserPass() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.CUSTOMER_PASSWORD, null);
     }
 }

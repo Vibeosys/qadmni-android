@@ -70,4 +70,10 @@
     <string name="str_details_product">delicious ice cream made up of coconut and cream ...</string>
     <string name="str_avail_soon">Available for sell</string>
     <string name="str_update">UPDATE</string>
+
+    <string name="str_vender_login">Vendor Login</string>
+    <string name="str_quick_start">Quick Start</string>
+    <string name="str_login">Login</string>
+    <string name="str_start_quickly">Get started quickly</string>
+
 </resources>
