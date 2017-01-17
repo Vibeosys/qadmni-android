@@ -80,4 +80,5 @@
     <string name="str_register_err_title">Register Error</string>
     <string name="str_net_err">Network Error</string>
     <string name="str_err_net_msg">Please connect to the internet</string>
+    <string name="onesignal_app_id">29d2c9ef-09ee-468b-96c9-b26340758d9a</string>
 </resources>

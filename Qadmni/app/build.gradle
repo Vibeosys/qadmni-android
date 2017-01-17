@@ -11,6 +11,9 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+        manifestPlaceholders = [manifestApplicationId          : "${applicationId}",
+                                onesignal_app_id               : "29d2c9ef-09ee-468b-96c9-b26340758d9a",
+                                onesignal_google_project_number: "777924269922"]
     }
     buildTypes {
         release {
@@ -45,5 +48,9 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.0.0'
     //fused api
     compile 'com.google.android.gms:play-services:6.5.87'
+    // One signal
+    compile 'com.onesignal:OneSignal:3.+@aar'
+    //GCM
+    compile 'com.google.android.gms:play-services-gcm:9.2.0'
 
 }

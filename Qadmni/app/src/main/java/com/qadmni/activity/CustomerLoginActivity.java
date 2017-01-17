@@ -47,7 +47,6 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
         txtForgotPass = (TextView) findViewById(R.id.txt_forgot_pass);
         txtNewUser = (TextView) findViewById(R.id.txt_new_acc);
         btnLogin = (Button) findViewById(R.id.btn_login);
-
         txtForgotPass.setOnClickListener(this);
         txtNewUser.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
