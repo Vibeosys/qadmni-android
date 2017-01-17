@@ -15,4 +15,5 @@
     <color name="btn_green_colour1">#33b77e</color>
     <color name="accentText">#FF4081</color>
     <color name="drawer_background">#df252626</color>
+    <color name="loginTransparntUser">#bb000000</color>
 </resources>

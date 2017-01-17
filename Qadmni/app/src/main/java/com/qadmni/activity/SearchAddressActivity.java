@@ -24,6 +24,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.qadmni.R;
+import com.qadmni.utils.NetworkUtils;
 
 public class SearchAddressActivity extends BaseActivity implements
         OnMapReadyCallback, View.OnClickListener {
@@ -50,6 +51,10 @@ public class SearchAddressActivity extends BaseActivity implements
             MapsInitializer.initialize(getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if (!NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
+            createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
+                    getResources().getString(R.string.str_err_net_msg));
         }
         btnSelect.setOnClickListener(this);
         mMapView.getMapAsync(this);

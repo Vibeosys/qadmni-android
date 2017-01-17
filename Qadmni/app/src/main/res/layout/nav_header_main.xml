@@ -17,6 +17,7 @@
         android:src="@drawable/test_profile_image" />
 
     <TextView
+        android:id="@+id/txt_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -28,6 +29,7 @@
         android:textSize="16sp" />
 
     <TextView
+        android:id="@+id/txt_user_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

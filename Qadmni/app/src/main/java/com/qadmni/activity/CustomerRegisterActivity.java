@@ -2,25 +2,32 @@ package com.qadmni.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.qadmni.R;
+import com.qadmni.data.requestDataDTO.BaseRequestDTO;
+import com.qadmni.data.requestDataDTO.CustomerLoginReqDTO;
+import com.qadmni.data.requestDataDTO.RegisterCustomerReqDTO;
 import com.qadmni.data.requestDataDTO.RegisterVendorReqDTO;
 import com.qadmni.utils.NetworkUtils;
+import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
 import com.qadmni.utils.Validator;
 
-public class VendorRegistrationActivity extends BaseActivity implements View.OnClickListener,
+public class CustomerRegisterActivity extends BaseActivity implements View.OnClickListener,
         ServerSyncManager.OnErrorResultReceived, ServerSyncManager.OnSuccessResultReceived {
 
     private EditText edtName, edtPassword, edtConfirmPass, edtEmail, edtPhone;
-    private Button btnNext;
+    private Button btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +37,16 @@ public class VendorRegistrationActivity extends BaseActivity implements View.OnC
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vender_registration);
+        setContentView(R.layout.activity_customer_register);
         getSupportActionBar().hide();
 
-        edtName = (EditText) findViewById(R.id.edt_name);
+        edtName = (EditText) findViewById(R.id.edt_user_name);
         edtPassword = (EditText) findViewById(R.id.edt_password);
         edtConfirmPass = (EditText) findViewById(R.id.edt_confirm_pass);
         edtEmail = (EditText) findViewById(R.id.edt_email);
         edtPhone = (EditText) findViewById(R.id.edt_phone);
-        btnNext = (Button) findViewById(R.id.btn_next);
-        btnNext.setOnClickListener(this);
+        btnRegister = (Button) findViewById(R.id.btn_register);
+        btnRegister.setOnClickListener(this);
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
     }
@@ -48,7 +55,7 @@ public class VendorRegistrationActivity extends BaseActivity implements View.OnC
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
-            case R.id.btn_next:
+            case R.id.btn_register:
                 if (!NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
                     createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
                             getResources().getString(R.string.str_err_net_msg));
@@ -107,28 +114,49 @@ public class VendorRegistrationActivity extends BaseActivity implements View.OnC
             focusView.requestFocus();
         } else {
             //send request to server for email check
-            RegisterVendorReqDTO registerVendorReqDTO = new RegisterVendorReqDTO();
-            registerVendorReqDTO.setProducerName(strName);
-            registerVendorReqDTO.setEmailId(strEmail);
-            registerVendorReqDTO.setPassword(strPassword);
-            Intent iBusinessDetails = new Intent(getApplicationContext(), VenderShopDetailsActivity.class);
-            iBusinessDetails.putExtra(VenderShopDetailsActivity.SHOP_DETAILS, registerVendorReqDTO);
-            startActivity(iBusinessDetails);
+            progressDialog.show();
+            RegisterCustomerReqDTO registerCustomerReqDTO = new RegisterCustomerReqDTO(strEmail,
+                    strPassword, strName, strPh);
+            Gson gson = new Gson();
+            String serializedJsonString = gson.toJson(registerCustomerReqDTO);
+            BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+            baseRequestDTO.setData(serializedJsonString);
+            mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_CUSTOMER_REGISTER,
+                    mSessionManager.registerCostomerUrl(), baseRequestDTO);
+
         }
     }
 
     @Override
     public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
-
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_CUSTOMER_REGISTER:
+                customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+                break;
+        }
     }
 
     @Override
     public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
-
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_CUSTOMER_REGISTER:
+                customAlterDialog(getString(R.string.str_register_err_title), errorMessage);
+                break;
+        }
     }
 
     @Override
     public void onResultReceived(@NonNull String data, int requestToken) {
-
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_CUSTOMER_REGISTER:
+                Toast.makeText(getApplicationContext(), getString(R.string.str_register_customer_success)
+                        , Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), CustomerLoginActivity.class));
+                finish();
+                break;
+        }
     }
 }

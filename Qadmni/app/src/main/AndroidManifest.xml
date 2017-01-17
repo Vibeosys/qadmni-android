@@ -16,7 +16,7 @@
     <application
         android:name=".QadmniApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_app_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -46,15 +46,18 @@
             android:name=".activity.VendorMainActivity"
             android:label="@string/title_activity_vendor_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.CustomerLoginActivity"></activity>
-        <activity android:name=".activity.SplashActivity">
+        <activity android:name=".activity.CustomerLoginActivity" />
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainLoginActivity"></activity>
+        <activity android:name=".activity.MainLoginActivity" />
+        <activity android:name=".activity.CustomerRegisterActivity"></activity>
     </application>
 
 </manifest>

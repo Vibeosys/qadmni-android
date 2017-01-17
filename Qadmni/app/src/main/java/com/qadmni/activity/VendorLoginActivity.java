@@ -18,6 +18,7 @@ import com.qadmni.data.VendorDTO;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.requestDataDTO.VendorLoginReqDTO;
 import com.qadmni.data.responseDataDTO.VendorLoginResDTO;
+import com.qadmni.utils.NetworkUtils;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
 import com.qadmni.utils.UserAuth;
@@ -56,7 +57,12 @@ public class VendorLoginActivity extends BaseActivity implements View.OnClickLis
         int id = view.getId();
         switch (id) {
             case R.id.btn_login:
-                loginVendor();
+                if (!NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
+                    createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
+                            getResources().getString(R.string.str_err_net_msg));
+                } else {
+                    loginVendor();
+                }
                 break;
             case R.id.txt_forgot_pass:
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));

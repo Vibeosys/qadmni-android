@@ -12,12 +12,15 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.qadmni.R;
 import com.qadmni.adapters.VendorItemAdapter;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.responseDataDTO.VendorItemResDTO;
+import com.qadmni.utils.NetworkUtils;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
 import com.qadmni.utils.UserAuth;
@@ -29,6 +32,7 @@ public class VendorMainActivity extends BaseActivity
         ServerSyncManager.OnErrorResultReceived {
     private RecyclerView reItemList;
     private VendorItemAdapter adapter;
+    private TextView mNavigationUserEmailId, mNavigationUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +51,28 @@ public class VendorMainActivity extends BaseActivity
         mServerSyncManager.setOnStringResultReceived(this);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        View headerView = navigationView.getHeaderView(0);
+        mNavigationUserEmailId = (TextView) headerView.findViewById(R.id.txt_user_email);
+        mNavigationUserName = (TextView) headerView.findViewById(R.id.txt_user_name);
+        String name = mSessionManager.getVendorName();
+        String email = mSessionManager.getVendorEmailId();
+        if (name != null || !name.isEmpty()) {
+            mNavigationUserEmailId.setText("" + email);
+            mNavigationUserName.setText("" + name);
+        }
         reItemList = (RecyclerView) findViewById(R.id.item_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         reItemList.setLayoutManager(layoutManager);
-        progressDialog.show();
-        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
-        mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_VENDOR_ITEMS,
-                mSessionManager.getVendorItems(), baseRequestDTO);
-
+        if (!NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
+            createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
+                    getResources().getString(R.string.str_err_net_msg));
+        } else {
+            progressDialog.show();
+            BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+            mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_VENDOR_ITEMS,
+                    mSessionManager.getVendorItems(), baseRequestDTO);
+        }
 
     }
 

@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.qadmni.R;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.requestDataDTO.RegisterVendorReqDTO;
+import com.qadmni.utils.NetworkUtils;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
 
@@ -56,8 +57,12 @@ public class VenderShopDetailsActivity extends BaseActivity implements View.OnCl
         int id = view.getId();
         switch (id) {
             case R.id.btn_register:
-                registerBusiness();
-
+                if (!NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
+                    createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
+                            getResources().getString(R.string.str_err_net_msg));
+                } else {
+                    registerBusiness();
+                }
                 break;
             case R.id.txt_shop_location:
                 Intent iRegister = new Intent(getApplicationContext(), SearchAddressActivity.class);
@@ -105,11 +110,21 @@ public class VenderShopDetailsActivity extends BaseActivity implements View.OnCl
     @Override
     public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
         progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_VENDOR_REG:
+                customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+                break;
+        }
     }
 
     @Override
     public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
         progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_VENDOR_REG:
+                customAlterDialog(getString(R.string.str_register_err_title), errorMessage);
+                break;
+        }
     }
 
     @Override
@@ -118,6 +133,8 @@ public class VenderShopDetailsActivity extends BaseActivity implements View.OnCl
         switch (requestToken) {
             case ServerRequestConstants.REQUEST_VENDOR_REG:
                 Toast.makeText(getApplicationContext(), getString(R.string.str_register_murchent_success), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), VendorLoginActivity.class));
+                finish();
                 break;
         }
     }

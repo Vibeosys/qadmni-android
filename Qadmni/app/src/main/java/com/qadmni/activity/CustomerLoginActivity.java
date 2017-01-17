@@ -22,6 +22,7 @@ import com.qadmni.data.requestDataDTO.CustomerLoginReqDTO;
 import com.qadmni.data.requestDataDTO.VendorLoginReqDTO;
 import com.qadmni.data.responseDataDTO.CustomerLoginResDTO;
 import com.qadmni.data.responseDataDTO.VendorLoginResDTO;
+import com.qadmni.utils.NetworkUtils;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
 import com.qadmni.utils.UserAuth;
@@ -59,14 +60,20 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
         int id = view.getId();
         switch (id) {
             case R.id.btn_login:
-                loginCustomer();
+                if (!NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
+                    createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
+                            getResources().getString(R.string.str_err_net_msg));
+                } else {
+                    loginCustomer();
+                }
+
                 break;
             case R.id.txt_forgot_pass:
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
                 break;
             case R.id.txt_new_acc:
-                startActivity(new Intent(getApplicationContext(), VendorRegistrationActivity.class));
+                startActivity(new Intent(getApplicationContext(), CustomerRegisterActivity.class));
                 finish();
                 break;
         }

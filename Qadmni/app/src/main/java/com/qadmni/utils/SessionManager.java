@@ -58,6 +58,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.VENDOR_LOGIN_URL, mPropertyFileReader.vendorLoginUrl());
         editor.putString(PropertyTypeConstants.VENDOR_ITEMS, mPropertyFileReader.vendorListUrl());
         editor.putString(PropertyTypeConstants.CUSTOMER_LOGIN, mPropertyFileReader.customerLoginUrl());
+        editor.putString(PropertyTypeConstants.REGISTER_CUSTOMER, mPropertyFileReader.customerRegisterUrl());
         editor.apply();
         return true;
     }
@@ -231,5 +232,9 @@ public class SessionManager {
 
     public String getUserPass() {
         return mProjectSharedPref.getString(PropertyTypeConstants.CUSTOMER_PASSWORD, null);
+    }
+
+    public String registerCostomerUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.REGISTER_CUSTOMER, null);
     }
 }

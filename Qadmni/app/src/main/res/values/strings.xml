@@ -75,5 +75,9 @@
     <string name="str_quick_start">Quick Start</string>
     <string name="str_login">Login</string>
     <string name="str_start_quickly">Get started quickly</string>
-
+    <string name="str_register">Register</string>
+    <string name="str_register_customer_success">Registration is successfull</string>
+    <string name="str_register_err_title">Register Error</string>
+    <string name="str_net_err">Network Error</string>
+    <string name="str_err_net_msg">Please connect to the internet</string>
 </resources>

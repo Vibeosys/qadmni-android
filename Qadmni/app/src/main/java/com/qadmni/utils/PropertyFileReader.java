@@ -70,4 +70,8 @@ public class PropertyFileReader {
     public String customerLoginUrl() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.CUSTOMER_LOGIN);
     }
+
+    public String customerRegisterUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.REGISTER_CUSTOMER);
+    }
 }

@@ -11,6 +11,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.qadmni.activity.BaseActivity;
@@ -29,6 +31,7 @@ public class MainActivity extends BaseActivity
     private CategoryFragmentAdapter categoryFragmentAdapter;
     private ViewPager mViewPager;
     private ArrayList<CategoryListResponseDTO> categoryListResponseDTOs;
+    private TextView mNavigationUserEmailId, mNavigationUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +48,16 @@ public class MainActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        View headerView = navigationView.getHeaderView(0);
+        mNavigationUserEmailId = (TextView) headerView.findViewById(R.id.txt_user_email);
+        mNavigationUserName = (TextView) headerView.findViewById(R.id.txt_user_name);
         mViewPager = (ViewPager) findViewById(R.id.pager);
+        String name = mSessionManager.getCustomerName();
+        String email = mSessionManager.getUserEmail();
+        if (name != null || !name.isEmpty()) {
+            mNavigationUserEmailId.setText("" + email);
+            mNavigationUserName.setText("" + name);
+        }
 
 
         callToGetCategoryWebService();
