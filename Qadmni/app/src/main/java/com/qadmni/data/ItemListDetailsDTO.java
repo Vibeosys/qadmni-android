@@ -9,6 +9,8 @@ public class ItemListDetailsDTO {
     private String itemName;
     private String unitPrice;
     private String offerText;
+    private long reviews;
+
     private double rating;
     private String imageUrl;
     private long producerId;
@@ -23,7 +25,7 @@ public class ItemListDetailsDTO {
     public ItemListDetailsDTO(long itemId, String itemDesc, String itemName, String unitPrice,
                               String offerText, double rating, String imageUrl, long producerId,
                               String businessName, double businessLat, double businessLong,
-                              double userLat, double userLon, float userDistance, float userTime) {
+                              double userLat, double userLon, float userDistance, float userTime,long reviews) {
         this.itemId = itemId;
         this.itemDesc = itemDesc;
         this.itemName = itemName;
@@ -39,6 +41,7 @@ public class ItemListDetailsDTO {
         this.userLon = userLon;
         this.userDistance = userDistance;
         this.userTime = userTime;
+        this.reviews =reviews;
     }
 
     public long getItemId() {
@@ -159,5 +162,13 @@ public class ItemListDetailsDTO {
 
     public void setUserTime(float userTime) {
         this.userTime = userTime;
+    }
+
+    public long getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(long reviews) {
+        this.reviews = reviews;
     }
 }

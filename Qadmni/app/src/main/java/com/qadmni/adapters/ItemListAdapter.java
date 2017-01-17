@@ -82,6 +82,7 @@ public class ItemListAdapter extends BaseAdapter {
         viewHolder.itemDistances.setText("" + itemListDetailsDTO.getUserDistance());
         viewHolder.itemTime.setText("" + itemListDetailsDTO.getUserTime());
         viewHolder.itemSar.setText("" + itemListDetailsDTO.getUnitPrice());
+        viewHolder.itemReviews.setText("" + itemListDetailsDTO.getReviews() + "\t" + context.getResources().getString(R.string.str_reviews));
         try {
             String url = itemListDetailsDTO.getImageUrl();
             if (url != null && !url.isEmpty()) {
@@ -102,7 +103,8 @@ public class ItemListAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        TextView itemName, itemReviews, ProducerName, itemDescription, itemDistances, itemTime, itemSar;
+        TextView itemName, itemReviews, ProducerName, itemDescription, itemDistances,
+                itemTime, itemSar;
         protected NetworkImageView imgProduct;
     }
 }

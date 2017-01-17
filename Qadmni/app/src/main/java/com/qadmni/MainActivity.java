@@ -54,10 +54,10 @@ public class MainActivity extends BaseActivity
         mViewPager = (ViewPager) findViewById(R.id.pager);
         String name = mSessionManager.getCustomerName();
         String email = mSessionManager.getUserEmail();
-        if (name != null || !name.isEmpty()) {
+        /*if (name != null || !name.isEmpty()) {
             mNavigationUserEmailId.setText("" + email);
             mNavigationUserName.setText("" + name);
-        }
+        }*/
 
 
         callToGetCategoryWebService();

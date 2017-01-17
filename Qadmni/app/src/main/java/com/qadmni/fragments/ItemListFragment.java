@@ -258,6 +258,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
     public void callToPrepareArrayList(ArrayList<ProducerLocationDetailsDTO> producerLocationDetailsDTOs) {
         if (producerLocationDetailsDTOs != null) {
             itemListDetailsDTOs = new ArrayList<>();
+            //producerLocationDetailsDTOs.size();
             for (int i = 0; i < producerLocationDetailsDTOs.size(); i++) {
                 ProducerLocationDetailsDTO producerLocationDetailsDTO = producerLocationDetailsDTOs.get(i);
                 if (itemInfoLists != null) {
@@ -271,16 +272,22 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                                     producerLocationDetailsDTO.getBusinessName(), producerLocationDetailsDTO.getBusinessLat(),
                                     producerLocationDetailsDTO.getBusinessLong(), producerLocationDetailsDTO.getUserLat(),
                                     producerLocationDetailsDTO.getUserLon(), producerLocationDetailsDTO.getUserDistance(),
-                                    producerLocationDetailsDTO.getUserTime());
+                                    producerLocationDetailsDTO.getUserTime(), itemInfoList.getReviews());
+                            Log.d("TAG", "TAG");
+                            Log.d("TAG", "TAG");
                             itemListDetailsDTOs.add(itemListDetailsDTO);
+                            Log.d("TAG", "TAG");
+                            Log.d("TAG", "TAG");
                         }
 
                     }
                 }
-                    /*Set Adapter*/
-                ItemListAdapter itemListAdapter = new ItemListAdapter(itemListDetailsDTOs, getContext());
-                mListView.setAdapter(itemListAdapter);
             }
+                /*Set Adapter*/
+            ItemListAdapter itemListAdapter = new ItemListAdapter(itemListDetailsDTOs, getContext());
+            Log.d("TAG", "TAG");
+            Log.d("TAG", "TAG");
+            mListView.setAdapter(itemListAdapter);
         }
     }
 
