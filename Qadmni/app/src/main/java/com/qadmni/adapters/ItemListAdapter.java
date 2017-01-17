@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.qadmni.R;
+import com.qadmni.data.ItemListDetailsDTO;
 import com.qadmni.data.responseDataDTO.ItemInfoList;
 import com.qadmni.utils.CustomVolleyRequestQueue;
 
@@ -20,22 +21,27 @@ import java.util.ArrayList;
  */
 public class ItemListAdapter extends BaseAdapter {
     ArrayList<ItemInfoList> itemInfoLists;
+    ArrayList<ItemListDetailsDTO> itemListDetailsDTOs;
     Context context;
     private ImageLoader mImageLoader;
 
-    public ItemListAdapter(ArrayList<ItemInfoList> itemInfoLists, Context context) {
-        this.itemInfoLists = itemInfoLists;
+    /* public ItemListAdapter(ArrayList<ItemInfoList> itemInfoLists, Context context) {
+         this.itemInfoLists = itemInfoLists;
+         this.context = context;
+     }*/
+    public ItemListAdapter(ArrayList<ItemListDetailsDTO> itemListDetailsDTOs, Context context) {
+        this.itemListDetailsDTOs = itemListDetailsDTOs;
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        return itemInfoLists.size();
+        return itemListDetailsDTOs.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return itemInfoLists.get(i);
+        return itemListDetailsDTOs.get(i);
     }
 
     @Override
@@ -59,18 +65,25 @@ public class ItemListAdapter extends BaseAdapter {
             viewHolder.ProducerName = (TextView) row.findViewById(R.id.vendor_name);
             viewHolder.itemDescription = (TextView) row.findViewById(R.id.product_desc);
             viewHolder.imgProduct = (NetworkImageView) row.findViewById(R.id.imgProduct);
-
+            viewHolder.itemDistances = (TextView) row.findViewById(R.id.product_distance);
+            viewHolder.itemTime = (TextView) row.findViewById(R.id.prod_time);
+            viewHolder.itemSar = (TextView) row.findViewById(R.id.product_price);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
             viewHolder.imgProduct.setImageUrl(null, mImageLoader);
         }
-        ItemInfoList itemInfoListDTO = itemInfoLists.get(i);
-        String temp = itemInfoListDTO.getItemName();
-        viewHolder.itemName.setText(itemInfoListDTO.getItemName());
-        viewHolder.itemDescription.setText(itemInfoListDTO.getItemDesc());
+        ItemListDetailsDTO itemListDetailsDTO = itemListDetailsDTOs.get(i);
+        // ItemInfoList itemInfoListDTO = itemInfoLists.get(i);
+        String temp = itemListDetailsDTO.getItemName();
+        viewHolder.itemName.setText(itemListDetailsDTO.getItemName());
+        viewHolder.itemDescription.setText(itemListDetailsDTO.getItemDesc());
+        viewHolder.ProducerName.setText(itemListDetailsDTO.getBusinessName());
+        viewHolder.itemDistances.setText("" + itemListDetailsDTO.getUserDistance());
+        viewHolder.itemTime.setText("" + itemListDetailsDTO.getUserTime());
+        viewHolder.itemSar.setText("" + itemListDetailsDTO.getUnitPrice());
         try {
-            String url = itemInfoListDTO.getImageUrl();
+            String url = itemListDetailsDTO.getImageUrl();
             if (url != null && !url.isEmpty()) {
                 try {
                     mImageLoader.get(url, ImageLoader.getImageListener(viewHolder.imgProduct,
