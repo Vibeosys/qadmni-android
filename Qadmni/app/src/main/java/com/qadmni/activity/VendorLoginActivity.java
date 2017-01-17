@@ -19,6 +19,7 @@ import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.requestDataDTO.VendorLoginReqDTO;
 import com.qadmni.data.responseDataDTO.VendorLoginResDTO;
 import com.qadmni.utils.NetworkUtils;
+import com.qadmni.utils.OneSignalIdHandler;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
 import com.qadmni.utils.UserAuth;
@@ -95,7 +96,8 @@ public class VendorLoginActivity extends BaseActivity implements View.OnClickLis
             focusView.requestFocus();
         } else {
             progressDialog.show();
-            VendorLoginReqDTO loginReqDTO = new VendorLoginReqDTO(userName, password, "pushId", "AN");
+            OneSignalIdHandler signalIdHandler = new OneSignalIdHandler();
+            VendorLoginReqDTO loginReqDTO = new VendorLoginReqDTO(userName, password, signalIdHandler.getUserId(), "AN");
             Gson gson = new Gson();
             String serializedJsonString = gson.toJson(loginReqDTO);
             BaseRequestDTO baseRequestDTO = new BaseRequestDTO();

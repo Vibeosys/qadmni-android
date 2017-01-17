@@ -23,6 +23,7 @@ import com.qadmni.data.requestDataDTO.VendorLoginReqDTO;
 import com.qadmni.data.responseDataDTO.CustomerLoginResDTO;
 import com.qadmni.data.responseDataDTO.VendorLoginResDTO;
 import com.qadmni.utils.NetworkUtils;
+import com.qadmni.utils.OneSignalIdHandler;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
 import com.qadmni.utils.UserAuth;
@@ -98,7 +99,8 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
             focusView.requestFocus();
         } else {
             progressDialog.show();
-            CustomerLoginReqDTO loginReqDTO = new CustomerLoginReqDTO(userName, password, "pushId", "AN");
+            OneSignalIdHandler signalIdHandler = new OneSignalIdHandler();
+            CustomerLoginReqDTO loginReqDTO = new CustomerLoginReqDTO(userName, password, signalIdHandler.getUserId(), "AN");
             Gson gson = new Gson();
             String serializedJsonString = gson.toJson(loginReqDTO);
             BaseRequestDTO baseRequestDTO = new BaseRequestDTO();

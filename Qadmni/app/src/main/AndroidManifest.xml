@@ -67,9 +67,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainLoginActivity" />
-        <activity android:name=".activity.CustomerRegisterActivity"></activity>
+        <activity android:name=".activity.CustomerRegisterActivity" />
 
-        <!-- One signal integration-->
+        <!-- One signal integration -->
         <meta-data
             android:name="onesignal_app_id"
             android:value="29d2c9ef-09ee-468b-96c9-b26340758d9a" />
@@ -79,6 +79,7 @@
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="com.qadmni" />
             </intent-filter>
         </receiver>
@@ -106,6 +107,8 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".activity.AddOrUpdateProductActivity"></activity>
     </application>
 
 </manifest>

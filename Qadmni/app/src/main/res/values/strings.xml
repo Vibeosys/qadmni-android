@@ -82,4 +82,9 @@
     <string name="str_err_net_msg">Please connect to the internet</string>
     <string name="onesignal_app_id">29d2c9ef-09ee-468b-96c9-b26340758d9a</string>
     <string name="str_reviews">Reviews</string>
+    <string name="str_price">Price</string>
+    <string name="str_cancel">Cancel</string>
+    <string name="str_err_product_name_empty">Please enter product name</string>
+    <string name="str_err_product_details_empty">Please add product details</string>
+    <string name="str_err_price_empty">Please enter valid price</string>
 </resources>
