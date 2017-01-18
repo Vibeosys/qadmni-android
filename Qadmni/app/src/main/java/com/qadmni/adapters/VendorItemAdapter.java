@@ -36,11 +36,13 @@ public class VendorItemAdapter extends RecyclerView.Adapter<VendorItemAdapter.It
         View itemView = LayoutInflater.from(mContext).inflate(R.layout.row_vendor_list, parent, false);
         mImageLoader = CustomVolleyRequestQueue.getInstance(mContext)
                 .getImageLoader();
+
         return new ItemViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
+        holder.imgProduct.setImageUrl(null, mImageLoader);
         final VendorItemResDTO item = mData.get(position);
         holder.txtItemName.setText(item.getItemName());
         holder.txtDetails.setText(item.getItemDesc());

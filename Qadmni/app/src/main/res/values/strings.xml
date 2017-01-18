@@ -84,9 +84,22 @@
     <string name="str_reviews">Reviews</string>
     <string name="str_price">Price</string>
     <string name="str_cancel">Cancel</string>
-    <string name="str_err_product_name_empty">Please enter product name</string>
-    <string name="str_err_product_details_empty">Please add product details</string>
+    <string name="str_err_product_name_empty">Please enter product name in english</string>
+    <string name="str_err_product_details_empty">Please add product details in english</string>
     <string name="str_err_price_empty">Please enter valid price</string>
     <string name="str_image_upload_success">Item added successfully</string>
     <string name="str_google_matrix_key">AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0</string>
+
+    <string name="str_category_hint">Category</string>
+    <string name="str_err_add_product">Add Product Error</string>
+    <string name="str_err_categry_list">Cateogry Error</string>
+    <string name="str_err_image">Please select the product image</string>
+    <string name="str_product_name_en_hint">Product Name (English)</string>
+    <string name="str_product_name_ar_hint">Product Name (Arabic)</string>
+    <string name="str_details_en">Product Details (English)</string>
+    <string name="str_details_ar">Product Details (Arabic)</string>
+    <string name="str_err_product_name_ar_empty">Please enter product name in arabic</string>
+    <string name="str_err_product_details_ar_empty">Please enter productdetails in arabic</string>
+    <string name="str_product_offer">Product offer</string>
+    <string name="str_vendor_dashboard">Vendor Dashboard</string>
 </resources>
