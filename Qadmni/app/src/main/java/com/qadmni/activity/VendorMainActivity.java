@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -33,6 +34,7 @@ public class VendorMainActivity extends BaseActivity
     private RecyclerView reItemList;
     private VendorItemAdapter adapter;
     private TextView mNavigationUserEmailId, mNavigationUserName;
+    private LinearLayout addProductTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class VendorMainActivity extends BaseActivity
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        addProductTitle = (LinearLayout) findViewById(R.id.addProductTitle);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -73,7 +76,12 @@ public class VendorMainActivity extends BaseActivity
             mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_VENDOR_ITEMS,
                     mSessionManager.getVendorItems(), baseRequestDTO);
         }
-
+        addProductTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), AddOrUpdateProductActivity.class));
+            }
+        });
     }
 
     @Override

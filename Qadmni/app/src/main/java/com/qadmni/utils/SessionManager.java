@@ -59,6 +59,8 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.VENDOR_ITEMS, mPropertyFileReader.vendorListUrl());
         editor.putString(PropertyTypeConstants.CUSTOMER_LOGIN, mPropertyFileReader.customerLoginUrl());
         editor.putString(PropertyTypeConstants.REGISTER_CUSTOMER, mPropertyFileReader.customerRegisterUrl());
+        editor.putString(PropertyTypeConstants.ADD_PRODUCT, mPropertyFileReader.addProductUrl());
+        editor.putString(PropertyTypeConstants.ADD_PRODUCT_IMAGE, mPropertyFileReader.addProductImageUrl());
         editor.apply();
         return true;
     }
@@ -236,5 +238,13 @@ public class SessionManager {
 
     public String registerCostomerUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.REGISTER_CUSTOMER, null);
+    }
+
+    public String addProductUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.ADD_PRODUCT, null);
+    }
+
+    public String uploadProductPhoto() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.ADD_PRODUCT_IMAGE, null);
     }
 }

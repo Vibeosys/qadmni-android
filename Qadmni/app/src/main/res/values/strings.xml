@@ -87,4 +87,5 @@
     <string name="str_err_product_name_empty">Please enter product name</string>
     <string name="str_err_product_details_empty">Please add product details</string>
     <string name="str_err_price_empty">Please enter valid price</string>
+    <string name="str_image_upload_success">Item added successfully</string>
 </resources>

@@ -74,4 +74,12 @@ public class PropertyFileReader {
     public String customerRegisterUrl() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.REGISTER_CUSTOMER);
     }
+
+    public String addProductUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.ADD_PRODUCT);
+    }
+
+    public String addProductImageUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.ADD_PRODUCT_IMAGE);
+    }
 }
