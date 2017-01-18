@@ -190,16 +190,16 @@
                                 android:layout_gravity="bottom"
                                 android:paddingStart="8dp"
                                 android:textColor="@android:color/black"
-                                android:textSize="18sp" />
+                                android:textSize="14sp" />
 
-                            <TextView
+                            <!--<TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:paddingStart="4dp"
                                 android:text="@string/salad_distance"
                                 android:textColor="@color/secondaryText"
-                                android:textSize="14sp" />
+                                android:textSize="14sp" />-->
                         </LinearLayout>
 
                     </LinearLayout>
@@ -231,16 +231,16 @@
                                 android:layout_gravity="bottom"
                                 android:paddingStart="2dp"
                                 android:textColor="@android:color/black"
-                                android:textSize="18sp" />
+                                android:textSize="14sp" />
 
-                            <TextView
+                           <!-- <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="bottom"
                                 android:paddingStart="4dp"
                                 android:text="@string/salad_time"
                                 android:textColor="@color/secondaryText"
-                                android:textSize="14sp" />
+                                android:textSize="14sp" />-->
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>

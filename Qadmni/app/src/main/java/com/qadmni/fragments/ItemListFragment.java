@@ -5,6 +5,7 @@ import android.content.Context;
 import android.location.Location;
 
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.qadmni.R;
 import com.qadmni.adapters.CategoryFragmentAdapter;
@@ -43,7 +45,24 @@ import com.qadmni.data.responseDataDTO.ProducerLocations;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Document;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * Created by shrinivas on 13-01-2017.
@@ -62,6 +81,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
     ArrayList<ItemInfoList> itemInfoLists;
     ArrayList<ProducerLocationDetailsDTO> producerLocationDetailsDTOs;
     ArrayList<ItemListDetailsDTO> itemListDetailsDTOs;
+    ArrayList<ItemListDetailsDTO> itemListDetailsDTOArrayList;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -203,6 +223,8 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                     float distanceInMeter = mLastLocation.distanceTo(productLocation);
                     float approxDistance = distanceInMeter / 1000;
                     float approxTime = approxDistance * 10;
+
+
                     ProducerLocationDetailsDTO producerLocationDetailsDTO = new ProducerLocationDetailsDTO(producerLocations.getProducerId(),
                             producerLocations.getBusinessName(), producerLocations.getBusinessLat(), producerLocations.getBusinessLong(),
                             mLastLocation.getLatitude(), mLastLocation.getLongitude(), approxDistance, approxTime);
@@ -271,8 +293,13 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                                     itemInfoList.getImageUrl(), itemInfoList.getProducerId(),
                                     producerLocationDetailsDTO.getBusinessName(), producerLocationDetailsDTO.getBusinessLat(),
                                     producerLocationDetailsDTO.getBusinessLong(), producerLocationDetailsDTO.getUserLat(),
-                                    producerLocationDetailsDTO.getUserLon(), producerLocationDetailsDTO.getUserDistance(),
-                                    producerLocationDetailsDTO.getUserTime(), itemInfoList.getReviews());
+                                    producerLocationDetailsDTO.getUserLon(), "",
+                                    "", itemInfoList.getReviews());
+                            LatLng source = new LatLng(producerLocationDetailsDTO.getUserLat(), producerLocationDetailsDTO.getUserLon());
+                            LatLng destination = new LatLng(producerLocationDetailsDTO.getBusinessLat(), producerLocationDetailsDTO.getBusinessLong());
+                            LatLng test = new LatLng(18.5528257, 73.7625853);
+                            //getDistanceInfo(18.5528257,73.7625853,producerLocationDetailsDTO.getUserLat(),producerLocationDetailsDTO.getUserLon());
+                            //  new ApiDirectionsAsyncTask(source,test).execute();
                             Log.d("TAG", "TAG");
                             Log.d("TAG", "TAG");
                             itemListDetailsDTOs.add(itemListDetailsDTO);
@@ -280,15 +307,136 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                             Log.d("TAG", "TAG");
                         }
 
+
                     }
                 }
             }
                 /*Set Adapter*/
-            ItemListAdapter itemListAdapter = new ItemListAdapter(itemListDetailsDTOs, getContext());
+
+           /* ItemListAdapter itemListAdapter = new ItemListAdapter(itemListDetailsDTOs, getContext());
             Log.d("TAG", "TAG");
             Log.d("TAG", "TAG");
             mListView.setAdapter(itemListAdapter);
+            LatLng source = new LatLng(18.5528257, 73.7625853);
+            LatLng test = new LatLng(18.5492887, 73.7893826);*/
+            // new ApiDirectionsAsyncTask(source, test).execute();
+            try {
+                itemListDetailsDTOArrayList = new ApiDirectionsAsyncTask(itemListDetailsDTOs).execute().get();
+                ItemListAdapter itemListAdapter = new ItemListAdapter(itemListDetailsDTOArrayList, getContext());
+                Log.d("TAG", "TAG");
+                Log.d("TAG", "TAG");
+                mListView.setAdapter(itemListAdapter);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         }
     }
 
+    public class ApiDirectionsAsyncTask extends AsyncTask<Void, Integer, ArrayList<ItemListDetailsDTO>> {
+
+        private LatLng source, destination;
+        ArrayList<ItemListDetailsDTO> itemListDetailsDTOs;
+
+        /*ApiDirectionsAsyncTask(LatLng source, LatLng destination) {
+            this.source = source;
+            this.destination = destination;
+        }*/
+        ApiDirectionsAsyncTask(ArrayList<ItemListDetailsDTO> itemListDetailsDTOs) {
+            this.itemListDetailsDTOs = itemListDetailsDTOs;
+        }
+
+        private static final String DIRECTIONS_API_BASE = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
+
+
+        // API KEY of the project Google Map Api For work
+        private static final String API_KEY = "AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0";
+
+        @Override
+        protected ArrayList<ItemListDetailsDTO> doInBackground(Void... params) {
+            for (int i = 0; i < itemListDetailsDTOs.size(); i++) {
+                Log.i("TAG", "doInBackground of ApiDirectionsAsyncTask");
+                ItemListDetailsDTO itemListDetailsDTO = itemListDetailsDTOs.get(i);
+                HttpURLConnection mUrlConnection = null;
+                StringBuilder mJsonResults = new StringBuilder();
+                double dist = 0.0;
+                double time = 0.0;
+                float fDistance;
+                float fTime;
+                try {
+                    StringBuilder sb = new StringBuilder(DIRECTIONS_API_BASE);
+                    sb.append("&origins=" + URLEncoder.encode(itemListDetailsDTO.getUserLat() + "," + itemListDetailsDTO.getUserLon(), "utf8"));
+                    sb.append("&destinations=" + URLEncoder.encode(itemListDetailsDTO.getBusinessLat() + "," + itemListDetailsDTO.getBusinessLong(), "utf8"));
+                    sb.append("&key=" + API_KEY);
+
+                    URL url = new URL(sb.toString());
+                    mUrlConnection = (HttpURLConnection) url.openConnection();
+                    InputStreamReader in = new InputStreamReader(mUrlConnection.getInputStream());
+
+                    // Load the results into a StringBuilder
+                    int read;
+                    char[] buff = new char[1024];
+                    while ((read = in.read(buff)) != -1) {
+                        mJsonResults.append(buff, 0, read);
+                    }
+
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+
+                        try {
+                            jsonObject = new JSONObject(mJsonResults.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        JSONArray array = jsonObject.getJSONArray("rows");
+
+                        JSONObject routes = array.getJSONObject(0);
+
+                        JSONArray elements = routes.getJSONArray("elements");
+
+                        JSONObject steps = elements.getJSONObject(0);
+
+                        JSONObject duration = steps.getJSONObject("duration");
+                        String strDuration = duration.getString("text");
+                        Log.i("Distance", duration.toString());
+                        time = Double.parseDouble(duration.getString("text").replaceAll("[^\\.0123456789]", ""));
+                        Log.i("Distance", duration.toString());
+                        Log.i("Distance", duration.toString());
+
+                        JSONObject distance = steps.getJSONObject("distance");
+                        String strTime = distance.getString("text");
+                        Log.i("Distance", distance.toString());
+                        dist = Double.parseDouble(distance.getString("text").replaceAll("[^\\.0123456789]", ""));
+                        Log.i("Distance", distance.toString());
+                        Log.i("Distance", distance.toString());
+
+                        fDistance = (float) dist;
+                        fTime = (float) time;
+                        itemListDetailsDTO.setUserTime(strDuration);
+                        itemListDetailsDTO.setUserDistance(strTime);
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                } catch (MalformedURLException e) {
+                    Log.e("TAG", "Error processing Distance Matrix API URL");
+                    //return null;
+
+                } catch (IOException e) {
+                    System.out.println("Error connecting to Distance Matrix");
+                    // return null;
+                } finally {
+                    if (mUrlConnection != null) {
+                        mUrlConnection.disconnect();
+                    }
+                }
+
+                // return mJsonResults;
+            }
+
+            return itemListDetailsDTOs;
+        }
+    }
 }

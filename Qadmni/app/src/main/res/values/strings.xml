@@ -88,4 +88,5 @@
     <string name="str_err_product_details_empty">Please add product details</string>
     <string name="str_err_price_empty">Please enter valid price</string>
     <string name="str_image_upload_success">Item added successfully</string>
+    <string name="str_google_matrix_key">AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0</string>
 </resources>

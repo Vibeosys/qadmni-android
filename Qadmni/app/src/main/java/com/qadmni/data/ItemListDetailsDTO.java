@@ -19,13 +19,13 @@ public class ItemListDetailsDTO {
     private double businessLong;
     private double userLat;
     private double userLon;
-    private float userDistance;
-    private float userTime;
+    private String userDistance;
+    private String userTime;
 
     public ItemListDetailsDTO(long itemId, String itemDesc, String itemName, String unitPrice,
                               String offerText, double rating, String imageUrl, long producerId,
                               String businessName, double businessLat, double businessLong,
-                              double userLat, double userLon, float userDistance, float userTime,long reviews) {
+                              double userLat, double userLon, String userDistance, String userTime, long reviews) {
         this.itemId = itemId;
         this.itemDesc = itemDesc;
         this.itemName = itemName;
@@ -41,7 +41,7 @@ public class ItemListDetailsDTO {
         this.userLon = userLon;
         this.userDistance = userDistance;
         this.userTime = userTime;
-        this.reviews =reviews;
+        this.reviews = reviews;
     }
 
     public long getItemId() {
@@ -148,19 +148,19 @@ public class ItemListDetailsDTO {
         this.userLon = userLon;
     }
 
-    public float getUserDistance() {
+    public String getUserDistance() {
         return userDistance;
     }
 
-    public void setUserDistance(float userDistance) {
+    public void setUserDistance(String userDistance) {
         this.userDistance = userDistance;
     }
 
-    public float getUserTime() {
+    public String getUserTime() {
         return userTime;
     }
 
-    public void setUserTime(float userTime) {
+    public void setUserTime(String userTime) {
         this.userTime = userTime;
     }
 

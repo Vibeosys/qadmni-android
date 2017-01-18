@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -68,6 +69,8 @@ public class ItemListAdapter extends BaseAdapter {
             viewHolder.itemDistances = (TextView) row.findViewById(R.id.product_distance);
             viewHolder.itemTime = (TextView) row.findViewById(R.id.prod_time);
             viewHolder.itemSar = (TextView) row.findViewById(R.id.product_price);
+            viewHolder.mAdditionBtn = (Button) row.findViewById(R.id.minus_product);
+            viewHolder.mSubtractionBtn = (Button) row.findViewById(R.id.plus_product);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -99,12 +102,20 @@ public class ItemListAdapter extends BaseAdapter {
         } catch (NullPointerException e) {
             viewHolder.imgProduct.setDefaultImageResId(R.drawable.default_img);
         }
+        viewHolder.mAdditionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         return row;
     }
 
     class ViewHolder {
-        TextView itemName, itemReviews, ProducerName, itemDescription, itemDistances,
+      protected   TextView itemName, itemReviews, ProducerName, itemDescription, itemDistances,
                 itemTime, itemSar;
         protected NetworkImageView imgProduct;
+        protected Button mAdditionBtn,mSubtractionBtn;
+
     }
 }
