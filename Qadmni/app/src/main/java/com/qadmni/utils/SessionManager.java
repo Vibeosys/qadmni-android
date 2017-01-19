@@ -61,6 +61,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.REGISTER_CUSTOMER, mPropertyFileReader.customerRegisterUrl());
         editor.putString(PropertyTypeConstants.ADD_PRODUCT, mPropertyFileReader.addProductUrl());
         editor.putString(PropertyTypeConstants.ADD_PRODUCT_IMAGE, mPropertyFileReader.addProductImageUrl());
+        editor.putInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, mPropertyFileReader.getDbVersion());
         editor.apply();
         return true;
     }
@@ -85,6 +86,10 @@ public class SessionManager {
 
     public String getCategoryListUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.GET_CATEGORY_LIST, null);
+    }
+
+    public int getDatabaseVersion() {
+        return mProjectSharedPref.getInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, 0);
     }
 
     public String getUserSelectedLang() {

@@ -21,6 +21,7 @@ public class ItemListDetailsDTO {
     private double userLon;
     private String userDistance;
     private String userTime;
+    private int quantity;
 
     public ItemListDetailsDTO(long itemId, String itemDesc, String itemName, String unitPrice,
                               String offerText, double rating, String imageUrl, long producerId,
@@ -42,6 +43,7 @@ public class ItemListDetailsDTO {
         this.userDistance = userDistance;
         this.userTime = userTime;
         this.reviews = reviews;
+        this.quantity = 0;
     }
 
     public long getItemId() {
@@ -170,5 +172,13 @@ public class ItemListDetailsDTO {
 
     public void setReviews(long reviews) {
         this.reviews = reviews;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
