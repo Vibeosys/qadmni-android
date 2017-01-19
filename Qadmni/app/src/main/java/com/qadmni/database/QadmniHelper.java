@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.qadmni.data.ItemListDetailsDTO;
 import com.qadmni.data.MyCartDTO;
+import com.qadmni.data.requestDataDTO.OrderItemDTO;
 import com.qadmni.utils.SessionManager;
 
 import java.util.ArrayList;
@@ -184,4 +185,47 @@ public class QadmniHelper extends SQLiteOpenHelper {
         return myCartDTOs;
     }
 */
+
+    public ArrayList<OrderItemDTO> getItemsList() {
+        boolean flagError = false;
+        String errorMessage = "";
+        ArrayList<OrderItemDTO> paymentModeList = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = null;
+        Cursor cursor = null;
+        try {
+            sqLiteDatabase = getReadableDatabase();
+            synchronized (sqLiteDatabase) {
+                cursor = sqLiteDatabase.rawQuery("Select * From " + SqlContract.SqlMyCart.TABLE_NAME,
+                        null);
+                if (cursor != null) {
+                    if (cursor.getCount() > 0) {
+                        cursor.moveToFirst();
+
+                        do {
+                            long itemId = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlMyCart.PRODUCT_ID));
+                            int qty = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlMyCart.PRODUCT_QTY));
+                            OrderItemDTO orderItemDTO = new OrderItemDTO(itemId, qty);
+                            paymentModeList.add(orderItemDTO);
+                        } while (cursor.moveToNext());
+                    }
+                }
+                flagError = true;
+                //cursor.close();
+                //sqLiteDatabase.close();
+            }
+        } catch (Exception e) {
+            flagError = false;
+            errorMessage = e.getMessage();
+            Log.e(TAG, "Error at getPaymentList table " + e.toString());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+            if (!flagError)
+                Log.e(TAG, "Add payment List" + errorMessage);
+        }
+        return paymentModeList;
+    }
 }

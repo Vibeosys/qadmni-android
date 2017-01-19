@@ -40,13 +40,13 @@
     <string name="str_err_email_wrong">Please enter correct email id</string>
 
     <string name="str_shop_details">Shop details</string>
-    <string name="str_shop_name_hint">Business Name</string>
+    <string name="str_shop_name_hint">Business Name (English)</string>
     <string name="str_shop_location_hint">Business Location</string>
     <string name="str_register_now">Register Now</string>
     <string name="str_google_map_key">AIzaSyBuGL93_0g-5yKKsyfO8ypX7z7B0VCSqOc</string>
     <string name="str_location_not_found">Location is not found</string>
     <string name="str_select">Select</string>
-    <string name="str_err_shop_name_empty">Please enter shop name</string>
+    <string name="str_err_shop_name_empty">Please enter shop name in english</string>
     <string name="str_register_murchent_success">Merchant registered successfully</string>
     <string name="salad_by">by</string>
     <string name="salad_distance">Km</string>
@@ -102,4 +102,17 @@
     <string name="str_err_product_details_ar_empty">Please enter productdetails in arabic</string>
     <string name="str_product_offer">Product offer</string>
     <string name="str_vendor_dashboard">Vendor Dashboard</string>
+    <string name="place_order">Place Your Order</string>
+    <string name="str_shop_name_ar_hint">Business Name (Arabic)</string>
+    <string name="str_err_shop_name_ar_empty">Please enter shop name in arabic</string>
+
+    <string name="pick_up">Pick Up</string>
+    <string name="delivery">Delivery</string>
+    <string name="str_delivery">DELIVERY</string>
+    <string name="str_asap">ASAP</string>
+    <string name="str_schedule">Schedule</string>
+    <string name="str_pick_time"><![CDATA[Pick a date & time]]></string>
+    <string name="str_payment">PAYMENT</string>
+    <string name="str_pay_opt">PAYPAL</string>
+    <string name="str_cash">CASH</string>
 </resources>

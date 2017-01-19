@@ -16,4 +16,6 @@
     <color name="accentText">#FF4081</color>
     <color name="drawer_background">#df252626</color>
     <color name="loginTransparntUser">#bb000000</color>
+    <color name="btn_red_colour1">#ff5e58</color>
+    <color name="divider_colour1">#a8e7e6e5</color>
 </resources>

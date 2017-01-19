@@ -27,7 +27,7 @@ public class VenderShopDetailsActivity extends BaseActivity implements View.OnCl
 
     public static final int LOCATION_RESULT = 1;
     public static final String SHOP_DETAILS = "shopDetails";
-    private EditText edtShopName;
+    private EditText edtShopName, edtShopNameAr;
     private Button btnRegister;
     private LatLng shopLatLng;
     private String shopAddress, shopName;
@@ -44,6 +44,7 @@ public class VenderShopDetailsActivity extends BaseActivity implements View.OnCl
         getSupportActionBar().hide();
         registerVendorReqDTO = (RegisterVendorReqDTO) getIntent().getExtras().getSerializable(SHOP_DETAILS);
         edtShopName = (EditText) findViewById(R.id.edt_shop_name);
+        edtShopNameAr = (EditText) findViewById(R.id.edt_shop_name_ar);
         txtShopLocation = (TextView) findViewById(R.id.txt_shop_location);
         btnRegister = (Button) findViewById(R.id.btn_register);
         btnRegister.setOnClickListener(this);
@@ -73,13 +74,17 @@ public class VenderShopDetailsActivity extends BaseActivity implements View.OnCl
 
     private void registerBusiness() {
         String strBusinessName = edtShopName.getText().toString();
-        String strBusinessNameAr = "d mart";
+        String strBusinessNameAr = edtShopNameAr.getText().toString();
         View focusView = null;
         boolean check = false;
         if (strBusinessName.isEmpty()) {
             focusView = edtShopName;
             check = true;
             edtShopName.setError(getString(R.string.str_err_shop_name_empty));
+        } else if (strBusinessNameAr.isEmpty()) {
+            focusView = edtShopName;
+            check = true;
+            edtShopName.setError(getString(R.string.str_err_shop_name_ar_empty));
         } else if (shopAddress.isEmpty()) {
             focusView = txtShopLocation;
             check = true;
