@@ -36,5 +36,7 @@ public class PropertyTypeConstants {
     public static final String CUSTOMER_PASSWORD = "user.customer.password";
     public static final String CUSTOMER_PHONE = "user.customer.phone";
 
+    public static final String PRODUCER_ID="item.producer.id";
+
 
 }

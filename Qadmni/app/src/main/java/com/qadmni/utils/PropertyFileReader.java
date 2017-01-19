@@ -87,4 +87,6 @@ public class PropertyFileReader {
         String versionNumber = mProperties.getProperty(PropertyTypeConstants.DATABASE_VERSION_NUMBER);
         return Integer.valueOf(versionNumber);
     }
+
+
 }

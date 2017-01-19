@@ -252,4 +252,11 @@ public class SessionManager {
     public String uploadProductPhoto() {
         return mProjectSharedPref.getString(PropertyTypeConstants.ADD_PRODUCT_IMAGE, null);
     }
+    public void setProducerId(long producerId) {
+        setValuesInSharedPrefs(PropertyTypeConstants.PRODUCER_ID, producerId);
+    }
+    public  long getProducerId()
+    {
+        return  mProjectSharedPref.getLong(PropertyTypeConstants.PRODUCER_ID,0);
+    }
 }

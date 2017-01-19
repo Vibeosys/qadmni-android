@@ -108,7 +108,10 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.AddOrUpdateProductActivity"></activity>
+        <activity android:name=".activity.AddOrUpdateProductActivity" />
+        <activity
+            android:name=".activity.UserMyCartActivity"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

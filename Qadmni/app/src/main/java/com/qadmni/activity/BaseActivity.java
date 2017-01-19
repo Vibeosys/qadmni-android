@@ -15,6 +15,7 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.qadmni.database.QadmniHelper;
 import com.qadmni.utils.DialogUtils;
 import com.qadmni.utils.ServerSyncManager;
 import com.qadmni.utils.SessionManager;
@@ -27,6 +28,7 @@ public class BaseActivity extends AppCompatActivity {
     protected ServerSyncManager mServerSyncManager = null;
     protected static SessionManager mSessionManager = null;
     protected ProgressDialog progressDialog;
+    protected QadmniHelper  qadmniHelper =null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +38,8 @@ public class BaseActivity extends AppCompatActivity {
         // Log.d("##", "##" + mSessionManager.getDatabaseDeviceFullPath());
         mServerSyncManager = new ServerSyncManager(getApplicationContext(), mSessionManager);
         // SharedPreferences.Editor editor = mProjectSharedPref.edit();
-       /* mDbRepository = new DbRepository(getApplicationContext(), mSessionManager);
-        mDbRepository.getDatabaseStructure();*/
+        qadmniHelper = new QadmniHelper(getApplicationContext(), mSessionManager);
+        qadmniHelper.getDatabaseStructure();
     }
 
     protected void customAlterDialog(String title, String message) {

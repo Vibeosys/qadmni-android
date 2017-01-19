@@ -69,7 +69,7 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 public class ItemListFragment extends BaseFragment implements ServerSyncManager.OnSuccessResultReceived,
         ServerSyncManager.OnErrorResultReceived, LocationListener, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+        GoogleApiClient.OnConnectionFailedListener, ItemListAdapter.CustomButtonListener {
     public static final String ARG_OBJECT = "objectPar";
     private CategoryMasterDTO categoryMasterDTO;
     private ListView mListView;
@@ -82,6 +82,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
     ArrayList<ProducerLocationDetailsDTO> producerLocationDetailsDTOs;
     ArrayList<ItemListDetailsDTO> itemListDetailsDTOs;
     ArrayList<ItemListDetailsDTO> itemListDetailsDTOArrayList;
+    ItemListAdapter itemListAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -102,6 +103,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         }
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
+
         return rootView;
     }
 
@@ -322,10 +324,12 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
             // new ApiDirectionsAsyncTask(source, test).execute();
             try {
                 itemListDetailsDTOArrayList = new ApiDirectionsAsyncTask(itemListDetailsDTOs).execute().get();
-                ItemListAdapter itemListAdapter = new ItemListAdapter(itemListDetailsDTOArrayList, getContext());
+                itemListAdapter = new ItemListAdapter(itemListDetailsDTOArrayList, getContext());
                 Log.d("TAG", "TAG");
                 Log.d("TAG", "TAG");
+                itemListAdapter.setCustomButtonListner(this);
                 mListView.setAdapter(itemListAdapter);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -433,10 +437,44 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                     }
                 }
 
-                // return mJsonResults;
+            }
+            return itemListDetailsDTOs;
+        }
+    }
+
+    @Override
+    public void onButtonClickListener(int id, int position, int value, ItemListDetailsDTO itemListDetailsDTOs) {
+        if (id == R.id.plus_product) {
+
+            if (mSessionManager.getProducerId() == 0) {
+                mSessionManager.setProducerId(itemListDetailsDTOs.getProducerId());
+                itemListDetailsDTOs.setQuantity(value + 1);
+                qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
+                itemListAdapter.notifyDataSetChanged();
+            } else if (mSessionManager.getProducerId() != 0) {
+                if (mSessionManager.getProducerId() == itemListDetailsDTOs.getProducerId()) {
+                    itemListDetailsDTOs.setQuantity(value + 1);
+                    qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
+                    itemListAdapter.notifyDataSetChanged();
+                }
+                else{
+                    Toast.makeText(getActivity(),"You cannot add from another vendor",Toast.LENGTH_LONG).show();
+                }
+
             }
 
-            return itemListDetailsDTOs;
+
+        }
+        if (id == R.id.minus_product) {
+            if (value > 0)
+                itemListDetailsDTOs.setQuantity(value - 1);
+            else {
+                Toast.makeText(getActivity(), "Quantity Should be greater than 0", Toast.LENGTH_LONG).show();
+                qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
+                itemListAdapter.notifyDataSetChanged();
+                mSessionManager.setProducerId(0);
+            }
+
         }
     }
 }

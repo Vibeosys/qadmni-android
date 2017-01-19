@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.qadmni.data.ItemListDetailsDTO;
+import com.qadmni.data.MyCartDTO;
 import com.qadmni.utils.SessionManager;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class QadmniHelper extends SQLiteOpenHelper {
             "  INT NOT NULL," + SqlContract.SqlMyCart.PRODUCT_NAME +
             "  VARCHAR(45) NOT NULL," + SqlContract.SqlMyCart.PRODUCT_QTY +
             "  INT NULL DEFAULT 0," + SqlContract.SqlMyCart.PRODUCER_ID +
-            "  INT NULL," +
+            "  INT NULL," + SqlContract.SqlMyCart.ITEM_UNIT_PRICE + "INT NULL DEFAULT 0," +
             "  PRIMARY KEY (" + SqlContract.SqlMyCart._ID + "));";
 
     public QadmniHelper(Context context, SessionManager sessionManager) {
@@ -95,6 +96,7 @@ public class QadmniHelper extends SQLiteOpenHelper {
                 contentValues.put(SqlContract.SqlMyCart.PRODUCT_NAME, itemDetails.getItemName());
                 contentValues.put(SqlContract.SqlMyCart.PRODUCT_QTY, qty);
                 contentValues.put(SqlContract.SqlMyCart.PRODUCER_ID, itemDetails.getProducerId());
+                contentValues.put(SqlContract.SqlMyCart.ITEM_UNIT_PRICE, itemDetails.getUnitPrice());
                 if (rowCount == 0 && qty != 0) {
                     if (!sqLiteDatabase.isOpen()) sqLiteDatabase = getWritableDatabase();
                     count = sqLiteDatabase.insert(SqlContract.SqlMyCart.TABLE_NAME, null, contentValues);
@@ -124,5 +126,62 @@ public class QadmniHelper extends SQLiteOpenHelper {
         }
 
         return count != -1;
+
     }
+
+/*
+    public ArrayList<MyCartDTO> getCartDetails() {
+        boolean flagError = false;
+        String errorMessage = "";
+        SQLiteDatabase sqLiteDatabase = null;
+        ContentValues contentValues = null;
+        int rowCount = 0;
+        long count = -1;
+        ArrayList<MyCartDTO> myCartDTOs = null;
+        Cursor cursor = null;
+        try {
+            sqLiteDatabase = getReadableDatabase();
+            synchronized (sqLiteDatabase) {
+                cursor = sqLiteDatabase.rawQuery("select * from " + SqlContract.SqlMyCart.TABLE_NAME, null);
+                if (cursor != null) {
+                    if (cursor.getCount() > 0) {
+                        cursor.moveToFirst();
+
+                        do {
+                            int myCartId = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlMyCart._ID));
+                            int productId = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlMyCart.PRODUCT_ID));
+                            String productName = cursor.getString(cursor.getColumnIndex(SqlContract.SqlMyCart.PRODUCT_NAME));
+                            int productQyt = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlMyCart.PRODUCT_QTY));
+                            String productUnitPrice = cursor.getString(cursor.getColumnIndex(SqlContract.SqlMyCart.ITEM_UNIT_PRICE));
+
+                            MyCartDTO myCartDTO = new MyCartDTO(productId, productQyt, productUnitPrice,productName)
+                            OrderHeaderDTO orderHeaderDTO = new OrderHeaderDTO(orderId,
+                                    orderNo, true, tableNo,
+                                    userId, orderAmount, false);
+                            orders.add(orderHeaderDTO);
+                        } while (cursor.moveToNext());
+                    }
+                }
+                flagError = true;
+            }
+            //cursor.close();
+            //sqLiteDatabase.close();
+
+        } catch (Exception e) {
+            flagError = false;
+            errorMessage = e.getMessage();
+            Log.e(TAG, "Error at getOrdersOf table " + e.toString());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+            if (!flagError)
+                addError(TAG, "Get Order", errorMessage);
+        }
+        return orders;
+        return myCartDTOs;
+    }
+*/
 }

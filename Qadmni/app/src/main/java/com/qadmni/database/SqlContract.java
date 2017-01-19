@@ -12,5 +12,7 @@ public class SqlContract {
         public static final String PRODUCT_NAME = "product_name";
         public static final String PRODUCT_QTY = "product_quantity";
         public static final String PRODUCER_ID = "producer_id";
+        public static final String ITEM_UNIT_PRICE="unit_price";
+
     }
 }

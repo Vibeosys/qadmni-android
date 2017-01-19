@@ -25,6 +25,7 @@ public class ItemListAdapter extends BaseAdapter {
     ArrayList<ItemListDetailsDTO> itemListDetailsDTOs;
     Context context;
     private ImageLoader mImageLoader;
+    CustomButtonListener customButtonListener;
 
     /* public ItemListAdapter(ArrayList<ItemInfoList> itemInfoLists, Context context) {
          this.itemInfoLists = itemInfoLists;
@@ -51,7 +52,7 @@ public class ItemListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         View row = view;
         ViewHolder viewHolder = null;
         mImageLoader = CustomVolleyRequestQueue.getInstance(context)
@@ -69,14 +70,15 @@ public class ItemListAdapter extends BaseAdapter {
             viewHolder.itemDistances = (TextView) row.findViewById(R.id.product_distance);
             viewHolder.itemTime = (TextView) row.findViewById(R.id.prod_time);
             viewHolder.itemSar = (TextView) row.findViewById(R.id.product_price);
-            viewHolder.mAdditionBtn = (Button) row.findViewById(R.id.minus_product);
-            viewHolder.mSubtractionBtn = (Button) row.findViewById(R.id.plus_product);
+            viewHolder.mAdditionBtn = (Button) row.findViewById(R.id.plus_product);
+            viewHolder.mSubtractionBtn = (Button) row.findViewById(R.id.minus_product);
+            viewHolder.itemQuantity = (TextView) row.findViewById(R.id.no_product_val);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
             viewHolder.imgProduct.setImageUrl(null, mImageLoader);
         }
-        ItemListDetailsDTO itemListDetailsDTO = itemListDetailsDTOs.get(i);
+        final ItemListDetailsDTO itemListDetailsDTO = itemListDetailsDTOs.get(i);
         // ItemInfoList itemInfoListDTO = itemInfoLists.get(i);
         String temp = itemListDetailsDTO.getItemName();
         viewHolder.itemName.setText(itemListDetailsDTO.getItemName());
@@ -86,6 +88,7 @@ public class ItemListAdapter extends BaseAdapter {
         viewHolder.itemTime.setText("" + itemListDetailsDTO.getUserTime());
         viewHolder.itemSar.setText("" + itemListDetailsDTO.getUnitPrice());
         viewHolder.itemReviews.setText("" + itemListDetailsDTO.getReviews() + "\t" + context.getResources().getString(R.string.str_reviews));
+        viewHolder.itemQuantity.setText("" + itemListDetailsDTO.getQuantity());
         try {
             String url = itemListDetailsDTO.getImageUrl();
             if (url != null && !url.isEmpty()) {
@@ -105,17 +108,33 @@ public class ItemListAdapter extends BaseAdapter {
         viewHolder.mAdditionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (customButtonListener != null)
+                    customButtonListener.onButtonClickListener(view.getId(), i, itemListDetailsDTO.getQuantity(), itemListDetailsDTO);
+            }
+        });
+        viewHolder.mSubtractionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (customButtonListener != null)
+                    customButtonListener.onButtonClickListener(view.getId(), i, itemListDetailsDTO.getQuantity(), itemListDetailsDTO);
             }
         });
         return row;
     }
 
     class ViewHolder {
-      protected   TextView itemName, itemReviews, ProducerName, itemDescription, itemDistances,
-                itemTime, itemSar;
+        protected TextView itemName, itemReviews, ProducerName, itemDescription, itemDistances,
+                itemTime, itemSar, itemQuantity;
         protected NetworkImageView imgProduct;
-        protected Button mAdditionBtn,mSubtractionBtn;
+        protected Button mAdditionBtn, mSubtractionBtn;
 
+    }
+
+    public interface CustomButtonListener {
+        public void onButtonClickListener(int id, int position, int value, ItemListDetailsDTO itemListDetailsDTOs);
+    }
+
+    public void setCustomButtonListner(CustomButtonListener listener) {
+        this.customButtonListener = listener;
     }
 }

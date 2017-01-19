@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.qadmni.R;
+import com.qadmni.database.QadmniHelper;
 import com.qadmni.utils.DialogUtils;
 import com.qadmni.utils.ServerSyncManager;
 import com.qadmni.utils.SessionManager;
@@ -27,6 +28,7 @@ public class BaseFragment extends Fragment {
     protected static SessionManager mSessionManager = null;
     protected ProgressDialog progressDialog;
     private android.support.v7.app.AlertDialog mAlertDialog;
+    protected QadmniHelper  qadmniHelper =null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,7 +36,8 @@ public class BaseFragment extends Fragment {
         mSessionManager = SessionManager.getInstance(getActivity().getApplicationContext());
 
         mServerSyncManager = new ServerSyncManager(getActivity().getApplicationContext(), mSessionManager);
-
+        qadmniHelper = new QadmniHelper(getActivity(), mSessionManager);
+        qadmniHelper.getDatabaseStructure();
         progressDialog = DialogUtils.getProgressDialog(getActivity());
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     }

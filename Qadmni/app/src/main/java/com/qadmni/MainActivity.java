@@ -13,11 +13,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.qadmni.activity.BaseActivity;
 import com.qadmni.activity.SelectLanguageActivity;
+import com.qadmni.activity.UserMyCartActivity;
 import com.qadmni.adapters.CategoryFragmentAdapter;
+import com.qadmni.adapters.ItemListAdapter;
+import com.qadmni.data.ItemListDetailsDTO;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.responseDataDTO.CategoryListResponseDTO;
 import com.qadmni.utils.ServerRequestConstants;
@@ -103,6 +107,15 @@ public class MainActivity extends BaseActivity
             return true;
         }*/
 
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.shoppingcart) {
+            Intent i = new Intent(getApplicationContext(), UserMyCartActivity.class);
+            startActivity(i);
+        }
+        if (id == R.id.filter) {
+            /*Intent i = new Intent(getApplicationContext(), FilterActivity.class);
+            startActivity(i);*/
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -163,4 +176,6 @@ public class MainActivity extends BaseActivity
         }
 
     }
+
+
 }
