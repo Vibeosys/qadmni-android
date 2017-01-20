@@ -120,7 +120,7 @@
     <string name="str_add_not_selected">Address not selected</string>
     <string name="str_delivery_type_not_selected">Please select delivery type</string>
     <string name="str_payment_mode_not_slected">Please select payment method</string>
-    <string name="str_err_location_map">Please select the propper location</string>
+    <string name="str_err_location_map">Please select the proper location</string>
     <string name="str_place_order_title">Place Order Error</string>
 
     <!--My Cart activity-->
@@ -138,5 +138,11 @@
     <string name="str_free">Free</string>
     <string name="str_not_avail">Not available for sell</string>
     <string name="str_confirm_n_pay">Confirm and Pay</string>
+    <string name="add_more">Add more</string>
+    <string name="user_denied_permission">User denied permission</string>
+    <string name="location_problem">Location problem</string>
 
+    <!--Order History-->
+    <string name="str_live_track">LIVE ORDERS</string>
+    <string name="str_past_orders">PAST ORDERS</string>
 </resources>

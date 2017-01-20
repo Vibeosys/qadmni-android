@@ -42,6 +42,7 @@ import com.qadmni.data.responseDataDTO.CategoryListResponseDTO;
 import com.qadmni.data.responseDataDTO.ItemInfoList;
 import com.qadmni.data.responseDataDTO.ItemListResponseDTO;
 import com.qadmni.data.responseDataDTO.ProducerLocations;
+import com.qadmni.utils.NetworkUtils;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
 
@@ -147,9 +148,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                 ItemListResponseDTO itemListResponseDTO = ItemListResponseDTO.deserializeJson(data);
                 itemInfoLists = ItemInfoList.deSerializedToJson(itemListResponseDTO.getItemInfoLists());
                 producerLocationses = ProducerLocations.deSerializedToJson(itemListResponseDTO.getProducerLocations());
-                /*ItemListAdapter itemListAdapter = new ItemListAdapter(itemInfoLists, getContext());
-                mListView.setAdapter(itemListAdapter);*/
-                break;
+                  break;
         }
 
     }
@@ -162,7 +161,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
             buildGoogleApiClient();
         } else {
             Toast toast = Toast.makeText(getActivity(),
-                    "User denied permission", Toast.LENGTH_SHORT);
+                    getResources().getString(R.string.user_denied_permission), Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }
@@ -245,23 +244,19 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
     }
 
     private void buildAlertMessageNoGps() {
-        Toast.makeText(getActivity(), "Location problem", Toast.LENGTH_SHORT);
+        Toast.makeText(getActivity(), getResources().getString(R.string.location_problem), Toast.LENGTH_SHORT);
     }
 
     /*for fused api,to getting location*/
     @Override
     public void onConnectionSuspended(int i) {
-        Log.d("TAG", "TAG");
-        Log.d("TAG", "TAG");
-
+        Log.d("TAG", "GPS CONNECTION FAILED");
     }
 
     /*for fused api,to getting location*/
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d("TAG", "TAG");
-        Log.d("TAG", "TAG");
-
+        Log.d("TAG", "GPS CONNECTION FAILED");
     }
 
     private boolean isGooglePlayServicesAvailable() {
@@ -297,16 +292,8 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                                     producerLocationDetailsDTO.getBusinessLong(), producerLocationDetailsDTO.getUserLat(),
                                     producerLocationDetailsDTO.getUserLon(), "",
                                     "", itemInfoList.getReviews());
-                            LatLng source = new LatLng(producerLocationDetailsDTO.getUserLat(), producerLocationDetailsDTO.getUserLon());
-                            LatLng destination = new LatLng(producerLocationDetailsDTO.getBusinessLat(), producerLocationDetailsDTO.getBusinessLong());
-                            LatLng test = new LatLng(18.5528257, 73.7625853);
-                            //getDistanceInfo(18.5528257,73.7625853,producerLocationDetailsDTO.getUserLat(),producerLocationDetailsDTO.getUserLon());
-                            //  new ApiDirectionsAsyncTask(source,test).execute();
-                            Log.d("TAG", "TAG");
-                            Log.d("TAG", "TAG");
                             itemListDetailsDTOs.add(itemListDetailsDTO);
-                            Log.d("TAG", "TAG");
-                            Log.d("TAG", "TAG");
+
                         }
 
 
@@ -314,21 +301,19 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                 }
             }
                 /*Set Adapter*/
-
-           /* ItemListAdapter itemListAdapter = new ItemListAdapter(itemListDetailsDTOs, getContext());
-            Log.d("TAG", "TAG");
-            Log.d("TAG", "TAG");
-            mListView.setAdapter(itemListAdapter);
-            LatLng source = new LatLng(18.5528257, 73.7625853);
-            LatLng test = new LatLng(18.5492887, 73.7893826);*/
-            // new ApiDirectionsAsyncTask(source, test).execute();
             try {
-                itemListDetailsDTOArrayList = new ApiDirectionsAsyncTask(itemListDetailsDTOs).execute().get();
-                itemListAdapter = new ItemListAdapter(itemListDetailsDTOArrayList, getContext());
-                Log.d("TAG", "TAG");
-                Log.d("TAG", "TAG");
-                itemListAdapter.setCustomButtonListner(this);
-                mListView.setAdapter(itemListAdapter);
+                if(NetworkUtils.isActiveNetworkAvailable(getActivity()))
+                {
+                    itemListDetailsDTOArrayList = new ApiDirectionsAsyncTask(itemListDetailsDTOs).execute().get();
+                    itemListAdapter = new ItemListAdapter(itemListDetailsDTOArrayList, getContext());
+                    itemListAdapter.setCustomButtonListner(this);
+                    mListView.setAdapter(itemListAdapter);
+                }
+                else
+                {
+                    Log.d("TAG","No internet connection");
+                }
+
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -342,16 +327,11 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
 
         private LatLng source, destination;
         ArrayList<ItemListDetailsDTO> itemListDetailsDTOs;
-
-        /*ApiDirectionsAsyncTask(LatLng source, LatLng destination) {
-            this.source = source;
-            this.destination = destination;
-        }*/
         ApiDirectionsAsyncTask(ArrayList<ItemListDetailsDTO> itemListDetailsDTOs) {
             this.itemListDetailsDTOs = itemListDetailsDTOs;
         }
 
-        private static final String DIRECTIONS_API_BASE = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
+        private static final String DIRECTIONS_API_BASE = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric";
 
 
         // API KEY of the project Google Map Api For work
@@ -445,20 +425,19 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
     @Override
     public void onButtonClickListener(int id, int position, int value, ItemListDetailsDTO itemListDetailsDTOs) {
         if (id == R.id.plus_product) {
-
+            long test = mSessionManager.getProducerId();
             if (mSessionManager.getProducerId() == 0) {
                 mSessionManager.setProducerId(itemListDetailsDTOs.getProducerId());
                 itemListDetailsDTOs.setQuantity(value + 1);
-               boolean result= qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
+                boolean result = qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
                 itemListAdapter.notifyDataSetChanged();
             } else if (mSessionManager.getProducerId() != 0) {
                 if (mSessionManager.getProducerId() == itemListDetailsDTOs.getProducerId()) {
                     itemListDetailsDTOs.setQuantity(value + 1);
-                    boolean result1= qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
+                    boolean result1 = qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
                     itemListAdapter.notifyDataSetChanged();
-                }
-                else{
-                    Toast.makeText(getActivity(),"You cannot add from another vendor",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getActivity(), "You cannot add from another vendor", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -466,12 +445,12 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
 
         }
         if (id == R.id.minus_product) {
-            if (value > 0)
+            if (value > 0) {
                 itemListDetailsDTOs.setQuantity(value - 1);
-            else {
-                Toast.makeText(getActivity(), "Quantity Should be greater than 0", Toast.LENGTH_LONG).show();
                 qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
                 itemListAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(getActivity(), "Quantity Should be greater than 0", Toast.LENGTH_LONG).show();
                 mSessionManager.setProducerId(0);
             }
 
