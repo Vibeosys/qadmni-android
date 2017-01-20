@@ -130,5 +130,13 @@
     <string name="cart_one_item">Cheese Burger</string>
     <string name="cart_one_qty">x</string>
     <string name="cart_one_item_price">20</string>
+    <string name="str_total">Total</string>
+    <string name="str_btn_pay">PAY</string>
+    <string name="charge_details">Tax details</string>
+    <string name="usd">USD</string>
+    <string name="str_err_order_init">Your order is not generated try again</string>
+    <string name="str_free">Free</string>
+    <string name="str_not_avail">Not available for sell</string>
+    <string name="str_confirm_n_pay">Confirm and Pay</string>
 
 </resources>

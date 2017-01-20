@@ -72,6 +72,7 @@ public class PlaceOrderActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_order);
+        setTitle(getResources().getString(R.string.place_order));
         mFilterCalender.set(Calendar.DAY_OF_MONTH, mFilterCalender.get(Calendar.DAY_OF_MONTH));
         mMapView = (MapView) findViewById(R.id.mapView);
         txtAddL1 = (TextView) findViewById(R.id.txt_address_line1);
@@ -224,6 +225,11 @@ public class PlaceOrderActivity extends BaseActivity implements
         switch (requestToken) {
             case ServerRequestConstants.REQUEST_INIT_ORDER:
                 InitOrderResDTO orderResDTO = InitOrderResDTO.deserializeJson(data);
+                Intent iConfirmOrder = new Intent(getApplicationContext(), ConfirmAndPayActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(ConfirmAndPayActivity.ORDER_INIT_DETAILS, data);
+                iConfirmOrder.putExtras(bundle);
+                startActivity(iConfirmOrder);
                 Log.d(TAG, "##" + orderResDTO.toString());
                 break;
         }

@@ -17,7 +17,8 @@ public class InitOrderResDTO extends BaseDTO {
     private long orderId;
     private ArrayList<OrderItemResDTO> orderedItems;
     private ArrayList<OrderChargesResDTO> chargeBreakup;
-    private double totalAmount;
+    private double totalAmountInSAR;
+    private double totalAmountInUSD;
 
     public InitOrderResDTO() {
     }
@@ -46,12 +47,20 @@ public class InitOrderResDTO extends BaseDTO {
         this.chargeBreakup = chargeBreakup;
     }
 
-    public double getTotalAmount() {
-        return totalAmount;
+    public double getTotalAmountInSAR() {
+        return totalAmountInSAR;
     }
 
-    public void setTotalAmount(double totalAmount) {
-        this.totalAmount = totalAmount;
+    public void setTotalAmountInSAR(double totalAmountInSAR) {
+        this.totalAmountInSAR = totalAmountInSAR;
+    }
+
+    public double getTotalAmountInUSD() {
+        return totalAmountInUSD;
+    }
+
+    public void setTotalAmountInUSD(double totalAmountInUSD) {
+        this.totalAmountInUSD = totalAmountInUSD;
     }
 
     public static InitOrderResDTO deserializeJson(String serializedString) {

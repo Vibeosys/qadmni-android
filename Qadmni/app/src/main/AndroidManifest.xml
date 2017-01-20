@@ -109,10 +109,15 @@
         </receiver>
 
         <activity android:name=".activity.AddOrUpdateProductActivity" />
-        <activity android:name=".activity.PlaceOrderActivity" />
+        <activity
+            android:name=".activity.PlaceOrderActivity"
+            android:parentActivityName=".activity.UserMyCartActivity" />
         <activity
             android:name=".activity.UserMyCartActivity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".activity.ConfirmAndPayActivity"
+            android:parentActivityName=".activity.PlaceOrderActivity"></activity>
     </application>
 
 </manifest>

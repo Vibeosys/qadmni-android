@@ -16,6 +16,7 @@ public class OrderChargesResDTO extends BaseDTO {
     private static final String TAG = OrderChargesResDTO.class.getSimpleName();
     private String chargeDetails;
     private double amount;
+    private long chargeId;
 
     public OrderChargesResDTO() {
     }
@@ -34,6 +35,14 @@ public class OrderChargesResDTO extends BaseDTO {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public long getChargeId() {
+        return chargeId;
+    }
+
+    public void setChargeId(long chargeId) {
+        this.chargeId = chargeId;
     }
 
     public static ArrayList<OrderChargesResDTO> deSerializedToJson(String serializedString) {

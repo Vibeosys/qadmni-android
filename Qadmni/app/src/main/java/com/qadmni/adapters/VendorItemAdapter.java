@@ -49,9 +49,9 @@ public class VendorItemAdapter extends RecyclerView.Adapter<VendorItemAdapter.It
         holder.txtAmount.setText(String.format("%.0f", item.getPrice()));
         int isAvail = item.getAvailableForSell();
         if (isAvail == 1) {
-            holder.txtAvail.setText("Available for sell");
+            holder.txtAvail.setText(mContext.getString(R.string.str_avail_soon));
         } else {
-            holder.txtAvail.setText("Not available for sell");
+            holder.txtAvail.setText(mContext.getString(R.string.str_not_avail));
         }
         try {
             String url = item.getImageUrl();

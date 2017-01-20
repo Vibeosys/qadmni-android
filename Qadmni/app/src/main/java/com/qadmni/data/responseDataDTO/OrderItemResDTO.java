@@ -17,6 +17,7 @@ public class OrderItemResDTO extends BaseDTO {
     private double unitPrice;
     private double itemTotalPrice;
     private String itemName;
+    private long producerId;
     private long itemId;
     private int itemQty;
 
@@ -61,6 +62,14 @@ public class OrderItemResDTO extends BaseDTO {
 
     public void setItemQty(int itemQty) {
         this.itemQty = itemQty;
+    }
+
+    public long getProducerId() {
+        return producerId;
+    }
+
+    public void setProducerId(long producerId) {
+        this.producerId = producerId;
     }
 
     public static ArrayList<OrderItemResDTO> deSerializedToJson(String serializedString) {
