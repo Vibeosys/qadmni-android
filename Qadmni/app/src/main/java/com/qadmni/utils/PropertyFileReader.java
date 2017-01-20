@@ -89,4 +89,7 @@ public class PropertyFileReader {
     }
 
 
+    public String initOrder() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.INIT_ORDER);
+    }
 }

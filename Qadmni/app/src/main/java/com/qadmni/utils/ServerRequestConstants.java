@@ -12,4 +12,5 @@ public class ServerRequestConstants {
     public static final int REQUEST_CUSTOMER_LOGIN = 116;
     public static final int REQUEST_CUSTOMER_REGISTER = 117;
     public static final int REQUEST_ADD_PRODUCT = 118;
+    public static final int REQUEST_INIT_ORDER = 119;
 }

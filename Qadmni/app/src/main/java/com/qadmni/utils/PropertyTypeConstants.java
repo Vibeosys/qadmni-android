@@ -16,6 +16,7 @@ public class PropertyTypeConstants {
     public static final String REGISTER_CUSTOMER = "api.endpoint.customerregister";
     public static final String ADD_PRODUCT = "api.endpoint.addproduct";
     public static final String ADD_PRODUCT_IMAGE = "api.endpoint.addproductimage";
+    public static final String INIT_ORDER = "api.endpoint.initorder";
     public static final String DATABASE_VERSION_NUMBER = "database.version.number";
 
     public static final String APP_USER_TYPE = "user.type";
@@ -37,6 +38,5 @@ public class PropertyTypeConstants {
     public static final String CUSTOMER_PHONE = "user.customer.phone";
 
     public static final String PRODUCER_ID="item.producer.id";
-
 
 }

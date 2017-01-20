@@ -61,11 +61,11 @@ public class ServerSyncManager {
             VendorReqDTO userRequestDTO = new VendorReqDTO(mSessionManager.getVendorId(),
                     mSessionManager.getVendorPassword());
             params.setUser(userRequestDTO.serializeString());
-        } else {
-            /*CustomerReqDTO customerReqDTO = new CustomerReqDTO(mSessionManager.getUserId(),
-                    mSessionManager.getUserEmail());
+        } else if (userType == UserType.USER_CUSTOMER) {
+            UserRequestDTO customerReqDTO = new UserRequestDTO(mSessionManager.getCustomerId(),
+                    mSessionManager.getUserPass());
             //get the values from session manager
-            params.setUser(customerReqDTO.serializeString());*/
+            params.setUser(customerReqDTO.serializeString());
         }
         params.setLangCode(mSessionManager.getUserSelectedLang());
         String uploadJson = params.serializeString();

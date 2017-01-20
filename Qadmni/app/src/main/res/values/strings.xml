@@ -115,4 +115,20 @@
     <string name="str_payment">PAYMENT</string>
     <string name="str_pay_opt">PAYPAL</string>
     <string name="str_cash">CASH</string>
+    <string name="str_address_main">Select Address</string>
+    <string name="str_add_line">Tap on map to select address</string>
+    <string name="str_add_not_selected">Address not selected</string>
+    <string name="str_delivery_type_not_selected">Please select delivery type</string>
+    <string name="str_payment_mode_not_slected">Please select payment method</string>
+    <string name="str_err_location_map">Please select the propper location</string>
+    <string name="str_place_order_title">Place Order Error</string>
+
+    <!--My Cart activity-->
+    <string name="str_your_cart">Your Cart</string>
+    <string name="str_edit">Edit</string>
+    <string name="btn_check_out">Proceed to checkout</string>
+    <string name="cart_one_item">Cheese Burger</string>
+    <string name="cart_one_qty">x</string>
+    <string name="cart_one_item_price">20</string>
+
 </resources>
