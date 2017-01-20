@@ -145,4 +145,5 @@
     <!--Order History-->
     <string name="str_live_track">LIVE ORDERS</string>
     <string name="str_past_orders">PAST ORDERS</string>
+    <string name="str_err_order_confirm">Confirm Order Error</string>
 </resources>
