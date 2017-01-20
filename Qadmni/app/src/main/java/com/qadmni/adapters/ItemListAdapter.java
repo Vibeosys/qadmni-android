@@ -42,7 +42,8 @@ public class ItemListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public Object getItem(int i)
+    {
         return itemListDetailsDTOs.get(i);
     }
 

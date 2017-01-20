@@ -449,12 +449,12 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
             if (mSessionManager.getProducerId() == 0) {
                 mSessionManager.setProducerId(itemListDetailsDTOs.getProducerId());
                 itemListDetailsDTOs.setQuantity(value + 1);
-                qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
+               boolean result= qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
                 itemListAdapter.notifyDataSetChanged();
             } else if (mSessionManager.getProducerId() != 0) {
                 if (mSessionManager.getProducerId() == itemListDetailsDTOs.getProducerId()) {
                     itemListDetailsDTOs.setQuantity(value + 1);
-                    qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
+                    boolean result1= qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
                     itemListAdapter.notifyDataSetChanged();
                 }
                 else{

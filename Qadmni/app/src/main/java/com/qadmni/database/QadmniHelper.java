@@ -24,12 +24,11 @@ public class QadmniHelper extends SQLiteOpenHelper {
     private final static String DATABASE_NAME = "qadmni.db";
 
     private final String CREATE_MY_CART = "CREATE TABLE IF NOT EXISTS " + SqlContract.SqlMyCart.TABLE_NAME
-            + "(" + SqlContract.SqlMyCart._ID + " INT NOT NULL ," + SqlContract.SqlMyCart.PRODUCT_ID +
+            + "(" + SqlContract.SqlMyCart._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + SqlContract.SqlMyCart.PRODUCT_ID +
             "  INT NOT NULL," + SqlContract.SqlMyCart.PRODUCT_NAME +
             "  VARCHAR(45) NOT NULL," + SqlContract.SqlMyCart.PRODUCT_QTY +
             "  INT NULL DEFAULT 0," + SqlContract.SqlMyCart.PRODUCER_ID +
-            "  INT NULL," + SqlContract.SqlMyCart.ITEM_UNIT_PRICE + "INT NULL DEFAULT 0," +
-            "  PRIMARY KEY (" + SqlContract.SqlMyCart._ID + "));";
+            "  INT NULL," + SqlContract.SqlMyCart.ITEM_UNIT_PRICE + " INT NULL DEFAULT 0)";
 
     public QadmniHelper(Context context, SessionManager sessionManager) {
         super(context, DATABASE_NAME, null, sessionManager.getDatabaseVersion());
@@ -130,7 +129,7 @@ public class QadmniHelper extends SQLiteOpenHelper {
 
     }
 
-/*
+
     public ArrayList<MyCartDTO> getCartDetails() {
         boolean flagError = false;
         String errorMessage = "";
@@ -138,7 +137,7 @@ public class QadmniHelper extends SQLiteOpenHelper {
         ContentValues contentValues = null;
         int rowCount = 0;
         long count = -1;
-        ArrayList<MyCartDTO> myCartDTOs = null;
+        ArrayList<MyCartDTO> myCartDTOs = new ArrayList<>();
         Cursor cursor = null;
         try {
             sqLiteDatabase = getReadableDatabase();
@@ -155,19 +154,13 @@ public class QadmniHelper extends SQLiteOpenHelper {
                             int productQyt = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlMyCart.PRODUCT_QTY));
                             String productUnitPrice = cursor.getString(cursor.getColumnIndex(SqlContract.SqlMyCart.ITEM_UNIT_PRICE));
 
-                            MyCartDTO myCartDTO = new MyCartDTO(productId, productQyt, productUnitPrice,productName)
-                            OrderHeaderDTO orderHeaderDTO = new OrderHeaderDTO(orderId,
-                                    orderNo, true, tableNo,
-                                    userId, orderAmount, false);
-                            orders.add(orderHeaderDTO);
+                            MyCartDTO myCartDTO = new MyCartDTO(productId, productQyt, productUnitPrice, productName);
+                            myCartDTOs.add(myCartDTO);
                         } while (cursor.moveToNext());
                     }
                 }
                 flagError = true;
             }
-            //cursor.close();
-            //sqLiteDatabase.close();
-
         } catch (Exception e) {
             flagError = false;
             errorMessage = e.getMessage();
@@ -178,13 +171,10 @@ public class QadmniHelper extends SQLiteOpenHelper {
             }
             if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
                 sqLiteDatabase.close();
-            if (!flagError)
-                addError(TAG, "Get Order", errorMessage);
+            return myCartDTOs;
         }
-        return orders;
-        return myCartDTOs;
     }
-*/
+
 
     public ArrayList<OrderItemDTO> getItemsList() {
         boolean flagError = false;
@@ -228,4 +218,5 @@ public class QadmniHelper extends SQLiteOpenHelper {
         }
         return paymentModeList;
     }
+
 }
