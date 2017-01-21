@@ -146,4 +146,5 @@
     <string name="str_live_track">LIVE ORDERS</string>
     <string name="str_past_orders">PAST ORDERS</string>
     <string name="str_err_order_confirm">Confirm Order Error</string>
+    <string name="str_order_confirm_success">Order confirm successfully</string>
 </resources>

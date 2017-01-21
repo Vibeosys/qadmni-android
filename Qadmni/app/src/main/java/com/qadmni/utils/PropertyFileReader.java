@@ -96,4 +96,8 @@ public class PropertyFileReader {
     public String processOrder() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.PROCESS_ORDER);
     }
+
+    public String confirmOrder() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.CONFIRM_ORDER);
+    }
 }

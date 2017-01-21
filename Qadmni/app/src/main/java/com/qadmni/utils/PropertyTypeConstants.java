@@ -18,6 +18,7 @@ public class PropertyTypeConstants {
     public static final String ADD_PRODUCT_IMAGE = "api.endpoint.addproductimage";
     public static final String INIT_ORDER = "api.endpoint.initorder";
     public static final String PROCESS_ORDER = "api.endpoint.processorder";
+    public static final String CONFIRM_ORDER = "api.endpoint.confirmorder";
     public static final String DATABASE_VERSION_NUMBER = "database.version.number";
 
     public static final String APP_USER_TYPE = "user.type";

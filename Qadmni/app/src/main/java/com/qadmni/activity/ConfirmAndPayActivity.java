@@ -19,10 +19,13 @@ import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
+import com.qadmni.MainActivity;
 import com.qadmni.R;
 import com.qadmni.adapters.ConfirmChargeAdapter;
+import com.qadmni.adapters.OrderHistoryAdapter;
 import com.qadmni.adapters.UserConfirmListAdapter;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
+import com.qadmni.data.requestDataDTO.ConfirmOrderReqDTO;
 import com.qadmni.data.requestDataDTO.ProcessOrderReqDTO;
 import com.qadmni.data.requestDataDTO.VendorLoginReqDTO;
 import com.qadmni.data.responseDataDTO.InitOrderResDTO;
@@ -55,6 +58,7 @@ public class ConfirmAndPayActivity extends BaseActivity implements
     private long orderId;
     private double amountInSAR, amountInUSD;
     private static PayPalConfiguration config;
+    private OrderProcessResDTO orderProcessResDTO = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +116,9 @@ public class ConfirmAndPayActivity extends BaseActivity implements
             case ServerRequestConstants.REQUEST_PROCESS_ORDER:
                 customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
                 break;
+            case ServerRequestConstants.REQUEST_CONFIRM_ORDER:
+                customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+                break;
         }
     }
 
@@ -128,6 +135,9 @@ public class ConfirmAndPayActivity extends BaseActivity implements
             case ServerRequestConstants.REQUEST_PROCESS_ORDER:
                 customAlterDialog(getString(R.string.str_err_order_confirm), errorMessage);
                 break;
+            case ServerRequestConstants.REQUEST_CONFIRM_ORDER:
+                customAlterDialog(getString(R.string.str_err_order_confirm), errorMessage);
+                break;
         }
     }
 
@@ -136,12 +146,35 @@ public class ConfirmAndPayActivity extends BaseActivity implements
         progressDialog.dismiss();
         switch (requestToken) {
             case ServerRequestConstants.REQUEST_PROCESS_ORDER:
-                OrderProcessResDTO orderProcessResDTO = OrderProcessResDTO.deserializeJson(data);
+                orderProcessResDTO = OrderProcessResDTO.deserializeJson(data);
                 if (orderProcessResDTO.isTransactionRequired()) {
                     payPalCall(orderProcessResDTO);
+                } else {
+                    cashCall(orderProcessResDTO);
                 }
                 break;
+            case ServerRequestConstants.REQUEST_CONFIRM_ORDER:
+                Toast.makeText(getApplicationContext(), getResources().
+                        getString(R.string.str_order_confirm_success), Toast.LENGTH_SHORT).show();
+                //clear database
+                qadmniHelper.deleteMyCartDetails();
+                mSessionManager.setProducerId(0);
+                startActivity(new Intent(getApplicationContext(), UserOrderHistoryActivity.class));
+                finish();
+                break;
         }
+    }
+
+    private void cashCall(OrderProcessResDTO orderProcessResDTO) {
+        progressDialog.show();
+        ConfirmOrderReqDTO confirmOrderReqDTO = new ConfirmOrderReqDTO(orderProcessResDTO.getOrderId(),
+                orderProcessResDTO.getTransactionId(), amountInSAR, amountInUSD, "");
+        Gson gson = new Gson();
+        String serializedJsonString = gson.toJson(confirmOrderReqDTO);
+        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+        baseRequestDTO.setData(serializedJsonString);
+        mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_CONFIRM_ORDER,
+                mSessionManager.confirmOrderUrl(), baseRequestDTO);
     }
 
     private void payPalCall(OrderProcessResDTO orderProcessResDTO) {
@@ -192,10 +225,19 @@ public class ConfirmAndPayActivity extends BaseActivity implements
             PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
             if (confirm != null) {
                 try {
+                    progressDialog.show();
                     Log.i("paymentExample", confirm.toJSONObject().toString(4));
                     JSONObject confirmJson = confirm.toJSONObject();
                     JSONObject response = confirmJson.getJSONObject("response");
                     String paypalId = response.getString("id");
+                    ConfirmOrderReqDTO confirmOrderReqDTO = new ConfirmOrderReqDTO(orderProcessResDTO.getOrderId(),
+                            orderProcessResDTO.getTransactionId(), amountInSAR, amountInUSD, paypalId);
+                    Gson gson = new Gson();
+                    String serializedJsonString = gson.toJson(confirmOrderReqDTO);
+                    BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+                    baseRequestDTO.setData(serializedJsonString);
+                    mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_CONFIRM_ORDER,
+                            mSessionManager.confirmOrderUrl(), baseRequestDTO);
                 } catch (JSONException e) {
                     Log.e("paymentExample", "an extremely unlikely failure occurred: ", e);
                 }

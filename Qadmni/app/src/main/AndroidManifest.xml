@@ -118,6 +118,9 @@
         <activity
             android:name=".activity.ConfirmAndPayActivity"
             android:parentActivityName=".activity.PlaceOrderActivity"></activity>
+        <activity
+            android:name=".activity.UserOrderHistoryActivity"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

@@ -63,6 +63,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.ADD_PRODUCT_IMAGE, mPropertyFileReader.addProductImageUrl());
         editor.putString(PropertyTypeConstants.INIT_ORDER, mPropertyFileReader.initOrder());
         editor.putString(PropertyTypeConstants.PROCESS_ORDER, mPropertyFileReader.processOrder());
+        editor.putString(PropertyTypeConstants.CONFIRM_ORDER, mPropertyFileReader.confirmOrder());
         editor.putInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, mPropertyFileReader.getDbVersion());
         editor.apply();
         return true;
@@ -269,5 +270,9 @@ public class SessionManager {
 
     public String processOrderUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.PROCESS_ORDER, null);
+    }
+
+    public String confirmOrderUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.CONFIRM_ORDER, null);
     }
 }

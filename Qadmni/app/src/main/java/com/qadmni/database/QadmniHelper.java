@@ -219,4 +219,32 @@ public class QadmniHelper extends SQLiteOpenHelper {
         return paymentModeList;
     }
 
+    public boolean deleteMyCartDetails() {
+        boolean flagError = false;
+        String errorMessage = "";
+        SQLiteDatabase sqLiteDatabase = null;
+        sqLiteDatabase = getWritableDatabase();
+        long count = -1;
+        try {
+            synchronized (sqLiteDatabase) {
+                count = sqLiteDatabase.delete(SqlContract.SqlMyCart.TABLE_NAME,
+                        null, null);
+                Log.d(TAG, " ## delete my cart successfully");
+            }
+            flagError = true;
+        } catch (Exception e) {
+            flagError = false;
+            errorMessage = e.getMessage();
+            e.printStackTrace();
+            Log.d(TAG, "## delete my cart not successfully" + e.toString());
+            //sqLiteDatabase.close();
+
+        } finally {
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+            if (!flagError)
+                Log.e(TAG, "Delete Customer" + errorMessage);
+        }
+        return count != -1;
+    }
 }
