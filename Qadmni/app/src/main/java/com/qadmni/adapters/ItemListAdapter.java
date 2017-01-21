@@ -13,29 +13,33 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.qadmni.R;
+import com.qadmni.data.ItemFilterCriteria;
+import com.qadmni.data.ItemListCriteriaPrice;
 import com.qadmni.data.ItemListDetailsDTO;
 import com.qadmni.data.responseDataDTO.ItemInfoList;
 import com.qadmni.utils.CustomVolleyRequestQueue;
+import com.qadmni.utils.SessionManager;
+import com.qadmni.utils.SortByList;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by shrinivas on 16-01-2017.
  */
 public class ItemListAdapter extends BaseAdapter {
-    ArrayList<ItemInfoList> itemInfoLists;
     ArrayList<ItemListDetailsDTO> itemListDetailsDTOs;
     Context context;
     private ImageLoader mImageLoader;
     CustomButtonListener customButtonListener;
+    SessionManager sessionManager;
 
-    /* public ItemListAdapter(ArrayList<ItemInfoList> itemInfoLists, Context context) {
-         this.itemInfoLists = itemInfoLists;
-         this.context = context;
-     }*/
-    public ItemListAdapter(ArrayList<ItemListDetailsDTO> itemListDetailsDTOs, Context context) {
+    public ItemListAdapter(ArrayList<ItemListDetailsDTO> itemListDetailsDTOs, Context context,
+                           SessionManager sessionManager) {
         this.itemListDetailsDTOs = itemListDetailsDTOs;
         this.context = context;
+        this.sessionManager = sessionManager;
+        sortNFilter();
     }
 
     @Override
@@ -44,8 +48,7 @@ public class ItemListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i)
-    {
+    public Object getItem(int i) {
         return itemListDetailsDTOs.get(i);
     }
 
@@ -76,7 +79,7 @@ public class ItemListAdapter extends BaseAdapter {
             viewHolder.mAdditionBtn = (Button) row.findViewById(R.id.plus_product);
             viewHolder.mSubtractionBtn = (Button) row.findViewById(R.id.minus_product);
             viewHolder.itemQuantity = (TextView) row.findViewById(R.id.no_product_val);
-            viewHolder.simpleRatingBar= (RatingBar) row.findViewById(R.id.product_ratings);
+            viewHolder.simpleRatingBar = (RatingBar) row.findViewById(R.id.product_ratings);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -93,7 +96,7 @@ public class ItemListAdapter extends BaseAdapter {
         viewHolder.itemSar.setText("" + itemListDetailsDTO.getUnitPrice());
         viewHolder.itemReviews.setText("" + itemListDetailsDTO.getReviews() + "\t" + context.getResources().getString(R.string.str_reviews));
         viewHolder.itemQuantity.setText("" + itemListDetailsDTO.getQuantity());
-        float userRating= (float) itemListDetailsDTO.getRating();
+        float userRating = (float) itemListDetailsDTO.getRating();
         viewHolder.simpleRatingBar.setRating(userRating);
         try {
             String url = itemListDetailsDTO.getImageUrl();
@@ -143,5 +146,24 @@ public class ItemListAdapter extends BaseAdapter {
 
     public void setCustomButtonListner(CustomButtonListener listener) {
         this.customButtonListener = listener;
+    }
+
+    public void sortNFilter() {
+        int sortBy = sessionManager.getListSortBy();
+        int selectedRadius = sessionManager.getSelectedDistance();
+        int selectedPrice = sessionManager.getSelectedPrice();
+        
+        if (selectedPrice > 0) {
+            ItemFilterCriteria filterCriteria = new ItemListCriteriaPrice();
+            itemListDetailsDTOs = filterCriteria.meetCriteria(itemListDetailsDTOs, selectedPrice);
+        }
+        if (sortBy == 0) {
+
+        } else if (sortBy == SortByList.PRICE) {
+            Collections.sort(itemListDetailsDTOs, new ItemListDetailsDTO.PriceComparator());
+        } else if (sortBy == SortByList.REVIEW) {
+            Collections.sort(itemListDetailsDTOs, Collections.reverseOrder(new ItemListDetailsDTO.RatingComparator()));
+        }
+        notifyDataSetChanged();
     }
 }

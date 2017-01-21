@@ -38,7 +38,11 @@ public class PropertyTypeConstants {
     public static final String CUSTOMER_EMAIL = "user.customer.email";
     public static final String CUSTOMER_PASSWORD = "user.customer.password";
     public static final String CUSTOMER_PHONE = "user.customer.phone";
+    public static final String CUSTOMER_FILTER_SORT_BY = "user.customer.sortby";
+    public static final String CUSTOMER_FILTER_SELECTED_DIST = "user.customer.selecteddistance";
+    public static final String CUSTOMER_FILTER_SELECTED_PRICE = "user.customer.selectedprice";
 
     public static final String PRODUCER_ID = "item.producer.id";
+
 
 }

@@ -275,4 +275,28 @@ public class SessionManager {
     public String confirmOrderUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.CONFIRM_ORDER, null);
     }
+
+    public void setListSortBy(int listSortBy) {
+        setValuesInSharedPrefs(PropertyTypeConstants.CUSTOMER_FILTER_SORT_BY, listSortBy);
+    }
+
+    public int getListSortBy() {
+        return mProjectSharedPref.getInt(PropertyTypeConstants.CUSTOMER_FILTER_SORT_BY, 0);
+    }
+
+    public void setSelectedDistance(int selectedDistance) {
+        setValuesInSharedPrefs(PropertyTypeConstants.CUSTOMER_FILTER_SELECTED_DIST, selectedDistance);
+    }
+
+    public int getSelectedDistance() {
+        return mProjectSharedPref.getInt(PropertyTypeConstants.CUSTOMER_FILTER_SELECTED_DIST, 0);
+    }
+
+    public void setSelectedPrice(int selectedPrice) {
+        setValuesInSharedPrefs(PropertyTypeConstants.CUSTOMER_FILTER_SELECTED_PRICE, selectedPrice);
+    }
+
+    public int getSelectedPrice() {
+        return mProjectSharedPref.getInt(PropertyTypeConstants.CUSTOMER_FILTER_SELECTED_PRICE, 0);
+    }
 }

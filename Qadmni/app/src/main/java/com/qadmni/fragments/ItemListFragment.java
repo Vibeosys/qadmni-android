@@ -70,8 +70,9 @@ import javax.xml.parsers.ParserConfigurationException;
  * Created by shrinivas on 13-01-2017.
  */
 public class ItemListFragment extends BaseFragment implements ServerSyncManager.OnSuccessResultReceived,
-        ServerSyncManager.OnErrorResultReceived, ItemListAdapter.CustomButtonListener {
+        ServerSyncManager.OnErrorResultReceived, ItemListAdapter.CustomButtonListener, MainActivity.OnFilterApply {
     public static final String ARG_OBJECT = "objectPar";
+    private static final String TAG = ItemListFragment.class.getSimpleName();
     private CategoryMasterDTO categoryMasterDTO;
     private ListView mListView;
     private ArrayList<ProducerLocations> producerLocationses;
@@ -87,6 +88,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = (MainActivity) getActivity();
+        activity.setOnFilterApply(this);
         mLastLocation = activity.getLastLocation();
         Bundle args = getArguments();
         if (args != null) {
@@ -95,6 +97,8 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
             }
             categoryMasterDTO = args.getParcelable(ARG_OBJECT);
         }
+
+        Log.d(TAG, "## fragment created" + categoryMasterDTO.getCategory());
     }
 
     @Override
@@ -105,7 +109,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         View rootView = inflater.inflate(R.layout.fragment_item_list_collection, container, false);
         mListView = (ListView) rootView.findViewById(R.id.item_list);
 
-        callToWebService();
+        Log.d(TAG, "## fragment created View" + categoryMasterDTO.getCategory());
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
         return rootView;
@@ -114,6 +118,8 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
     @Override
     public void onResume() {
         super.onResume();
+        callToWebService();
+        Log.d(TAG, "## fragment resume" + categoryMasterDTO.getCategory());
     }
 
     private void callToWebService() {
@@ -227,7 +233,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
             try {
                 if (NetworkUtils.isActiveNetworkAvailable(getActivity())) {
                     itemListDetailsDTOArrayList = new ApiDirectionsAsyncTask(itemListDetailsDTOs).execute().get();
-                    itemListAdapter = new ItemListAdapter(itemListDetailsDTOArrayList, getContext());
+                    itemListAdapter = new ItemListAdapter(itemListDetailsDTOArrayList, getContext(), mSessionManager);
                     itemListAdapter.setCustomButtonListner(this);
                     mListView.setAdapter(itemListAdapter);
                 } else {
@@ -241,6 +247,12 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void applyFilterClick() {
+        //itemListAdapter.sortNFilter();
+        //Log.d(TAG, "On filter click" + itemListAdapter.getItem(1));
     }
 
     public class ApiDirectionsAsyncTask extends AsyncTask<Void, Integer, ArrayList<ItemListDetailsDTO>> {

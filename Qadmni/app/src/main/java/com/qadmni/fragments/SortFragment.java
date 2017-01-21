@@ -10,14 +10,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qadmni.R;
+import com.qadmni.utils.SortByList;
 
 /**
  * Created by akshay on 21-01-2017.
  */
 public class SortFragment extends BaseFragment implements View.OnClickListener {
+    public static final String SORT_BY = "sortBy";
     private LinearLayout nearLay, priceLay, reviewLay;
     private ImageView imgDistance, imgPrice, imgStar;
     private TextView txtDistance, txtPrice, txtStar;
+    private OnItemSortSelected onItemSortSelected;
+    private int sortBy;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +49,11 @@ public class SortFragment extends BaseFragment implements View.OnClickListener {
         nearLay.setOnClickListener(this);
         priceLay.setOnClickListener(this);
         reviewLay.setOnClickListener(this);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            sortBy = bundle.getInt(SORT_BY);
+            setupDisplay(sortBy);
+        }
         return view;
     }
 
@@ -53,37 +62,78 @@ public class SortFragment extends BaseFragment implements View.OnClickListener {
         int id = view.getId();
         switch (id) {
             case R.id.nearLay:
-                txtDistance.setTextColor(getResources().getColor(R.color.colorAccent, null));
-                imgDistance.setImageDrawable(getResources().getDrawable(R.drawable.ic_marker_24_accent, null));
-
-                txtPrice.setTextColor(getResources().getColor(R.color.primaryText2, null));
-                imgPrice.setImageDrawable(getResources().getDrawable(R.drawable.ic_coins_24_black, null));
-
-                txtStar.setTextColor(getResources().getColor(R.color.primaryText2, null));
-                imgStar.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_24_black, null));
+                distanceSelected();
+                if (onItemSortSelected != null)
+                    onItemSortSelected.onSortSelect(SortByList.DISTANCE);
                 break;
 
             case R.id.priceLay:
-                txtDistance.setTextColor(getResources().getColor(R.color.primaryText2, null));
-                imgDistance.setImageDrawable(getResources().getDrawable(R.drawable.ic_marker_24_black, null));
-
-                txtPrice.setTextColor(getResources().getColor(R.color.colorAccent, null));
-                imgPrice.setImageDrawable(getResources().getDrawable(R.drawable.ic_coins_24_accent, null));
-
-                txtStar.setTextColor(getResources().getColor(R.color.primaryText2, null));
-                imgStar.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_24_black, null));
+                priceSelected();
+                if (onItemSortSelected != null)
+                    onItemSortSelected.onSortSelect(SortByList.PRICE);
                 break;
 
             case R.id.reviewLay:
-                txtDistance.setTextColor(getResources().getColor(R.color.primaryText2, null));
-                imgDistance.setImageDrawable(getResources().getDrawable(R.drawable.ic_marker_24_black, null));
-
-                txtPrice.setTextColor(getResources().getColor(R.color.primaryText2, null));
-                imgPrice.setImageDrawable(getResources().getDrawable(R.drawable.ic_coins_24_black, null));
-
-                txtStar.setTextColor(getResources().getColor(R.color.colorAccent, null));
-                imgStar.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_24_accent, null));
+                reviewSelected();
+                if (onItemSortSelected != null)
+                    onItemSortSelected.onSortSelect(SortByList.REVIEW);
                 break;
         }
+    }
+
+    public void setupDisplay(int sortBy) {
+        if (sortBy == 0) {
+            nothingSelected();
+        } else if (sortBy == SortByList.DISTANCE) {
+            distanceSelected();
+        } else if (sortBy == SortByList.PRICE) {
+            priceSelected();
+        } else if (sortBy == SortByList.REVIEW) {
+            reviewSelected();
+        }
+    }
+
+    private void reviewSelected() {
+        txtDistance.setTextColor(getResources().getColor(R.color.primaryText2, null));
+        imgDistance.setImageDrawable(getResources().getDrawable(R.drawable.ic_marker_24_black, null));
+        txtPrice.setTextColor(getResources().getColor(R.color.primaryText2, null));
+        imgPrice.setImageDrawable(getResources().getDrawable(R.drawable.ic_coins_24_black, null));
+        txtStar.setTextColor(getResources().getColor(R.color.colorAccent, null));
+        imgStar.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_24_accent, null));
+    }
+
+    private void priceSelected() {
+        txtDistance.setTextColor(getResources().getColor(R.color.primaryText2, null));
+        imgDistance.setImageDrawable(getResources().getDrawable(R.drawable.ic_marker_24_black, null));
+        txtPrice.setTextColor(getResources().getColor(R.color.colorAccent, null));
+        imgPrice.setImageDrawable(getResources().getDrawable(R.drawable.ic_coins_24_accent, null));
+        txtStar.setTextColor(getResources().getColor(R.color.primaryText2, null));
+        imgStar.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_24_black, null));
+    }
+
+    private void distanceSelected() {
+        txtDistance.setTextColor(getResources().getColor(R.color.colorAccent, null));
+        imgDistance.setImageDrawable(getResources().getDrawable(R.drawable.ic_marker_24_accent, null));
+        txtPrice.setTextColor(getResources().getColor(R.color.primaryText2, null));
+        imgPrice.setImageDrawable(getResources().getDrawable(R.drawable.ic_coins_24_black, null));
+        txtStar.setTextColor(getResources().getColor(R.color.primaryText2, null));
+        imgStar.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_24_black, null));
+    }
+
+    private void nothingSelected() {
+        txtDistance.setTextColor(getResources().getColor(R.color.primaryText2, null));
+        imgDistance.setImageDrawable(getResources().getDrawable(R.drawable.ic_marker_24_black, null));
+        txtPrice.setTextColor(getResources().getColor(R.color.primaryText2, null));
+        imgPrice.setImageDrawable(getResources().getDrawable(R.drawable.ic_coins_24_black, null));
+        txtStar.setTextColor(getResources().getColor(R.color.primaryText2, null));
+        imgStar.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_24_black, null));
+    }
+
+    public interface OnItemSortSelected {
+        void onSortSelect(int id);
+    }
+
+    public void setOnItemSortSelected(OnItemSortSelected onItemSortSelected) {
+        this.onItemSortSelected = onItemSortSelected;
     }
 }

@@ -1,6 +1,7 @@
 package com.qadmni;
 
 import android.*;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -47,6 +48,8 @@ public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, ServerSyncManager.OnSuccessResultReceived,
         ServerSyncManager.OnErrorResultReceived, LocationListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
+
+    private static final int FILTER_LIST = 101;
     private CategoryFragmentAdapter categoryFragmentAdapter;
     private ViewPager mViewPager;
     private ArrayList<CategoryListResponseDTO> categoryListResponseDTOs;
@@ -55,6 +58,7 @@ public class MainActivity extends BaseActivity
     private LocationRequest mLocationRequest;
     private Location mLastLocation;
     private GoogleApiClient mGoogleApiClient;
+    private OnFilterApply onFilterApply;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,8 +134,8 @@ public class MainActivity extends BaseActivity
             startActivity(i);
         }
         if (id == R.id.filter) {
-            Intent i = new Intent(getApplicationContext(), FilterUserListActivity.class);
-            startActivity(i);
+            Intent iFilter = new Intent(getApplicationContext(), FilterUserListActivity.class);
+            startActivityForResult(iFilter, FILTER_LIST);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -286,5 +290,29 @@ public class MainActivity extends BaseActivity
 
     public Location getLastLocation() {
         return this.mLastLocation;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == FILTER_LIST) {
+            if (resultCode == Activity.RESULT_OK) {
+                int sortBy = data.getExtras().getInt(FilterUserListActivity.SORT_BY);
+                int selectedDistance = data.getExtras().getInt(FilterUserListActivity.SELECTED_DISTANCE);
+                int selectedPrice = data.getExtras().getInt(FilterUserListActivity.SELECTED_PRICE);
+                mSessionManager.setListSortBy(sortBy);
+                mSessionManager.setSelectedDistance(selectedDistance);
+                mSessionManager.setSelectedPrice(selectedPrice);
+                //onFilterApply.applyFilterClick();
+            }
+        }
+    }
+
+    public interface OnFilterApply {
+        void applyFilterClick();
+    }
+
+    public void setOnFilterApply(OnFilterApply onFilterApply) {
+        this.onFilterApply = onFilterApply;
     }
 }

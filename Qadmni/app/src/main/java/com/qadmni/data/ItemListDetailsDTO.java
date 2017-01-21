@@ -1,5 +1,7 @@
 package com.qadmni.data;
 
+import java.util.Comparator;
+
 /**
  * Created by shrinivas on 17-01-2017.
  */
@@ -7,7 +9,7 @@ public class ItemListDetailsDTO {
     private long itemId;
     private String itemDesc;
     private String itemName;
-    private String unitPrice;
+    private double unitPrice;
     private String offerText;
     private long reviews;
 
@@ -23,7 +25,7 @@ public class ItemListDetailsDTO {
     private String userTime;
     private int quantity;
 
-    public ItemListDetailsDTO(long itemId, String itemDesc, String itemName, String unitPrice,
+    public ItemListDetailsDTO(long itemId, String itemDesc, String itemName, double unitPrice,
                               String offerText, double rating, String imageUrl, long producerId,
                               String businessName, double businessLat, double businessLong,
                               double userLat, double userLon, String userDistance, String userTime, long reviews) {
@@ -70,11 +72,11 @@ public class ItemListDetailsDTO {
         this.itemName = itemName;
     }
 
-    public String getUnitPrice() {
+    public double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(String unitPrice) {
+    public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
     }
 
@@ -180,5 +182,50 @@ public class ItemListDetailsDTO {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public static class PriceComparator implements Comparator<ItemListDetailsDTO> {
+        @Override
+        public int compare(ItemListDetailsDTO p1, ItemListDetailsDTO p2) {
+            double minPrice1 = p1.getUnitPrice();
+            double minPrice2 = p2.getUnitPrice();
+
+            if (minPrice1 == minPrice2)
+                return 0;
+            else if (minPrice1 > minPrice2)
+                return 1;
+            else
+                return -1;
+        }
+    }
+
+   /* public static class DistanceComparator implements Comparator<ItemListDetailsDTO> {
+        @Override
+        public int compare(ItemListDetailsDTO p1, ItemListDetailsDTO p2) {
+            double minPrice1 = p1.getUserDistance();
+            double minPrice2 = p2.getUnitPrice();
+
+            if (minPrice1 == minPrice2)
+                return 0;
+            else if (minPrice1 > minPrice2)
+                return 1;
+            else
+                return -1;
+        }
+    }*/
+
+    public static class RatingComparator implements Comparator<ItemListDetailsDTO> {
+        @Override
+        public int compare(ItemListDetailsDTO p1, ItemListDetailsDTO p2) {
+            double rating1 = p1.getRating();
+            double rating2 = p2.getRating();
+
+            if (rating1 == rating2)
+                return 0;
+            else if (rating1 > rating2)
+                return 1;
+            else
+                return -1;
+        }
     }
 }

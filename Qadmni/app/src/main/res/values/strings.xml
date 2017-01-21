@@ -159,6 +159,7 @@
     <string name="str_nearest_shop">Distance</string>
     <string name="raduis_selected">km.</string>
     <string name="str_review">Review</string>
-    <string name="str_filter_activity_title">Filter Items</string>
+    <string name="str_filter_activity_title">Filter Product</string>
     <string name="str_err_location_denied">Location Denied</string>
+    <string name="btn_reset">RESET</string>
 </resources>

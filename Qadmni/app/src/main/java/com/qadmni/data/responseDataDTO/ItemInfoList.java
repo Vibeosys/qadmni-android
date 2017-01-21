@@ -14,14 +14,15 @@ public class ItemInfoList {
     long itemId;
     String itemDesc;
     String itemName;
-    String unitPrice;
+    double unitPrice;
     String offerText;
     double rating;
     String imageUrl;
     long producerId;
     long reviews;
-    public ItemInfoList(long itemId, String itemDesc, String itemName, String unitPrice,
-                        String offerText, double rating, String imageUrl, long producerId,long reviews) {
+
+    public ItemInfoList(long itemId, String itemDesc, String itemName, double unitPrice,
+                        String offerText, double rating, String imageUrl, long producerId, long reviews) {
         this.itemId = itemId;
         this.itemDesc = itemDesc;
         this.itemName = itemName;
@@ -30,7 +31,7 @@ public class ItemInfoList {
         this.rating = rating;
         this.imageUrl = imageUrl;
         this.producerId = producerId;
-        this.reviews=reviews;
+        this.reviews = reviews;
     }
 
     public long getItemId() {
@@ -57,11 +58,11 @@ public class ItemInfoList {
         this.itemName = itemName;
     }
 
-    public String getUnitPrice() {
+    public double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(String unitPrice) {
+    public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
     }
 
