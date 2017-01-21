@@ -1,15 +1,22 @@
 package com.qadmni;
 
+import android.*;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +24,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.qadmni.activity.BaseActivity;
 import com.qadmni.activity.FilterUserListActivity;
 import com.qadmni.activity.SelectLanguageActivity;
@@ -34,7 +45,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, ServerSyncManager.OnSuccessResultReceived,
-        ServerSyncManager.OnErrorResultReceived {
+        ServerSyncManager.OnErrorResultReceived, LocationListener, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
     private CategoryFragmentAdapter categoryFragmentAdapter;
     private ViewPager mViewPager;
     private ArrayList<CategoryListResponseDTO> categoryListResponseDTOs;
@@ -42,6 +54,7 @@ public class MainActivity extends BaseActivity
     private int EDIT_LOCATION_PERMISSION_CODE = 566;
     private LocationRequest mLocationRequest;
     private Location mLastLocation;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +81,7 @@ public class MainActivity extends BaseActivity
             mNavigationUserEmailId.setText("" + email);
             mNavigationUserName.setText("" + name);
         }*/
-
-
-        callToGetCategoryWebService();
+        onRequestGpsPermission();
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
 
@@ -183,5 +194,97 @@ public class MainActivity extends BaseActivity
 
     }
 
+    //Get the user location
+    /*for request permission*/
+    private void onRequestGpsPermission() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    EDIT_LOCATION_PERMISSION_CODE);
+        } else {
+            buildGoogleApiClient();
+        }
+    }
 
+    /*activity result fop request permission*/
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == EDIT_LOCATION_PERMISSION_CODE && grantResults[0] == 0) {
+            buildGoogleApiClient();
+        } else {
+            customAlterDialog(getString(R.string.str_err_location_denied),
+                    getString(R.string.user_denied_permission));
+        }
+    }
+
+    /*This method initailize fused api*/
+    synchronized private void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        callToConnect();
+    }
+
+    private void callToConnect() {
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        } else
+            Log.d("itemListFragment", "Connection with fused api is failed");
+    }
+
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        mLocationRequest = LocationRequest.create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(100); // Update location every second
+
+        try {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                    mLocationRequest, this);
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+        if (mLastLocation != null) {
+            callToGetCategoryWebService();
+        } else {
+            final LocationManager manager = (LocationManager) getApplicationContext().
+                    getSystemService(Context.LOCATION_SERVICE);
+            if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                buildAlertMessageNoGps();
+            } else {
+                callToGetCategoryWebService();
+            }
+            //buildAlertMessageNoGps();
+        }
+    }
+
+    /*for fused api,to getting location*/
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.d("TAG", "GPS CONNECTION FAILED");
+    }
+
+    /*for fused api,to getting location*/
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d("TAG", "GPS CONNECTION FAILED");
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        this.mLastLocation = location;
+    }
+
+    private void buildAlertMessageNoGps() {
+        Toast.makeText(getApplicationContext(),
+                getString(R.string.location_problem), Toast.LENGTH_SHORT).show();
+    }
+
+    public Location getLastLocation() {
+        return this.mLastLocation;
+    }
 }

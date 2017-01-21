@@ -67,5 +67,4 @@ public class CategoryFragmentAdapter extends FragmentStatePagerAdapter {
 
         return POSITION_NONE;
     }
-
 }

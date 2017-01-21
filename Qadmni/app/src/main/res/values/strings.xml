@@ -160,4 +160,5 @@
     <string name="raduis_selected">km.</string>
     <string name="str_review">Review</string>
     <string name="str_filter_activity_title">Filter Items</string>
+    <string name="str_err_location_denied">Location Denied</string>
 </resources>
