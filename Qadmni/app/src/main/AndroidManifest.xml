@@ -117,10 +117,11 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activity.ConfirmAndPayActivity"
-            android:parentActivityName=".activity.PlaceOrderActivity"></activity>
+            android:parentActivityName=".activity.PlaceOrderActivity" />
         <activity
             android:name=".activity.UserOrderHistoryActivity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".activity.FilterUserListActivity"></activity>
     </application>
 
 </manifest>

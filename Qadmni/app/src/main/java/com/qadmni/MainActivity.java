@@ -1,6 +1,7 @@
 package com.qadmni;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
@@ -16,7 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.google.android.gms.location.LocationRequest;
 import com.qadmni.activity.BaseActivity;
+import com.qadmni.activity.FilterUserListActivity;
 import com.qadmni.activity.SelectLanguageActivity;
 import com.qadmni.activity.UserMyCartActivity;
 import com.qadmni.adapters.CategoryFragmentAdapter;
@@ -36,6 +39,9 @@ public class MainActivity extends BaseActivity
     private ViewPager mViewPager;
     private ArrayList<CategoryListResponseDTO> categoryListResponseDTOs;
     private TextView mNavigationUserEmailId, mNavigationUserName;
+    private int EDIT_LOCATION_PERMISSION_CODE = 566;
+    private LocationRequest mLocationRequest;
+    private Location mLastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +119,8 @@ public class MainActivity extends BaseActivity
             startActivity(i);
         }
         if (id == R.id.filter) {
-            /*Intent i = new Intent(getApplicationContext(), FilterActivity.class);
-            startActivity(i);*/
+            Intent i = new Intent(getApplicationContext(), FilterUserListActivity.class);
+            startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
