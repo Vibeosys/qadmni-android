@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.qadmni.R;
 import com.qadmni.data.ItemListDetailsDTO;
 import com.qadmni.data.responseDataDTO.ItemInfoList;
@@ -74,6 +76,7 @@ public class ItemListAdapter extends BaseAdapter {
             viewHolder.mAdditionBtn = (Button) row.findViewById(R.id.plus_product);
             viewHolder.mSubtractionBtn = (Button) row.findViewById(R.id.minus_product);
             viewHolder.itemQuantity = (TextView) row.findViewById(R.id.no_product_val);
+            viewHolder.simpleRatingBar= (RatingBar) row.findViewById(R.id.product_ratings);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -90,6 +93,8 @@ public class ItemListAdapter extends BaseAdapter {
         viewHolder.itemSar.setText("" + itemListDetailsDTO.getUnitPrice());
         viewHolder.itemReviews.setText("" + itemListDetailsDTO.getReviews() + "\t" + context.getResources().getString(R.string.str_reviews));
         viewHolder.itemQuantity.setText("" + itemListDetailsDTO.getQuantity());
+        float userRating= (float) itemListDetailsDTO.getRating();
+        viewHolder.simpleRatingBar.setRating(userRating);
         try {
             String url = itemListDetailsDTO.getImageUrl();
             if (url != null && !url.isEmpty()) {
@@ -128,6 +133,7 @@ public class ItemListAdapter extends BaseAdapter {
                 itemTime, itemSar, itemQuantity;
         protected NetworkImageView imgProduct;
         protected Button mAdditionBtn, mSubtractionBtn;
+        protected RatingBar simpleRatingBar;
 
     }
 

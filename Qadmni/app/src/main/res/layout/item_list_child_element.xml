@@ -74,8 +74,15 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:weightSum="1">
-
-                            <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                            <RatingBar
+                                android:id="@+id/product_ratings"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:numStars="5"
+                                android:stepSize="0.01"
+                                style="?android:attr/ratingBarStyleIndicator"
+                                />
+                            <!--<com.iarcuschin.simpleratingbar.SimpleRatingBar
                                 android:id="@+id/product_ratings"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -87,7 +94,7 @@
                                 app:srb_rating="3.5"
                                 app:srb_starBorderWidth="1"
                                 app:srb_starSize="20dp"
-                                app:srb_stepSize="0.5" />
+                                app:srb_stepSize="0.5" />-->
 
                             <TextView
                                 android:id="@+id/product_review"
