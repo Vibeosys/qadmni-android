@@ -100,4 +100,8 @@ public class PropertyFileReader {
     public String confirmOrder() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.CONFIRM_ORDER);
     }
+    public String liveOrders()
+    {
+        return getEndPointUri()+mProperties.getProperty(PropertyTypeConstants.LIVE_ORDERS);
+    }
 }

@@ -15,4 +15,5 @@ public class ServerRequestConstants {
     public static final int REQUEST_INIT_ORDER = 119;
     public static final int REQUEST_PROCESS_ORDER = 120;
     public static final int REQUEST_CONFIRM_ORDER = 121;
+    public static final int REQUEST_LIVE_ORDERS=131;
 }

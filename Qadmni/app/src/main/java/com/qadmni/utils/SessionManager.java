@@ -64,6 +64,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.INIT_ORDER, mPropertyFileReader.initOrder());
         editor.putString(PropertyTypeConstants.PROCESS_ORDER, mPropertyFileReader.processOrder());
         editor.putString(PropertyTypeConstants.CONFIRM_ORDER, mPropertyFileReader.confirmOrder());
+        editor.putString(PropertyTypeConstants.LIVE_ORDERS, mPropertyFileReader.liveOrders());
         editor.putInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, mPropertyFileReader.getDbVersion());
         editor.apply();
         return true;
@@ -113,6 +114,10 @@ public class SessionManager {
 
     public String loginVendorUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.VENDOR_LOGIN_URL, null);
+    }
+
+    public String getLiveOrdersUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.LIVE_ORDERS, null);
     }
 
     public void setVendorId(long vendorId) {

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Qadmni</string>
+    <string name="str_delivery_mode">تاخذ طلبك </string>
+    <string name="str_live_track" translatable="false">طلباتك الحين </string>
+    <string name="your_cart" translatable="false">ضيافتي </string>
+    <string name="action_settings" translatable="false">الضبط</string>
+    <string name="add_more" translatable="false">زود اكثر</string>
+    <string name="btn_apply" translatable="false">تطبيق</string>
+    <string name="btn_check_out" translatable="false">تم </string>
+    <string name="delivery" translatable="false">نوصله لك</string>
+    <string name="dlg_cancel" translatable="false">الغاء</string>
+    <string name="raduis_selected" translatable="false">كيلومتر </string>
+    <string name="salad_by" translatable="false">يبعد </string>
+    <string name="salad_distance" translatable="false">كيلومتر</string>
+    <string name="salad_time" translatable="false">دقائق</string>
+    <string name="sar" translatable="false">ريال</string>
+    <string name="search_items" translatable="false">بحث</string>
+    <string name="str_add_new_product" translatable="false">ضيف منتج جديد</string>
+    <string name="str_asap" translatable="false">اسرع شي</string>
+    <string name="str_avail_soon" translatable="false">متوفر للبيع </string>
+    <string name="str_btn_save" translatable="false">حفظ</string>
+    <string name="str_cancel" translatable="false">الغاء</string>
+    <string name="str_cash" translatable="false">كاش</string>
+    <string name="str_clear" translatable="false">مسح</string>
+    <string name="str_confirm_n_pay" translatable="false">اكد وادفع</string>
+    <string name="str_confirm_user_password" translatable="false">أكد كلمه السر</string>
+    <string name="str_create_acc" translatable="false">سوي لك حساب</string>
+    <string name="str_delivery" translatable="false">توصيل</string>
+    <string name="str_edit" translatable="false">عدل</string>
+    <string name="str_email_hint" translatable="false">الايميل</string>
+    <string name="str_english" translatable="false">English</string>
+</resources>
