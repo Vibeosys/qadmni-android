@@ -14,6 +14,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.qadmni.R;
 import com.qadmni.data.ItemFilterCriteria;
+import com.qadmni.data.ItemListCriteriaDistance;
 import com.qadmni.data.ItemListCriteriaPrice;
 import com.qadmni.data.ItemListDetailsDTO;
 import com.qadmni.data.responseDataDTO.ItemInfoList;
@@ -152,17 +153,31 @@ public class ItemListAdapter extends BaseAdapter {
         int sortBy = sessionManager.getListSortBy();
         int selectedRadius = sessionManager.getSelectedDistance();
         int selectedPrice = sessionManager.getSelectedPrice();
-        
-        if (selectedPrice > 0) {
+
+        if (selectedPrice > 0 && selectedRadius > 0) {
+            ItemFilterCriteria filterCriteriaPrice = new ItemListCriteriaPrice();
+            itemListDetailsDTOs = filterCriteriaPrice.meetCriteria(itemListDetailsDTOs, selectedPrice);
+
+            ItemFilterCriteria filterCriteriaDistance = new ItemListCriteriaDistance();
+            itemListDetailsDTOs = filterCriteriaDistance.meetCriteria(itemListDetailsDTOs, selectedRadius);
+
+
+        } else if (selectedPrice > 0) {
             ItemFilterCriteria filterCriteria = new ItemListCriteriaPrice();
             itemListDetailsDTOs = filterCriteria.meetCriteria(itemListDetailsDTOs, selectedPrice);
+        } else if (selectedRadius > 0) {
+            ItemFilterCriteria filterCriteria = new ItemListCriteriaDistance();
+            itemListDetailsDTOs = filterCriteria.meetCriteria(itemListDetailsDTOs, selectedRadius);
         }
+        
         if (sortBy == 0) {
 
         } else if (sortBy == SortByList.PRICE) {
             Collections.sort(itemListDetailsDTOs, new ItemListDetailsDTO.PriceComparator());
         } else if (sortBy == SortByList.REVIEW) {
             Collections.sort(itemListDetailsDTOs, Collections.reverseOrder(new ItemListDetailsDTO.RatingComparator()));
+        } else if (sortBy == SortByList.DISTANCE) {
+            Collections.sort(itemListDetailsDTOs, new ItemListDetailsDTO.DistanceComparator());
         }
         notifyDataSetChanged();
     }

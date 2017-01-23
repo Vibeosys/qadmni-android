@@ -24,6 +24,7 @@ public class ItemListDetailsDTO {
     private String userDistance;
     private String userTime;
     private int quantity;
+    private double doubleDistance;
 
     public ItemListDetailsDTO(long itemId, String itemDesc, String itemName, double unitPrice,
                               String offerText, double rating, String imageUrl, long producerId,
@@ -184,6 +185,14 @@ public class ItemListDetailsDTO {
         this.quantity = quantity;
     }
 
+    public double getDoubleDistance() {
+        return doubleDistance;
+    }
+
+    public void setDoubleDistance(double doubleDistance) {
+        this.doubleDistance = doubleDistance;
+    }
+
     public static class PriceComparator implements Comparator<ItemListDetailsDTO> {
         @Override
         public int compare(ItemListDetailsDTO p1, ItemListDetailsDTO p2) {
@@ -199,20 +208,20 @@ public class ItemListDetailsDTO {
         }
     }
 
-   /* public static class DistanceComparator implements Comparator<ItemListDetailsDTO> {
+    public static class DistanceComparator implements Comparator<ItemListDetailsDTO> {
         @Override
         public int compare(ItemListDetailsDTO p1, ItemListDetailsDTO p2) {
-            double minPrice1 = p1.getUserDistance();
-            double minPrice2 = p2.getUnitPrice();
+            double doubleDistance1 = p1.getDoubleDistance();
+            double doubleDistance2 = p2.getDoubleDistance();
 
-            if (minPrice1 == minPrice2)
+            if (doubleDistance1 == doubleDistance2)
                 return 0;
-            else if (minPrice1 > minPrice2)
+            else if (doubleDistance1 > doubleDistance2)
                 return 1;
             else
                 return -1;
         }
-    }*/
+    }
 
     public static class RatingComparator implements Comparator<ItemListDetailsDTO> {
         @Override

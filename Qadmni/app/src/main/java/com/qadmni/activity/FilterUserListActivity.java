@@ -22,9 +22,9 @@ public class FilterUserListActivity extends BaseActivity implements View.OnClick
     public static final String SELECTED_PRICE = "price";
 
     private int sortById = 0;
-    private TextView btnApply, btnReset;
+    private TextView btnApply, btnClear;
     private int mSeekBarStep = 1, mSeekBarMax, mSeekBarMin;
-    private int mSeekBarPriceStep = 1, mSeekBarPriceMax = 10000, mSeekBarPriceMin = 10;
+    private int mSeekBarPriceStep = 1, mSeekBarPriceMax = 10000, mSeekBarPriceMin = 0;
     private SeekBar mSeekBar;
     private SeekBar mSeekBarPrice;
     private int selectedRadius = 0;
@@ -50,17 +50,20 @@ public class FilterUserListActivity extends BaseActivity implements View.OnClick
                 add(R.id.sortList, sortFragment, "SortList").commit();
 
         btnApply = (TextView) findViewById(R.id.btn_apply);
-        btnReset = (TextView) findViewById(R.id.btn_reset);
+        btnClear = (TextView) findViewById(R.id.txt_clear);
         btnApply.setOnClickListener(this);
-        btnReset.setOnClickListener(this);
+        btnClear.setOnClickListener(this);
         mSeekBarMax = 100;
-        mSeekBarMin = 1;
+        mSeekBarMin = 0;
         mSeekBar = (SeekBar) findViewById(R.id.skb_radius);
         mSeekBarPrice = (SeekBar) findViewById(R.id.skb_price);
         mFilterVal = (TextView) findViewById(R.id.filterVal);
         filterPriceVal = (TextView) findViewById(R.id.filterPriceVal);
+
+        mSeekBar.setVerticalScrollbarPosition(selectedRadius);
+
         mSeekBar.setMax((mSeekBarMax - mSeekBarMin) / mSeekBarStep);
-        mFilterVal.setText("1 " + getResources().getString(R.string.raduis_selected));
+        mFilterVal.setText("0 " + getResources().getString(R.string.raduis_selected));
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -79,6 +82,7 @@ public class FilterUserListActivity extends BaseActivity implements View.OnClick
             }
         });
 
+        mSeekBarPrice.setVerticalScrollbarPosition(selectedPrice);
         mSeekBarPrice.setMax((mSeekBarPriceMax - mSeekBarPriceMin) / mSeekBarPriceStep);
         mSeekBarPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -112,7 +116,7 @@ public class FilterUserListActivity extends BaseActivity implements View.OnClick
                 setResult(Activity.RESULT_OK, intent);
                 finish();
                 break;
-            case R.id.btn_reset:
+            case R.id.txt_clear:
                 Intent intent1 = new Intent();
                 intent1.putExtra(SORT_BY, 0);
                 intent1.putExtra(SELECTED_DISTANCE, 0);

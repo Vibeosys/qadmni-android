@@ -61,9 +61,10 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/txt_clear"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center"
                     android:text="@string/str_clear"
                     android:textColor="@color/hyperlinkColour"
                     android:textSize="16sp" />
@@ -296,7 +297,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="18sp" />
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/btn_reset"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -307,7 +308,7 @@
                     android:padding="12dp"
                     android:text="@string/btn_reset"
                     android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                    android:textSize="18sp" />-->
             </LinearLayout>
 
 

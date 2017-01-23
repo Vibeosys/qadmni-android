@@ -130,7 +130,7 @@ public class MainActivity extends BaseActivity
         });
     }
 
-    public void updateUIToMainActivity(final int result) {
+    /*public void updateUIToMainActivity(final int result) {
 
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
@@ -140,7 +140,7 @@ public class MainActivity extends BaseActivity
             }
         });
     }
-
+*/
 
     private void callToGetCategoryWebService() {
         BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
@@ -377,7 +377,7 @@ public class MainActivity extends BaseActivity
         registerReceiver(broadcastReceiver, filter);
         int record = qadmniHelper.getCountCartTable();
         if (record != 0) {
-            updateUIToMainActivity(record);
+            //updateUIToMainActivity(record);
         }
     }
 

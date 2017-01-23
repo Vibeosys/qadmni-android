@@ -2,6 +2,7 @@ package com.qadmni.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +84,7 @@ public class SortFragment extends BaseFragment implements View.OnClickListener {
 
     public void setupDisplay(int sortBy) {
         if (sortBy == 0) {
-            nothingSelected();
+            //nothingSelected();
         } else if (sortBy == SortByList.DISTANCE) {
             distanceSelected();
         } else if (sortBy == SortByList.PRICE) {
@@ -94,39 +95,39 @@ public class SortFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void reviewSelected() {
-        txtDistance.setTextColor(getResources().getColor(R.color.primaryText2, null));
-        imgDistance.setImageDrawable(getResources().getDrawable(R.drawable.ic_marker_24_black, null));
-        txtPrice.setTextColor(getResources().getColor(R.color.primaryText2, null));
-        imgPrice.setImageDrawable(getResources().getDrawable(R.drawable.ic_coins_24_black, null));
-        txtStar.setTextColor(getResources().getColor(R.color.colorAccent, null));
-        imgStar.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_24_accent, null));
+        txtDistance.setTextColor(ContextCompat.getColor(getContext(), R.color.primaryText2));
+        imgDistance.setImageDrawable(getContext().getDrawable(R.drawable.ic_marker_24_black));
+        txtPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.primaryText2));
+        imgPrice.setImageDrawable(getContext().getDrawable(R.drawable.ic_coins_24_black));
+        txtStar.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        imgStar.setImageDrawable(getContext().getDrawable(R.drawable.ic_star_24_accent));
     }
 
     private void priceSelected() {
-        txtDistance.setTextColor(getResources().getColor(R.color.primaryText2, null));
-        imgDistance.setImageDrawable(getResources().getDrawable(R.drawable.ic_marker_24_black, null));
-        txtPrice.setTextColor(getResources().getColor(R.color.colorAccent, null));
-        imgPrice.setImageDrawable(getResources().getDrawable(R.drawable.ic_coins_24_accent, null));
-        txtStar.setTextColor(getResources().getColor(R.color.primaryText2, null));
-        imgStar.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_24_black, null));
+        txtDistance.setTextColor(ContextCompat.getColor(getContext(), R.color.primaryText2));
+        imgDistance.setImageDrawable(getContext().getDrawable(R.drawable.ic_marker_24_black));
+        txtPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        imgPrice.setImageDrawable(getContext().getDrawable(R.drawable.ic_coins_24_accent));
+        txtStar.setTextColor(ContextCompat.getColor(getContext(), R.color.primaryText2));
+        imgStar.setImageDrawable(getContext().getDrawable(R.drawable.ic_star_24_black));
     }
 
     private void distanceSelected() {
-        txtDistance.setTextColor(getResources().getColor(R.color.colorAccent, null));
-        imgDistance.setImageDrawable(getResources().getDrawable(R.drawable.ic_marker_24_accent, null));
-        txtPrice.setTextColor(getResources().getColor(R.color.primaryText2, null));
-        imgPrice.setImageDrawable(getResources().getDrawable(R.drawable.ic_coins_24_black, null));
-        txtStar.setTextColor(getResources().getColor(R.color.primaryText2, null));
-        imgStar.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_24_black, null));
+        txtDistance.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        imgDistance.setImageDrawable(getContext().getDrawable(R.drawable.ic_marker_24_accent));
+        txtPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.primaryText2));
+        imgPrice.setImageDrawable(getContext().getDrawable(R.drawable.ic_coins_24_black));
+        txtStar.setTextColor(ContextCompat.getColor(getContext(), R.color.primaryText2));
+        imgStar.setImageDrawable(getContext().getDrawable(R.drawable.ic_star_24_black));
     }
 
     private void nothingSelected() {
-        txtDistance.setTextColor(getResources().getColor(R.color.primaryText2, null));
-        imgDistance.setImageDrawable(getResources().getDrawable(R.drawable.ic_marker_24_black, null));
-        txtPrice.setTextColor(getResources().getColor(R.color.primaryText2, null));
-        imgPrice.setImageDrawable(getResources().getDrawable(R.drawable.ic_coins_24_black, null));
-        txtStar.setTextColor(getResources().getColor(R.color.primaryText2, null));
-        imgStar.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_24_black, null));
+        txtDistance.setTextColor(ContextCompat.getColor(getContext(), R.color.primaryText2));
+        imgDistance.setImageDrawable(getContext().getDrawable(R.drawable.ic_marker_24_black));
+        txtPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.primaryText2));
+        imgPrice.setImageDrawable(getContext().getDrawable(R.drawable.ic_coins_24_black));
+        txtStar.setTextColor(ContextCompat.getColor(getContext(), R.color.primaryText2));
+        imgStar.setImageDrawable(getContext().getDrawable(R.drawable.ic_star_24_black));
     }
 
     public interface OnItemSortSelected {

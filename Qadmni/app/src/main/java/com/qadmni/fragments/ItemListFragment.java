@@ -176,15 +176,10 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                 Location productLocation = new Location("");
                 productLocation.setLatitude(producerLocations.getBusinessLat());
                 productLocation.setLongitude(producerLocations.getBusinessLong());
-                float test = productLocation.getSpeed();
-                float distanceInMeter = mLastLocation.distanceTo(productLocation);
-                float approxDistance = distanceInMeter / 1000;
-                float approxTime = approxDistance * 10;
-
 
                 ProducerLocationDetailsDTO producerLocationDetailsDTO = new ProducerLocationDetailsDTO(producerLocations.getProducerId(),
                         producerLocations.getBusinessName(), producerLocations.getBusinessLat(), producerLocations.getBusinessLong(),
-                        mLastLocation.getLatitude(), mLastLocation.getLongitude(), approxDistance, approxTime);
+                        mLastLocation.getLatitude(), mLastLocation.getLongitude());
                 producerLocationDetailsDTOs.add(producerLocationDetailsDTO);
             }
             callToPrepareArrayList(producerLocationDetailsDTOs);
@@ -319,22 +314,14 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
 
                         JSONObject duration = steps.getJSONObject("duration");
                         String strDuration = duration.getString("text");
-                        Log.i("Distance", duration.toString());
-                        time = Double.parseDouble(duration.getString("text").replaceAll("[^\\.0123456789]", ""));
-                        Log.i("Distance", duration.toString());
-                        Log.i("Distance", duration.toString());
 
                         JSONObject distance = steps.getJSONObject("distance");
                         String strTime = distance.getString("text");
-                        Log.i("Distance", distance.toString());
-                        dist = Double.parseDouble(distance.getString("text").replaceAll("[^\\.0123456789]", ""));
-                        Log.i("Distance", distance.toString());
-                        Log.i("Distance", distance.toString());
+                        double doubleDistance = distance.getDouble("value");
 
-                        fDistance = (float) dist;
-                        fTime = (float) time;
                         itemListDetailsDTO.setUserTime(strDuration);
                         itemListDetailsDTO.setUserDistance(strTime);
+                        itemListDetailsDTO.setDoubleDistance(doubleDistance);
                     } catch (JSONException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();

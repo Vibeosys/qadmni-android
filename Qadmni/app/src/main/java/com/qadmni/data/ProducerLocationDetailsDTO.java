@@ -10,20 +10,15 @@ public class ProducerLocationDetailsDTO {
     private double businessLong;
     private double userLat;
     private double userLon;
-    private float userDistance;
-    private float userTime;
 
     public ProducerLocationDetailsDTO(long producerId, String businessName, double businessLat,
-                                      double businessLong, double userLat, double userLon,
-                                      float userDistance, float userTime) {
+                                      double businessLong, double userLat, double userLon) {
         this.producerId = producerId;
         this.businessName = businessName;
         this.businessLat = businessLat;
         this.businessLong = businessLong;
         this.userLat = userLat;
         this.userLon = userLon;
-        this.userDistance = userDistance;
-        this.userTime = userTime;
     }
 
     public long getProducerId() {
@@ -74,19 +69,4 @@ public class ProducerLocationDetailsDTO {
         this.userLon = userLon;
     }
 
-    public float getUserDistance() {
-        return userDistance;
-    }
-
-    public void setUserDistance(float userDistance) {
-        this.userDistance = userDistance;
-    }
-
-    public float getUserTime() {
-        return userTime;
-    }
-
-    public void setUserTime(float userTime) {
-        this.userTime = userTime;
-    }
 }
