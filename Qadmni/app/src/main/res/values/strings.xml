@@ -198,4 +198,7 @@
     <string name="str_pay_pal">Pay Pal</string>
     <string name="str_cash_small">Cash</string>
     <string name="str_pick_up">Pick Up</string>
+
+    <string name="str_forgot_msg">You will receive your credentials,if your email id matches with registered email id</string>
+    <string name="str_btn_send_email">Click here to get your password</string>
 </resources>

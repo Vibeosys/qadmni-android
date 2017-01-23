@@ -22,6 +22,8 @@ public class PropertyTypeConstants {
     public static final String VENDOR_ORDER = "api.endpoint.vendororder";
     public static final String DATABASE_VERSION_NUMBER = "database.version.number";
     public static final String LIVE_ORDERS="api.endpoint.liveorders";
+    public static final String CUSTOMER_FORGOT_PW="api.enpoint.customerforgotpassword";
+    public static final String VENDOR_FORGOT_PW="api.endpoint.vendorforgotpassword";
 
     public static final String APP_USER_TYPE = "user.type";
 

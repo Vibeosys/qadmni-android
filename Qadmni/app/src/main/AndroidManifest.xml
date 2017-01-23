@@ -125,6 +125,9 @@
             android:parentActivityName=".MainActivity" />
         <activity android:name=".activity.FilterUserListActivity" />
         <activity android:name=".activity.VendorOrderListActivity"></activity>
+        <activity android:name=".activity.CustomerForgotPassword"></activity>
+        <activity android:name=".activity.VenderForgotPassword">
+        </activity>
     </application>
 
 </manifest>
