@@ -64,9 +64,10 @@ public class PlaceOrderActivity extends BaseActivity implements
     private LatLng selectedLatLng;
     private String address;
     private CheckBox chkAsapDelivery, chkScheduleDelivery, chkPayPal, chkCash;
-    private String deliveryMethod, deliverySchedule, paymentMethod;
+    private String deliveryMethod, paymentMethod;
     private Calendar mFilterCalender = Calendar.getInstance();
     DateUtils dateUtils = new DateUtils();
+    long deliverySchedule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,7 +241,7 @@ public class PlaceOrderActivity extends BaseActivity implements
         switch (compoundButton.getId()) {
             case R.id.chk_asap_delivery:
                 if (value) {
-                    deliverySchedule = "";
+                    deliverySchedule = 0;
                     chkScheduleDelivery.setChecked(false);
                 }
                 break;
@@ -349,7 +350,7 @@ public class PlaceOrderActivity extends BaseActivity implements
 
     private void updateLabel() {
         String formattedDate = dateUtils.getReadableDateNTime(mFilterCalender.getTime());
-        deliverySchedule = String.valueOf(mFilterCalender.getTime().getTime());
+        deliverySchedule = mFilterCalender.getTime().getTime() / 1000;
         txtScheduleDate.setText(formattedDate);
         chkScheduleDelivery.setChecked(true);
         chkAsapDelivery.setChecked(false);

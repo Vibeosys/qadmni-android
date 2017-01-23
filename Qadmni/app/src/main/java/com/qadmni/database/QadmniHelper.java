@@ -219,6 +219,46 @@ public class QadmniHelper extends SQLiteOpenHelper {
         return paymentModeList;
     }
 
+    public int getItemQuantity(long id) {
+        boolean flagError = false;
+        String errorMessage = "";
+        SQLiteDatabase sqLiteDatabase = null;
+        Cursor cursor = null;
+        int qty = 0;
+        try {
+            sqLiteDatabase = getReadableDatabase();
+            synchronized (sqLiteDatabase) {
+                cursor = sqLiteDatabase.rawQuery("Select * From " + SqlContract.SqlMyCart.TABLE_NAME + " where " + SqlContract.SqlMyCart.PRODUCT_ID + "=?",
+                        new String[]{String.valueOf(id)});
+                if (cursor != null) {
+                    if (cursor.getCount() > 0) {
+                        cursor.moveToFirst();
+                        qty = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlMyCart.PRODUCT_QTY));
+                    }
+                }
+                flagError = true;
+                //cursor.close();
+                //sqLiteDatabase.close();
+            }
+        } catch (Exception e) {
+            flagError = false;
+            errorMessage = e.getMessage();
+            Log.e(TAG, "Error at getPaymentList table " + e.toString());
+        } finally
+
+        {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+            if (!flagError)
+                Log.e(TAG, "Add payment List" + errorMessage);
+        }
+        return qty;
+    }
+
+
     public boolean deleteMyCartDetails() {
         boolean flagError = false;
         String errorMessage = "";

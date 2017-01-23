@@ -51,7 +51,7 @@ public class CategoryFragmentAdapter extends FragmentStatePagerAdapter {
         return " " + categoryListResponseDTO.getCategory();
     }
 
-    @Override
+   /* @Override
     public int getItemPosition(Object object) {
         ItemListFragment fragment = (ItemListFragment) object;
         Bundle args = fragment.getArguments();
@@ -66,5 +66,5 @@ public class CategoryFragmentAdapter extends FragmentStatePagerAdapter {
         }
 
         return POSITION_NONE;
-    }
+    }*/
 }

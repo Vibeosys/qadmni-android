@@ -47,7 +47,9 @@
             android:glEsVersion="0x00020000"
             android:required="true" />
 
-        <activity android:name=".activity.SelectLanguageActivity" />
+        <activity
+            android:name=".activity.SelectLanguageActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".activity.VendorLoginActivity" />
         <activity android:name=".activity.VendorRegistrationActivity" />
         <activity android:name=".activity.VenderShopDetailsActivity" />

@@ -14,12 +14,12 @@ public class InitOrderReqDTO extends BaseDTO {
     private double deliveryLat;
     private double deliveryLong;
     private String deliveryMethod;
-    private String deliverySchedule;
+    private long deliverySchedule;
     private String paymentMethod;
 
     public InitOrderReqDTO(ArrayList<OrderItemDTO> productInfo, String deliveryAddress,
                            double deliveryLat, double deliveryLong, String deliveryMethod,
-                           String deliverySchedule, String paymentMethod) {
+                           long deliverySchedule, String paymentMethod) {
         this.productInfo = productInfo;
         this.deliveryAddress = deliveryAddress;
         this.deliveryLat = deliveryLat;
@@ -69,11 +69,11 @@ public class InitOrderReqDTO extends BaseDTO {
         this.deliveryMethod = deliveryMethod;
     }
 
-    public String getDeliverySchedule() {
+    public long getDeliverySchedule() {
         return deliverySchedule;
     }
 
-    public void setDeliverySchedule(String deliverySchedule) {
+    public void setDeliverySchedule(long deliverySchedule) {
         this.deliverySchedule = deliverySchedule;
     }
 

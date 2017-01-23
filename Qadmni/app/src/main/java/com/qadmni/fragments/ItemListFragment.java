@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerTabStrip;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -72,7 +73,8 @@ import javax.xml.parsers.ParserConfigurationException;
  * Created by shrinivas on 13-01-2017.
  */
 public class ItemListFragment extends BaseFragment implements ServerSyncManager.OnSuccessResultReceived,
-        ServerSyncManager.OnErrorResultReceived, ItemListAdapter.CustomButtonListener, MainActivity.OnFilterApply {
+        ServerSyncManager.OnErrorResultReceived, ItemListAdapter.CustomButtonListener,
+        MainActivity.OnFilterApply, MainActivity.SearchClickListener {
     public static final String ARG_OBJECT = "objectPar";
     private static final String TAG = ItemListFragment.class.getSimpleName();
     private CategoryMasterDTO categoryMasterDTO;
@@ -80,8 +82,8 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
     private ArrayList<ProducerLocations> producerLocationses;
     private ArrayList<ItemInfoList> itemInfoLists;
     private ArrayList<ProducerLocationDetailsDTO> producerLocationDetailsDTOs;
-    private ArrayList<ItemListDetailsDTO> itemListDetailsDTOs;
-    private ArrayList<ItemListDetailsDTO> itemListDetailsDTOArrayList;
+    //private ArrayList<ItemListDetailsDTO> itemListDetailsDTOs;
+    private ArrayList<ItemListDetailsDTO> itemListDetailsDTOArrayList = new ArrayList<>();
     private ItemListAdapter itemListAdapter;
     private MainActivity activity;
     private Location mLastLocation;
@@ -91,6 +93,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         super.onCreate(savedInstanceState);
         activity = (MainActivity) getActivity();
         activity.setOnFilterApply(this);
+        activity.setOnSearchClickListener(this);
         mLastLocation = activity.getLastLocation();
         Bundle args = getArguments();
         if (args != null) {
@@ -110,7 +113,9 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         // properly.
         View rootView = inflater.inflate(R.layout.fragment_item_list_collection, container, false);
         mListView = (ListView) rootView.findViewById(R.id.item_list);
-
+        itemListAdapter = new ItemListAdapter(itemListDetailsDTOArrayList, getContext(), mSessionManager);
+        itemListAdapter.setCustomButtonListner(this);
+        mListView.setAdapter(itemListAdapter);
         Log.d(TAG, "## fragment created View" + categoryMasterDTO.getCategory());
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
@@ -202,7 +207,6 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
 
     public void callToPrepareArrayList(ArrayList<ProducerLocationDetailsDTO> producerLocationDetailsDTOs) {
         if (producerLocationDetailsDTOs != null) {
-            itemListDetailsDTOs = new ArrayList<>();
             //producerLocationDetailsDTOs.size();
             for (int i = 0; i < producerLocationDetailsDTOs.size(); i++) {
                 ProducerLocationDetailsDTO producerLocationDetailsDTO = producerLocationDetailsDTOs.get(i);
@@ -210,6 +214,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                     for (int j = 0; j < itemInfoLists.size(); j++) {
                         ItemInfoList itemInfoList = itemInfoLists.get(j);
                         if (producerLocationDetailsDTO.getProducerId() == itemInfoList.getProducerId()) {
+                            int quantity = qadmniHelper.getItemQuantity(itemInfoList.getItemId());
                             ItemListDetailsDTO itemListDetailsDTO = new ItemListDetailsDTO(itemInfoList.getItemId(),
                                     itemInfoList.getItemDesc(), itemInfoList.getItemName(),
                                     itemInfoList.getUnitPrice(), itemInfoList.getOfferText(), itemInfoList.getRating(),
@@ -218,7 +223,8 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                                     producerLocationDetailsDTO.getBusinessLong(), producerLocationDetailsDTO.getUserLat(),
                                     producerLocationDetailsDTO.getUserLon(), "",
                                     "", itemInfoList.getReviews());
-                            itemListDetailsDTOs.add(itemListDetailsDTO);
+                            itemListDetailsDTO.setQuantity(quantity);
+                            itemListDetailsDTOArrayList.add(itemListDetailsDTO);
 
                         }
 
@@ -227,21 +233,10 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                 }
             }
                 /*Set Adapter*/
-            try {
-                if (NetworkUtils.isActiveNetworkAvailable(getActivity())) {
-                    itemListDetailsDTOArrayList = new ApiDirectionsAsyncTask(itemListDetailsDTOs).execute().get();
-                    itemListAdapter = new ItemListAdapter(itemListDetailsDTOArrayList, getContext(), mSessionManager);
-                    itemListAdapter.setCustomButtonListner(this);
-                    mListView.setAdapter(itemListAdapter);
-                } else {
-                    Log.d("TAG", "No internet connection");
-                }
-
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
+            if (NetworkUtils.isActiveNetworkAvailable(getActivity())) {
+                new ApiDirectionsAsyncTask().execute();
+            } else {
+                Log.d("TAG", "No internet connection");
             }
         }
     }
@@ -252,26 +247,39 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         //Log.d(TAG, "On filter click" + itemListAdapter.getItem(1));
     }
 
-    public class ApiDirectionsAsyncTask extends AsyncTask<Void, Integer, ArrayList<ItemListDetailsDTO>> {
-
-        private LatLng source, destination;
-        ArrayList<ItemListDetailsDTO> itemListDetailsDTOs;
-
-        ApiDirectionsAsyncTask(ArrayList<ItemListDetailsDTO> itemListDetailsDTOs) {
-            this.itemListDetailsDTOs = itemListDetailsDTOs;
+    @Override
+    public void OnSearchClickListener(String query) {
+        Log.d(TAG, "category Name" + categoryMasterDTO.getCategory());
+        if (this.itemListAdapter != null) {
+            if (!TextUtils.isEmpty(query)) {
+                ArrayList<ItemListDetailsDTO> searchItems = new ArrayList<>();
+                for (ItemListDetailsDTO itemDetails : this.itemListDetailsDTOArrayList) {
+                    if (itemDetails.getItemName().toLowerCase().contains(query.toLowerCase())) {
+                        searchItems.add(itemDetails);
+                    } else if (itemDetails.getItemDesc().toLowerCase().contains(query.toLowerCase())) {
+                        searchItems.add(itemDetails);
+                    } else if (itemDetails.getBusinessName().toLowerCase().contains(query.toLowerCase())) {
+                        searchItems.add(itemDetails);
+                    }
+                }
+                this.itemListDetailsDTOArrayList = searchItems;
+                itemListAdapter.setItemListDetailsDTOs(this.itemListDetailsDTOArrayList);
+            } else if (query.equals("")) {
+                callToWebService();
+            }
         }
+    }
 
+    public class ApiDirectionsAsyncTask extends AsyncTask<Void, Integer, Void> {
         private static final String DIRECTIONS_API_BASE = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric";
-
-
         // API KEY of the project Google Map Api For work
         private static final String API_KEY = "AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0";
 
         @Override
-        protected ArrayList<ItemListDetailsDTO> doInBackground(Void... params) {
-            for (int i = 0; i < itemListDetailsDTOs.size(); i++) {
+        protected Void doInBackground(Void... params) {
+            for (int i = 0; i < itemListDetailsDTOArrayList.size(); i++) {
                 Log.i("TAG", "doInBackground of ApiDirectionsAsyncTask");
-                ItemListDetailsDTO itemListDetailsDTO = itemListDetailsDTOs.get(i);
+                ItemListDetailsDTO itemListDetailsDTO = itemListDetailsDTOArrayList.get(i);
                 HttpURLConnection mUrlConnection = null;
                 StringBuilder mJsonResults = new StringBuilder();
                 double dist = 0.0;
@@ -340,7 +348,13 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                 }
 
             }
-            return itemListDetailsDTOs;
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            itemListAdapter.setItemListDetailsDTOs(itemListDetailsDTOArrayList);
         }
     }
 

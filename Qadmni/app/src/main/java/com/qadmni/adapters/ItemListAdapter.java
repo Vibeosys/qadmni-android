@@ -132,6 +132,7 @@ public class ItemListAdapter extends BaseAdapter {
         return row;
     }
 
+
     class ViewHolder {
         protected TextView itemName, itemReviews, ProducerName, itemDescription, itemDistances,
                 itemTime, itemSar, itemQuantity;
@@ -169,7 +170,7 @@ public class ItemListAdapter extends BaseAdapter {
             ItemFilterCriteria filterCriteria = new ItemListCriteriaDistance();
             itemListDetailsDTOs = filterCriteria.meetCriteria(itemListDetailsDTOs, selectedRadius);
         }
-        
+
         if (sortBy == 0) {
 
         } else if (sortBy == SortByList.PRICE) {
@@ -179,6 +180,19 @@ public class ItemListAdapter extends BaseAdapter {
         } else if (sortBy == SortByList.DISTANCE) {
             Collections.sort(itemListDetailsDTOs, new ItemListDetailsDTO.DistanceComparator());
         }
+        notifyDataSetChanged();
+    }
+
+    public void searchByName(String query) {
+
+    }
+
+    public ArrayList<ItemListDetailsDTO> getItemListDetailsDTOs() {
+        return itemListDetailsDTOs;
+    }
+
+    public void setItemListDetailsDTOs(ArrayList<ItemListDetailsDTO> itemListDetailsDTOs) {
+        this.itemListDetailsDTOs = itemListDetailsDTOs;
         notifyDataSetChanged();
     }
 }
