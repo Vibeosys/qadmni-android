@@ -247,4 +247,32 @@ public class QadmniHelper extends SQLiteOpenHelper {
         }
         return count != -1;
     }
+
+    public int getCountCartTable() {
+        int count = 0;
+        Cursor cursor = null;
+        SQLiteDatabase sqLiteDatabase = null;
+        sqLiteDatabase = getReadableDatabase();
+        try {
+            synchronized (sqLiteDatabase) {
+                cursor = sqLiteDatabase.rawQuery("Select * From " + SqlContract.SqlMyCart.TABLE_NAME,
+                        null);
+                if (cursor != null) {
+                    if (cursor.getCount() > 0) {
+                        count = cursor.getCount();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.d("TAG", e.toString());
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen()) {
+                sqLiteDatabase.close();
+            }
+        }
+        return count;
+    }
 }

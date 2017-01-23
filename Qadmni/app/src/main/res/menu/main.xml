@@ -16,7 +16,7 @@
 
     <item
         android:id="@+id/shoppingcart"
-        android:icon="@drawable/ic_shopping_cart_18"
+        android:icon="@drawable/ic_menu_notification"
         android:orderInCategory="100"
         android:title="@string/your_cart"
         app:showAsAction="always" />

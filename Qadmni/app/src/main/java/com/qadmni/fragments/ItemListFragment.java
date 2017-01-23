@@ -2,6 +2,7 @@ package com.qadmni.fragments;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 
 import android.location.LocationManager;
@@ -43,6 +44,7 @@ import com.qadmni.data.responseDataDTO.CategoryListResponseDTO;
 import com.qadmni.data.responseDataDTO.ItemInfoList;
 import com.qadmni.data.responseDataDTO.ItemListResponseDTO;
 import com.qadmni.data.responseDataDTO.ProducerLocations;
+import com.qadmni.utils.Constants;
 import com.qadmni.utils.NetworkUtils;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
@@ -363,12 +365,26 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                 mSessionManager.setProducerId(itemListDetailsDTOs.getProducerId());
                 itemListDetailsDTOs.setQuantity(value + 1);
                 boolean result = qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
+                int record = qadmniHelper.getCountCartTable();
                 itemListAdapter.notifyDataSetChanged();
+                Intent mSendIntent = new Intent(Constants.SEND_BROADCAST_SIGNAL);
+                mSendIntent.setAction(Constants.SEND_BROADCAST_SIGNAL);
+                mSendIntent.putExtra(Constants.ENDED_DATA_SIGNAL, record);
+                getActivity().sendBroadcast(mSendIntent);
+                Log.d("String ", "String");
+                Log.d("String ", "String");
+
             } else if (mSessionManager.getProducerId() != 0) {
                 if (mSessionManager.getProducerId() == itemListDetailsDTOs.getProducerId()) {
                     itemListDetailsDTOs.setQuantity(value + 1);
                     boolean result1 = qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
+                    int record = qadmniHelper.getCountCartTable();
                     itemListAdapter.notifyDataSetChanged();
+                    Intent mSendIntent = new Intent(Constants.SEND_BROADCAST_SIGNAL);
+                    mSendIntent.setAction(Constants.SEND_BROADCAST_SIGNAL);
+                    mSendIntent.putExtra(Constants.ENDED_DATA_SIGNAL, record);
+                    getActivity().sendBroadcast(mSendIntent);
+
                 } else {
                     Toast.makeText(getActivity(), "You cannot add from another vendor", Toast.LENGTH_LONG).show();
                 }
@@ -381,10 +397,22 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
             if (value > 0) {
                 itemListDetailsDTOs.setQuantity(value - 1);
                 qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
+                boolean result1 = qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
+                int record = qadmniHelper.getCountCartTable();
                 itemListAdapter.notifyDataSetChanged();
+                Intent mSendIntent = new Intent(Constants.SEND_BROADCAST_SIGNAL);
+                mSendIntent.setAction(Constants.SEND_BROADCAST_SIGNAL);
+                mSendIntent.putExtra(Constants.ENDED_DATA_SIGNAL, record);
+                getActivity().sendBroadcast(mSendIntent);
+
             } else {
                 Toast.makeText(getActivity(), "Quantity Should be greater than 0", Toast.LENGTH_LONG).show();
                 mSessionManager.setProducerId(0);
+                int record = qadmniHelper.getCountCartTable();
+                Intent mSendIntent = new Intent(Constants.SEND_BROADCAST_SIGNAL);
+                mSendIntent.setAction(Constants.SEND_BROADCAST_SIGNAL);
+                mSendIntent.putExtra(Constants.ENDED_DATA_SIGNAL, record);
+                getActivity().sendBroadcast(mSendIntent);
             }
 
         }

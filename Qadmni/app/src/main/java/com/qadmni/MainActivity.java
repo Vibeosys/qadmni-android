@@ -2,12 +2,17 @@ package com.qadmni;
 
 import android.*;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.drawable.LayerDrawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -39,8 +44,10 @@ import com.qadmni.adapters.ItemListAdapter;
 import com.qadmni.data.ItemListDetailsDTO;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.responseDataDTO.CategoryListResponseDTO;
+import com.qadmni.utils.Constants;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
+import com.qadmni.utils.Utils2;
 
 import java.util.ArrayList;
 
@@ -59,6 +66,9 @@ public class MainActivity extends BaseActivity
     private Location mLastLocation;
     private GoogleApiClient mGoogleApiClient;
     private OnFilterApply onFilterApply;
+    public static Utils2 notificationUtil;
+    BroadcastReceiver broadcastReceiver;
+    IntentFilter filter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +76,8 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        filter = new IntentFilter();
+        filter.addAction(Constants.SEND_BROADCAST_SIGNAL);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -88,9 +100,47 @@ public class MainActivity extends BaseActivity
         onRequestGpsPermission();
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
+        /*int record = qadmniHelper.getCountCartTable();
+        if (record != 0) {
+            updateUI(record);
+        }*/
 
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
 
+                Bundle bundle = intent.getExtras();
+                if (bundle != null) {
+                    int result = bundle.getInt(Constants.ENDED_DATA_SIGNAL);
+                    updateUI(result);
+
+                }
+            }
+        };
     }
+
+    public void updateUI(final int result) {
+
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+
+                notificationUtil.setBadgeCount(result);
+            }
+        });
+    }
+
+    public void updateUIToMainActivity(final int result) {
+
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                notificationUtil.setBadgeCount(0);
+                notificationUtil.setBadgeCount(result);
+            }
+        });
+    }
+
 
     private void callToGetCategoryWebService() {
         BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
@@ -113,6 +163,11 @@ public class MainActivity extends BaseActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        // getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem item = menu.findItem(R.id.shoppingcart);
+        LayerDrawable icon = (LayerDrawable) item.getIcon();
+        notificationUtil = new Utils2(this, icon);
+        notificationUtil.setBadgeCount(0);
         return true;
     }
 
@@ -314,5 +369,21 @@ public class MainActivity extends BaseActivity
 
     public void setOnFilterApply(OnFilterApply onFilterApply) {
         this.onFilterApply = onFilterApply;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(broadcastReceiver, filter);
+        int record = qadmniHelper.getCountCartTable();
+        if (record != 0) {
+            updateUIToMainActivity(record);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(broadcastReceiver);
     }
 }
