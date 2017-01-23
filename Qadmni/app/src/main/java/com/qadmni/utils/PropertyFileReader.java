@@ -116,4 +116,8 @@ public class PropertyFileReader {
     {
         return getEndPointUri()+mProperties.getProperty(PropertyTypeConstants.VENDOR_FORGOT_PW);
     }
+    public String pastOrder()
+    {
+        return getEndPointUri()+mProperties.getProperty(PropertyTypeConstants.PAST_ORDERS);
+    }
 }

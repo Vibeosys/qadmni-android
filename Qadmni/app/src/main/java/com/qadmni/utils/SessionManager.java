@@ -66,8 +66,9 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.CONFIRM_ORDER, mPropertyFileReader.confirmOrder());
         editor.putString(PropertyTypeConstants.LIVE_ORDERS, mPropertyFileReader.liveOrders());
         editor.putString(PropertyTypeConstants.VENDOR_ORDER, mPropertyFileReader.vendorOrder());
-        editor.putString(PropertyTypeConstants.CUSTOMER_FORGOT_PW,mPropertyFileReader.customerForgotPw());
-        editor.putString(PropertyTypeConstants.VENDOR_FORGOT_PW,mPropertyFileReader.vendorForgotPw());
+        editor.putString(PropertyTypeConstants.CUSTOMER_FORGOT_PW, mPropertyFileReader.customerForgotPw());
+        editor.putString(PropertyTypeConstants.VENDOR_FORGOT_PW, mPropertyFileReader.vendorForgotPw());
+        editor.putString(PropertyTypeConstants.PAST_ORDERS, mPropertyFileReader.pastOrder());
         editor.putInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, mPropertyFileReader.getDbVersion());
         editor.apply();
         return true;
@@ -121,6 +122,10 @@ public class SessionManager {
 
     public String getLiveOrdersUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.LIVE_ORDERS, null);
+    }
+
+    public String getPastOrderUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.PAST_ORDERS, null);
     }
 
     public void setVendorId(long vendorId) {
@@ -255,14 +260,15 @@ public class SessionManager {
     public String registerCostomerUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.REGISTER_CUSTOMER, null);
     }
-    public String customerForgotPwUrl()
-    {
-        return mProjectSharedPref.getString(PropertyTypeConstants.CUSTOMER_FORGOT_PW,null);
+
+    public String customerForgotPwUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.CUSTOMER_FORGOT_PW, null);
     }
-    public String vendorForgotPwUrl()
-    {
-        return mProjectSharedPref.getString(PropertyTypeConstants.VENDOR_FORGOT_PW,null);
+
+    public String vendorForgotPwUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.VENDOR_FORGOT_PW, null);
     }
+
     public String addProductUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.ADD_PRODUCT, null);
     }
