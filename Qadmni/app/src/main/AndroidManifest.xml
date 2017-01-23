@@ -123,7 +123,8 @@
         <activity
             android:name=".activity.UserOrderHistoryActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".activity.FilterUserListActivity"></activity>
+        <activity android:name=".activity.FilterUserListActivity" />
+        <activity android:name=".activity.VendorOrderListActivity"></activity>
     </application>
 
 </manifest>

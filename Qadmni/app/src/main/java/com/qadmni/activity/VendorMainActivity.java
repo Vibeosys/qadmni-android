@@ -127,8 +127,8 @@ public class VendorMainActivity extends BaseActivity
             startActivity(intent);
         }
         if (id == R.id.nav_myOrders) {
-          /*  Intent intent = new Intent(getApplicationContext(), VenderTrackOrder.class);
-            startActivity(intent);*/
+            Intent intent = new Intent(getApplicationContext(), VendorOrderListActivity.class);
+            startActivity(intent);
         }
         if (id == R.id.nav_logout) {
             callToLogOut();

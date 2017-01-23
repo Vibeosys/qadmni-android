@@ -19,6 +19,7 @@ public class PropertyTypeConstants {
     public static final String INIT_ORDER = "api.endpoint.initorder";
     public static final String PROCESS_ORDER = "api.endpoint.processorder";
     public static final String CONFIRM_ORDER = "api.endpoint.confirmorder";
+    public static final String VENDOR_ORDER = "api.endpoint.vendororder";
     public static final String DATABASE_VERSION_NUMBER = "database.version.number";
     public static final String LIVE_ORDERS="api.endpoint.liveorders";
 
@@ -44,6 +45,5 @@ public class PropertyTypeConstants {
     public static final String CUSTOMER_FILTER_SELECTED_PRICE = "user.customer.selectedprice";
 
     public static final String PRODUCER_ID = "item.producer.id";
-
 
 }

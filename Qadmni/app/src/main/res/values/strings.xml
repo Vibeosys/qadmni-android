@@ -188,5 +188,14 @@
     <string name="str_track_order_details">ORDER DETAILS</string>
     <string name="str_provide_feedback">Provide Feedback</string>
     <string name="str_delivery_mode">Pickup</string>
-    <string name="str_home_delivery" translatable="false">home delivery</string>
+    <string name="str_home_delivery">Home delivery</string>
+
+    <string name="str_customer_name_hint">Customer Name</string>
+    <string name="str_customer_address">Customer Address</string>
+    <string name="str_show_on_map">Show on Map</string>
+    <string name="str_change_status">Change status</string>
+    <string name="str_update_status">Update status</string>
+    <string name="str_pay_pal">Pay Pal</string>
+    <string name="str_cash_small">Cash</string>
+    <string name="str_pick_up">Pick Up</string>
 </resources>

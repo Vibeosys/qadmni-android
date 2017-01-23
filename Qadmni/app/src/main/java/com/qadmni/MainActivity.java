@@ -40,6 +40,7 @@ import com.google.android.gms.location.LocationServices;
 import com.qadmni.activity.BaseActivity;
 import com.qadmni.activity.CustomerLoginActivity;
 import com.qadmni.activity.FilterUserListActivity;
+import com.qadmni.activity.MainLoginActivity;
 import com.qadmni.activity.SelectLanguageActivity;
 import com.qadmni.activity.UserMyCartActivity;
 import com.qadmni.activity.UserOrderHistoryActivity;
@@ -259,13 +260,13 @@ public class MainActivity extends BaseActivity
 
         } else if (id == R.id.nav_partner_login) {
             UserAuth.CleanCustomerAuthenticationInfo();
-            Intent intent = new Intent(getApplicationContext(), VendorLoginActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MainLoginActivity.class);
             startActivity(intent);
             finish();
 
         } else if (id == R.id.nav_logout) {
             UserAuth.CleanCustomerAuthenticationInfo();
-            Intent intent = new Intent(getApplicationContext(), CustomerLoginActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MainLoginActivity.class);
             startActivity(intent);
             finish();
         }

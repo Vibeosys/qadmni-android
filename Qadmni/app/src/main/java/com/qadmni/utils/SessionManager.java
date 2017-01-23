@@ -65,6 +65,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.PROCESS_ORDER, mPropertyFileReader.processOrder());
         editor.putString(PropertyTypeConstants.CONFIRM_ORDER, mPropertyFileReader.confirmOrder());
         editor.putString(PropertyTypeConstants.LIVE_ORDERS, mPropertyFileReader.liveOrders());
+        editor.putString(PropertyTypeConstants.VENDOR_ORDER, mPropertyFileReader.vendorOrder());
         editor.putInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, mPropertyFileReader.getDbVersion());
         editor.apply();
         return true;
@@ -303,5 +304,9 @@ public class SessionManager {
 
     public int getSelectedPrice() {
         return mProjectSharedPref.getInt(PropertyTypeConstants.CUSTOMER_FILTER_SELECTED_PRICE, 0);
+    }
+
+    public String getVendorOrder() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.VENDOR_ORDER, null);
     }
 }
