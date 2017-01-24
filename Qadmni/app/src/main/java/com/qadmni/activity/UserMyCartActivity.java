@@ -1,5 +1,6 @@
 package com.qadmni.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,10 +15,12 @@ import com.qadmni.MainActivity;
 import com.qadmni.R;
 import com.qadmni.adapters.MyCartAdapter;
 import com.qadmni.data.MyCartDTO;
+import com.qadmni.utils.UserAuth;
 
 import java.util.ArrayList;
 
 public class UserMyCartActivity extends BaseActivity {
+    private static final int CALL_LOGIN = 32;
     ArrayList<MyCartDTO> myCartDTOs = null;
     MyCartAdapter myCartAdapter;
     ListView listView;
@@ -54,9 +57,26 @@ public class UserMyCartActivity extends BaseActivity {
         bottomLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PlaceOrderActivity.class);
-                startActivity(intent);
+                if (!UserAuth.isUserLoggedIn()) {
+                    startActivityForResult(new Intent(getApplicationContext(), CustomerLoginActivity.class), CALL_LOGIN);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), PlaceOrderActivity.class);
+                    startActivity(intent);
+                }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CALL_LOGIN) {
+            if (resultCode == Activity.RESULT_OK) {
+                boolean chkLogin = data.getExtras().getBoolean(CustomerLoginActivity.LOGIN_RESULT);
+                if (chkLogin) {
+                   
+                }
+            }
+        }
     }
 }

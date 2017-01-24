@@ -38,7 +38,6 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.qadmni.activity.BaseActivity;
-import com.qadmni.activity.CustomerLoginActivity;
 import com.qadmni.activity.FilterUserListActivity;
 import com.qadmni.activity.MainLoginActivity;
 import com.qadmni.activity.SelectLanguageActivity;
@@ -117,10 +116,7 @@ public class MainActivity extends BaseActivity
         onRequestGpsPermission();
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
-        /*int record = qadmniHelper.getCountCartTable();
-        if (record != 0) {
-            updateUI(record);
-        }*/
+
 
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -147,17 +143,6 @@ public class MainActivity extends BaseActivity
         });
     }
 
-    /*public void updateUIToMainActivity(final int result) {
-
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                notificationUtil.setBadgeCount(0);
-                notificationUtil.setBadgeCount(result);
-            }
-        });
-    }
-*/
 
     private void callToGetCategoryWebService() {
         BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
@@ -272,6 +257,8 @@ public class MainActivity extends BaseActivity
 
         } else if (id == R.id.nav_logout) {
             UserAuth.CleanCustomerAuthenticationInfo();
+            boolean result = qadmniHelper.deleteMyCartDetails();
+            mSessionManager.setProducerId(0);
             Intent intent = new Intent(getApplicationContext(), MainLoginActivity.class);
             startActivity(intent);
             finish();

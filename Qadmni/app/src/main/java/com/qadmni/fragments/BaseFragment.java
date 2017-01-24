@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,13 +29,14 @@ public class BaseFragment extends Fragment {
     protected static SessionManager mSessionManager = null;
     protected ProgressDialog progressDialog;
     private android.support.v7.app.AlertDialog mAlertDialog;
-    protected QadmniHelper  qadmniHelper =null;
+    protected QadmniHelper qadmniHelper = null;
+    protected Context context;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSessionManager = SessionManager.getInstance(getActivity().getApplicationContext());
-
+        context = getContext();
         mServerSyncManager = new ServerSyncManager(getActivity().getApplicationContext(), mSessionManager);
         qadmniHelper = new QadmniHelper(getActivity(), mSessionManager);
         qadmniHelper.getDatabaseStructure();
@@ -84,7 +86,7 @@ public class BaseFragment extends Fragment {
     }
 
     protected void customAlterDialog(String title, String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext().getApplicationContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("" + title);
         builder.setMessage(message);
         builder.setCancelable(false);
@@ -109,8 +111,6 @@ public class BaseFragment extends Fragment {
                     }
                 }).create().show();
     }
-
-
 
 
     /**

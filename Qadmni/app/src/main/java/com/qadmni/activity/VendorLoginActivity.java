@@ -66,8 +66,8 @@ public class VendorLoginActivity extends BaseActivity implements View.OnClickLis
                 }
                 break;
             case R.id.txt_forgot_pass:
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
+                Intent intent = new Intent(getApplicationContext(), VenderForgotPassword.class);
+                startActivity(intent);
                 break;
             case R.id.txt_new_acc:
                 startActivity(new Intent(getApplicationContext(), VendorRegistrationActivity.class));

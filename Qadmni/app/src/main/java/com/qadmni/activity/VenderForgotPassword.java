@@ -1,5 +1,6 @@
 package com.qadmni.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,9 +21,10 @@ import com.qadmni.utils.ServerSyncManager;
 import com.qadmni.utils.Validator;
 
 public class VenderForgotPassword extends BaseActivity implements View.OnClickListener,
-        ServerSyncManager.OnErrorResultReceived, ServerSyncManager.OnSuccessResultReceived  {
+        ServerSyncManager.OnErrorResultReceived, ServerSyncManager.OnSuccessResultReceived {
     private Button mForgotPassword;
     private EditText mUserEmailId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,7 @@ public class VenderForgotPassword extends BaseActivity implements View.OnClickLi
 
         }
     }
+
     private void checkEmail() {
         String strEmailId = mUserEmailId.getText().toString();
         View focusView = null;
@@ -93,7 +96,7 @@ public class VenderForgotPassword extends BaseActivity implements View.OnClickLi
         progressDialog.dismiss();
         switch (requestToken) {
             case ServerRequestConstants.REQUEST_VENDOR_FORGOT_PASSWORD:
-                customAlterDialog(getString(R.string.str_register_err_title), errorMessage);
+                customAlterDialog(getString(R.string.str_vendor_forgot_pwd), errorMessage);
                 break;
         }
 
@@ -104,8 +107,10 @@ public class VenderForgotPassword extends BaseActivity implements View.OnClickLi
         progressDialog.dismiss();
         switch (requestToken) {
             case ServerRequestConstants.REQUEST_VENDOR_FORGOT_PASSWORD:
-                Toast.makeText(getApplicationContext(), "Email is send"
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.str_email_send_msg)
                         , Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), VendorLoginActivity.class);
+                startActivity(intent);
                 break;
         }
     }

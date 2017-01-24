@@ -1,5 +1,6 @@
 package com.qadmni.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.qadmni.R;
 import com.qadmni.utils.UserType;
 
 public class MainLoginActivity extends BaseActivity implements View.OnClickListener {
+    private static final int CALL_LOGIN = 21;
     LinearLayout layQuick, layLogin;
     TextView txtVendorLogin;
     private int userType = UserType.USER_OTHER;
@@ -57,13 +59,26 @@ public class MainLoginActivity extends BaseActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.lay_login:
-                startActivity(new Intent(getApplicationContext(), CustomerLoginActivity.class));
-                finish();
+                startActivityForResult(new Intent(getApplicationContext(), CustomerLoginActivity.class), CALL_LOGIN);
                 break;
             case R.id.txt_vender_login:
                 startActivity(new Intent(getApplicationContext(), VendorLoginActivity.class));
                 finish();
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CALL_LOGIN) {
+            if (resultCode == Activity.RESULT_OK) {
+                boolean chkLogin = data.getExtras().getBoolean(CustomerLoginActivity.LOGIN_RESULT);
+                if (chkLogin) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                }
+            }
         }
     }
 }

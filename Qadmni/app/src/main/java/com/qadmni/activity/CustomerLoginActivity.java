@@ -1,9 +1,11 @@
 package com.qadmni.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -34,6 +36,7 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
     private TextView txtForgotPass, txtNewUser;
     private Button btnLogin;
     private String userName, password;
+    public final static String LOGIN_RESULT = "loginResult";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +72,10 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
 
                 break;
             case R.id.txt_forgot_pass:
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
+                startActivity(new Intent(getApplicationContext(), CustomerForgotPassword.class));
                 break;
             case R.id.txt_new_acc:
                 startActivity(new Intent(getApplicationContext(), CustomerRegisterActivity.class));
-                finish();
                 break;
         }
     }
@@ -143,9 +144,22 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
                 customerDTO.setPassword(password);
                 UserAuth userAuth = new UserAuth();
                 userAuth.saveUserInfo(customerDTO, getApplicationContext());
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+               /* startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();*/
+                Intent intent = new Intent();
+                intent.putExtra(LOGIN_RESULT, true);
+                setResult(Activity.RESULT_OK, intent);
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent();
+        intent.putExtra(LOGIN_RESULT, false);
+        setResult(Activity.RESULT_CANCELED);
+        finish();
     }
 }

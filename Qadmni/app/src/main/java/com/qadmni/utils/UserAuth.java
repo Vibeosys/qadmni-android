@@ -36,9 +36,10 @@ public class UserAuth {
     }
 
     public static boolean isUserLoggedIn() {
-        long subscriberId = SessionManager.Instance().getVendorId();
+        long customerId = SessionManager.Instance().getCustomerId();
+        String theUserEmail = SessionManager.Instance().getUserEmail();
         //String theUserPhotoURL = SessionManager.Instance().getUserPhotoUrl();
-        if (subscriberId == 0) {
+        if (customerId == 0 || theUserEmail == null || theUserEmail == "") {
             return false;
         }
         return true;

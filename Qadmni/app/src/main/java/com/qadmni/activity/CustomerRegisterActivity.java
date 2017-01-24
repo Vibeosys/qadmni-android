@@ -1,5 +1,6 @@
 package com.qadmni.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.qadmni.MainActivity;
 import com.qadmni.R;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.requestDataDTO.CustomerLoginReqDTO;
@@ -28,6 +30,7 @@ public class CustomerRegisterActivity extends BaseActivity implements View.OnCli
 
     private EditText edtName, edtPassword, edtConfirmPass, edtEmail, edtPhone;
     private Button btnRegister;
+    private static final int CALL_LOGIN = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,9 +157,22 @@ public class CustomerRegisterActivity extends BaseActivity implements View.OnCli
             case ServerRequestConstants.REQUEST_CUSTOMER_REGISTER:
                 Toast.makeText(getApplicationContext(), getString(R.string.str_register_customer_success)
                         , Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), CustomerLoginActivity.class));
-                finish();
+                startActivityForResult(new Intent(getApplicationContext(), CustomerLoginActivity.class), CALL_LOGIN);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CALL_LOGIN) {
+            if (resultCode == Activity.RESULT_OK) {
+                boolean chkLogin = data.getExtras().getBoolean(CustomerLoginActivity.LOGIN_RESULT);
+                if (chkLogin) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                }
+            }
         }
     }
 }

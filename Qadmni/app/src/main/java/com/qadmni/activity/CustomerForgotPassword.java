@@ -1,5 +1,6 @@
 package com.qadmni.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +13,11 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.qadmni.MainActivity;
 import com.qadmni.R;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.requestDataDTO.CustomerForgotPasswordDTO;
+import com.qadmni.data.responseDataDTO.CustomerLoginResDTO;
 import com.qadmni.utils.NetworkUtils;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
@@ -24,6 +27,7 @@ public class CustomerForgotPassword extends BaseActivity implements View.OnClick
         ServerSyncManager.OnErrorResultReceived, ServerSyncManager.OnSuccessResultReceived {
     private Button mForgotPassword;
     private EditText mUserEmailId;
+    private static final int CALL_LOGIN = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,11 +93,6 @@ public class CustomerForgotPassword extends BaseActivity implements View.OnClick
                 customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
                 break;
         }
-        Log.d("TAG", "TAG");
-        Log.d("TAG", "TAG");
-        Log.d("TAG", "TAG");
-
-
     }
 
     @Override
@@ -101,13 +100,9 @@ public class CustomerForgotPassword extends BaseActivity implements View.OnClick
         progressDialog.dismiss();
         switch (requestToken) {
             case ServerRequestConstants.REQUEST_CUSTOMER_FORGOT_PASSWORD:
-                customAlterDialog(getString(R.string.str_register_err_title), errorMessage);
+                customAlterDialog(getString(R.string.str_customer_forgot_pwd), errorMessage);
                 break;
         }
-        Log.d("TAG", "TAG");
-        Log.d("TAG", "TAG");
-        Log.d("TAG", "TAG");
-
     }
 
     @Override
@@ -115,10 +110,26 @@ public class CustomerForgotPassword extends BaseActivity implements View.OnClick
         progressDialog.dismiss();
         switch (requestToken) {
             case ServerRequestConstants.REQUEST_CUSTOMER_FORGOT_PASSWORD:
-                Toast.makeText(getApplicationContext(), "Email is send"
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.str_email_send_msg)
                         , Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), CustomerLoginActivity.class);
+                startActivityForResult(intent, CALL_LOGIN);
                 break;
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CALL_LOGIN) {
+            if (resultCode == Activity.RESULT_OK) {
+                boolean chkLogin = data.getExtras().getBoolean(CustomerLoginActivity.LOGIN_RESULT);
+                if (chkLogin) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                }
+            }
+        }
     }
 }

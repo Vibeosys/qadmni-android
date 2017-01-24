@@ -82,7 +82,6 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
     private ArrayList<ProducerLocations> producerLocationses;
     private ArrayList<ItemInfoList> itemInfoLists;
     private ArrayList<ProducerLocationDetailsDTO> producerLocationDetailsDTOs;
-    //private ArrayList<ItemListDetailsDTO> itemListDetailsDTOs;
     private ArrayList<ItemListDetailsDTO> itemListDetailsDTOArrayList = new ArrayList<>();
     private ItemListAdapter itemListAdapter;
     private MainActivity activity;
@@ -190,7 +189,6 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
             callToPrepareArrayList(producerLocationDetailsDTOs);
         }
 
-
     }
 
 
@@ -227,8 +225,6 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                             itemListDetailsDTOArrayList.add(itemListDetailsDTO);
 
                         }
-
-
                     }
                 }
             }
@@ -372,8 +368,6 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                 mSendIntent.setAction(Constants.SEND_BROADCAST_SIGNAL);
                 mSendIntent.putExtra(Constants.ENDED_DATA_SIGNAL, record);
                 getActivity().sendBroadcast(mSendIntent);
-                Log.d("String ", "String");
-                Log.d("String ", "String");
 
             } else if (mSessionManager.getProducerId() != 0) {
                 if (mSessionManager.getProducerId() == itemListDetailsDTOs.getProducerId()) {
@@ -387,7 +381,8 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                     getActivity().sendBroadcast(mSendIntent);
 
                 } else {
-                    Toast.makeText(getActivity(), "You cannot add from another vendor", Toast.LENGTH_LONG).show();
+                    customAlterDialog(getContext().getResources().getString(R.string.app_name),getContext().getResources().getString(R.string.str_cart_validation));
+                    //Toast.makeText(getActivity(), "You cannot add from another vendor", Toast.LENGTH_LONG).show();
                 }
 
             }

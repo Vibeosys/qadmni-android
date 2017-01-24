@@ -15,7 +15,7 @@
     <string name="search_items">Search</string>
     <string name="your_cart">My Cart</string>
     <string name="str_select_language">Select Language</string>
-    <string name="str_btn_save" translatable="false">Save</string>
+    <string name="str_btn_save">Save</string>
     <string name="str_english">English</string>
     <string name="str_arabic">العربية</string>
 
@@ -212,6 +212,9 @@
     <string name="price_tv">SAR</string>
     <string name="str_past_order_error">Past Order error</string>
     <string name="str_live_order_error">Live Order error</string>
+    <string name="str_cart_validation">You cannot add from another vendor</string>
+    <string name="str_email_send_msg">Credentials  is send to register email id</string>
 
-
+    <string name="str_vendor_forgot_pwd">Vendor forgot password</string>
+    <string name="str_customer_forgot_pwd">Customer forgot password</string>
 </resources>
