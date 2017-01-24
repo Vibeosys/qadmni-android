@@ -43,6 +43,7 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
 
     @Override
     public void onBindViewHolder(final OrderViewHolder holder, int position) {
+        holder.layHide.setVisibility(View.GONE);
         VendorOrderDTO vendorOrderDTO = mData.get(position);
         holder.txtOrderId.setText(String.valueOf(vendorOrderDTO.getOrderId()));
         holder.txtOrderDate.setText(DateUtils.convertRegisterTimeToDate(vendorOrderDTO.getOrderDate()));
@@ -63,6 +64,7 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
         holder.customerName.setText(vendorOrderDTO.getCustomerName());
         String orderCode = vendorOrderDTO.getCurrentStatusCode();
         holder.orderStatus.setText(orderCode);
+        holder.customerAmount.setText(String.format("SAR %.2f", vendorOrderDTO.getAmountInSAR()));
         holder.showOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +86,7 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
         protected TextView txtOrderId, txtOrderDate, paymentMode, txtDeliveryMode,
-                customerName, customerAddress, showOnMap, orderStatus;
+                customerName, customerAddress, showOnMap, orderStatus, customerAmount;
         protected ImageView imgTracker;
         protected LinearLayout layHide;
         protected ImageButton fab;
@@ -99,6 +101,7 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
             showOnMap = (TextView) itemView.findViewById(R.id.show_on_map);
             customerName = (TextView) itemView.findViewById(R.id.customerName);
             orderStatus = (TextView) itemView.findViewById(R.id.orderStatus);
+            customerAmount = (TextView) itemView.findViewById(R.id.customerAmount);
             imgTracker = (ImageView) itemView.findViewById(R.id.imgTracker);
             layHide = (LinearLayout) itemView.findViewById(R.id.lay_hide);
             fab = (ImageButton) itemView.findViewById(R.id.fab);
