@@ -209,6 +209,12 @@ public class MainActivity extends BaseActivity
                 return false;
             }
         });
+
+
+        int record = qadmniHelper.getCountCartTable();
+        if (record != 0) {
+            updateUI(record);
+        }
         return true;
     }
 

@@ -4,7 +4,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings" translatable="false">Settings</string>
+    <string name="action_settings">Settings</string>
     <string name="str_my_cart">My Cart</string>
     <string name="str_my_orders">My Orders</string>
     <string name="str_fav_list">My Favourites</string>
@@ -12,22 +12,22 @@
     <string name="str_settings">Settings</string>
     <string name="str_partner_login">Partner Login</string>
     <string name="str_logout">Logout</string>
-    <string name="search_items" translatable="false">Search</string>
-    <string name="your_cart" translatable="false">My Cart</string>
+    <string name="search_items">Search</string>
+    <string name="your_cart">My Cart</string>
     <string name="str_select_language">Select Language</string>
     <string name="str_btn_save" translatable="false">Save</string>
-    <string name="str_english" translatable="false">English</string>
+    <string name="str_english">English</string>
     <string name="str_arabic">العربية</string>
 
     <string name="dlg_ok">Ok</string>
-    <string name="dlg_cancel" translatable="false">Cancel</string>
+    <string name="dlg_cancel">Cancel</string>
     <string name="str_err_server_err">Server Error</string>
     <string name="please_wait">Please wait…</string>
 
     <string name="str_name_hint">Name</string>
     <string name="str_user_password">Password</string>
-    <string name="str_confirm_user_password" translatable="false">Confirm Password</string>
-    <string name="str_email_hint" translatable="false">Email</string>
+    <string name="str_confirm_user_password">Confirm Password</string>
+    <string name="str_email_hint">Email</string>
     <string name="str_ph_hint">Phone</string>
     <string name="str_subscribe_btn">Subscribe Now</string>
     <string name="str_next">Next</string>
@@ -48,19 +48,19 @@
     <string name="str_select">Select</string>
     <string name="str_err_shop_name_empty">Please enter shop name in english</string>
     <string name="str_register_murchent_success">Merchant registered successfully</string>
-    <string name="salad_by" translatable="false">by</string>
-    <string name="salad_distance" translatable="false">Km</string>
-    <string name="salad_time" translatable="false">min</string>
-    <string name="sar" translatable="false">SAR</string>
+    <string name="salad_by">by</string>
+    <string name="salad_distance">Km</string>
+    <string name="salad_time">min</string>
+    <string name="sar">SAR</string>
     <string name="str_err_shop_address_empty">Please select address correctly</string>
     <string name="str_user_name_hint">User Name</string>
     <string name="str_login_to_acc">Login to your account</string>
     <string name="str_user_forgot_password">Cannot access your account?</string>
     <string name="str_new_quadmni">New to qadmni?</string>
-    <string name="str_create_acc" translatable="false">Create account</string>
+    <string name="str_create_acc">Create account</string>
     <string name="str_err_username_empty">Please enter username</string>
     <string name="title_activity_vendor_main">VendorMainActivity</string>
-    <string name="str_add_new_product" translatable="false">Add New Product</string>
+    <string name="str_add_new_product">Add New Product</string>
     <string name="my_subscription">My Subscriptions</string>
     <string name="str_server_err_title">Server Error</string>
     <string name="str_server_err_desc">Something went wrong on server try again</string>
@@ -68,7 +68,7 @@
 
     <string name="str_details">Details</string>
     <string name="str_details_product">delicious ice cream made up of coconut and cream ...</string>
-    <string name="str_avail_soon" translatable="false">Available for sell</string>
+    <string name="str_avail_soon">Available for sell</string>
     <string name="str_update">UPDATE</string>
 
     <string name="str_vender_login">Vendor Login</string>
@@ -83,7 +83,7 @@
     <string name="onesignal_app_id">29d2c9ef-09ee-468b-96c9-b26340758d9a</string>
     <string name="str_reviews">Reviews</string>
     <string name="str_price">Price</string>
-    <string name="str_cancel" translatable="false">Cancel</string>
+    <string name="str_cancel">Cancel</string>
     <string name="str_err_product_name_empty">Please enter product name in english</string>
     <string name="str_err_product_details_empty">Please add product details in english</string>
     <string name="str_err_price_empty">Please enter valid price</string>
@@ -107,14 +107,14 @@
     <string name="str_err_shop_name_ar_empty">Please enter shop name in arabic</string>
 
     <string name="pick_up">Pick Up</string>
-    <string name="delivery" translatable="false">Delivery</string>
-    <string name="str_delivery" translatable="false">DELIVERY</string>
-    <string name="str_asap" translatable="false">ASAP</string>
+    <string name="delivery">Delivery</string>
+    <string name="str_delivery">DELIVERY</string>
+    <string name="str_asap">ASAP</string>
     <string name="str_schedule">Schedule</string>
     <string name="str_pick_time"><![CDATA[Pick a date & time]]></string>
     <string name="str_payment">PAYMENT</string>
     <string name="str_pay_opt">PAYPAL</string>
-    <string name="str_cash" translatable="false">CASH</string>
+    <string name="str_cash">CASH</string>
     <string name="str_address_main">Select Address</string>
     <string name="str_add_line">Tap on map to select address</string>
     <string name="str_add_not_selected">Address not selected</string>
@@ -125,8 +125,8 @@
 
     <!--My Cart activity-->
     <string name="str_your_cart">Your Cart</string>
-    <string name="str_edit" translatable="false">Edit</string>
-    <string name="btn_check_out" translatable="false">Proceed to checkout</string>
+    <string name="str_edit">Edit</string>
+    <string name="btn_check_out">Proceed to checkout</string>
     <string name="cart_one_item">Cheese Burger</string>
     <string name="cart_one_qty">x</string>
     <string name="cart_one_item_price">20</string>
@@ -137,13 +137,13 @@
     <string name="str_err_order_init">Your order is not generated try again</string>
     <string name="str_free">Free</string>
     <string name="str_not_avail">Not available for sell</string>
-    <string name="str_confirm_n_pay" translatable="false">Confirm and Pay</string>
-    <string name="add_more" translatable="false">Add more</string>
+    <string name="str_confirm_n_pay">Confirm and Pay</string>
+    <string name="add_more">Add more</string>
     <string name="user_denied_permission">User denied permission</string>
     <string name="location_problem">Location problem</string>
 
     <!--Order History-->
-    <string name="str_live_track" translatable="false">LIVE ORDERS</string>
+    <string name="str_live_track">LIVE ORDERS</string>
     <string name="str_past_orders">PAST ORDERS</string>
     <string name="str_err_order_confirm">Confirm Order Error</string>
     <string name="str_order_confirm_success">Order confirm successfully</string>
@@ -154,10 +154,10 @@
     <string name="str_low">Low</string>
     <string name="str_nearer">Nearer</string>
     <string name="str_farther">Farther</string>
-    <string name="btn_apply" translatable="false">APPLY</string>
-    <string name="str_clear" translatable="false">CLEAR</string>
+    <string name="btn_apply">APPLY</string>
+    <string name="str_clear">CLEAR</string>
     <string name="str_nearest_shop">Distance</string>
-    <string name="raduis_selected" translatable="false">km.</string>
+    <string name="raduis_selected">km.</string>
     <string name="str_review">Review</string>
     <string name="str_filter_activity_title">Filter Product</string>
     <string name="str_err_location_denied">Location Denied</string>
