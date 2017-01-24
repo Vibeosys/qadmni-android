@@ -231,6 +231,7 @@ public class PlaceOrderActivity extends BaseActivity implements
                 bundle.putString(ConfirmAndPayActivity.ORDER_INIT_DETAILS, data);
                 iConfirmOrder.putExtras(bundle);
                 startActivity(iConfirmOrder);
+                finish();
                 Log.d(TAG, "##" + orderResDTO.toString());
                 break;
         }

@@ -33,6 +33,7 @@ public class DateUtils {
 
     public static String convertRegisterTimeToDate(String strDate) {
         DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH);
+        df2.setTimeZone(TimeZone.getTimeZone("gmt"));
         java.util.Date date = null;
         try {
             date = df2.parse(strDate);
@@ -41,6 +42,7 @@ public class DateUtils {
         }
         return getReadDateInFormat(date);
     }
+
     public java.util.Date getFormattedDate(String strDate) {
         DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         df2.setTimeZone(TimeZone.getTimeZone("gmt"));
