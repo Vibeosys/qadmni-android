@@ -48,36 +48,46 @@ public class LiveOrdersFragment extends BaseFragment implements ServerSyncManage
     }
 
     private void callToWebService() {
-
+        progressDialog.show();
         BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
-
         mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_LIVE_ORDERS,
                 mSessionManager.getLiveOrdersUrl(), baseRequestDTO);
-        Log.d("error", "error");
-        Log.d("error", "error");
+
 
     }
 
     @Override
     public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
-        Log.d("error", "error");
-        Log.d("error", "error");
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_LIVE_ORDERS:
+                customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+                break;
+        }
     }
 
     @Override
     public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
-        Log.d("error", "error");
-        Log.d("error", "error");
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_LIVE_ORDERS:
+                customAlterDialog(getString(R.string.str_live_order_error), errorMessage);
+                break;
+        }
 
     }
 
     @Override
     public void onResultReceived(@NonNull String data, int requestToken) {
-        Log.d("error", "error");
-        Log.d("error", "error");
-        ArrayList<LiveOrdersResponseDTO> liveOrdersResponseDTO = LiveOrdersResponseDTO.deserializeJson(data);
-        LiveOrdersAdapter liveOrdersAdapter = new LiveOrdersAdapter(liveOrdersResponseDTO, getActivity());
-        mListView.setAdapter(liveOrdersAdapter);
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_LIVE_ORDERS:
+                ArrayList<LiveOrdersResponseDTO> liveOrdersResponseDTO = LiveOrdersResponseDTO.deserializeJson(data);
+                LiveOrdersAdapter liveOrdersAdapter = new LiveOrdersAdapter(liveOrdersResponseDTO, getActivity());
+                mListView.setAdapter(liveOrdersAdapter);
+                break;
+        }
+
     }
     /*public void OpenFeedBackDialog(Bundle savedInstanceState) {
         final Dialog dlg = new Dialog(getActivity(), android.R.style.Theme_DeviceDefault_Dialog_MinWidth);

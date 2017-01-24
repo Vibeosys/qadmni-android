@@ -11,15 +11,20 @@ import android.widget.ListView;
 
 import com.android.volley.VolleyError;
 import com.qadmni.R;
+import com.qadmni.adapters.PastOrderAdapter;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
+import com.qadmni.data.responseDataDTO.PastOrderResponseDTO;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
+
+import java.util.ArrayList;
 
 /**
  * Created by shrinivas on 20-01-2017.
  */
 public class PastOrdersFragment extends BaseFragment implements ServerSyncManager.OnErrorResultReceived, ServerSyncManager.OnSuccessResultReceived {
     ListView mListView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,28 +39,45 @@ public class PastOrdersFragment extends BaseFragment implements ServerSyncManage
     }
 
     private void callToWebService() {
+        progressDialog.show();
         BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
-//Change Url Here
-        mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_LIVE_ORDERS,
-                mSessionManager.getLiveOrdersUrl(), baseRequestDTO);
-        Log.d("error", "error");
-        Log.d("error", "error");
+        mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_PAST_ORDERS,
+                mSessionManager.getPastOrderUrl(), baseRequestDTO);
+
     }
 
     @Override
     public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
-        Log.d("error", "error");
-        Log.d("error", "error");
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_PAST_ORDERS:
+                customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+                break;
+        }
+
     }
 
     @Override
     public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
-        Log.d("error", "error");
-        Log.d("error", "error");
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_PAST_ORDERS:
+                customAlterDialog(getString(R.string.str_past_order_error), errorMessage);
+                break;
+        }
     }
 
     @Override
     public void onResultReceived(@NonNull String data, int requestToken) {
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_PAST_ORDERS:
+                ArrayList<PastOrderResponseDTO> pastOrderResponseDTOs = PastOrderResponseDTO.deserialize(data);
+                PastOrderAdapter pastOrderAdapter = new PastOrderAdapter(pastOrderResponseDTOs, getActivity());
+                mListView.setAdapter(pastOrderAdapter);
+                break;
+        }
+
 
     }
 }

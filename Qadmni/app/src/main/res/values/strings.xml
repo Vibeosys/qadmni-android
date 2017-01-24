@@ -208,4 +208,10 @@
     <string name="str_order_ready_to_pickup">Ready to pickup</string>
     <string name="str_order_pickup_complete">Order pickup complete</string>
     <string name="str_order_time_for_pick_over">Time for pick up is over</string>
+    <string name="str_previous_date_1">04-04-2016 10:23 PM</string>
+    <string name="price_tv">SAR</string>
+    <string name="str_past_order_error">Past Order error</string>
+    <string name="str_live_order_error">Live Order error</string>
+
+
 </resources>
