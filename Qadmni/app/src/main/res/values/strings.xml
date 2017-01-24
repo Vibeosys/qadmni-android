@@ -202,4 +202,10 @@
     <string name="str_forgot_msg">You will receive your credentials,if your email id matches with registered email id</string>
     <string name="str_btn_send_email">Click here to get your password</string>
     <string name="str_amount_hint">Amount</string>
+    <string name="str_delivery_in_progress">Delivery in progress</string>
+    <string name="str_order_devlivered">Delivered</string>
+    <string name="str_order_placed_code">Order placed code</string>
+    <string name="str_order_ready_to_pickup">Ready to pickup</string>
+    <string name="str_order_pickup_complete">Order pickup complete</string>
+    <string name="str_order_time_for_pick_over">Time for pick up is over</string>
 </resources>

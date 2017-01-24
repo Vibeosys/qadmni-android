@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.qadmni.R;
+import com.qadmni.data.OrderStatusString;
 import com.qadmni.data.responseDataDTO.VendorItemResDTO;
 import com.qadmni.data.responseDataDTO.VendorOrderDTO;
 import com.qadmni.utils.CustomVolleyRequestQueue;
@@ -22,17 +23,20 @@ import com.qadmni.utils.DeliveryMethods;
 import com.qadmni.utils.PaymentMethods;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by akshay on 23-01-2017.
  */
 public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderListAdapter.OrderViewHolder> {
-    private Context mContext;
+    private static Context mContext;
     private ArrayList<VendorOrderDTO> mData;
+    private OrderStatusString orderStatusString;
 
     public VendorOrderListAdapter(Context mContext, ArrayList<VendorOrderDTO> mData) {
         this.mContext = mContext;
         this.mData = mData;
+        this.orderStatusString = new OrderStatusString(mContext);
     }
 
     @Override
@@ -63,7 +67,7 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
 
         holder.customerName.setText(vendorOrderDTO.getCustomerName());
         String orderCode = vendorOrderDTO.getCurrentStatusCode();
-        holder.orderStatus.setText(orderCode);
+        holder.orderStatus.setText(this.orderStatusString.getValueOrderStatus(orderCode));
         holder.customerAmount.setText(String.format("SAR %.2f", vendorOrderDTO.getAmountInSAR()));
         holder.showOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
