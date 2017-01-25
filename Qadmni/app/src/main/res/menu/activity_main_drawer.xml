@@ -4,7 +4,8 @@
     <item
         android:id="@+id/nav_myCart"
         android:icon="@drawable/ic_new_shopping_cart_24dp"
-        android:title="@string/str_my_cart"/>
+        android:title="@string/str_my_cart"
+        app:actionLayout="@layout/cart_count_textview" />
     <item
         android:id="@+id/nav_myOrders"
         android:icon="@drawable/ic_shopping_basket_white_24dp"

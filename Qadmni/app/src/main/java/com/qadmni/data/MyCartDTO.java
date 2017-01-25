@@ -8,12 +8,15 @@ public class MyCartDTO {
     private int itemQuantity;
     private String unitPrice;
     private String ItemName;
+    private long productId;
 
-    public MyCartDTO(long producerId, int itemQuantity, String unitPrice, String itemName) {
+    public MyCartDTO(long producerId, int itemQuantity, String unitPrice,
+                     String itemName, long productId) {
         this.producerId = producerId;
         this.itemQuantity = itemQuantity;
         this.unitPrice = unitPrice;
         ItemName = itemName;
+        this.productId = productId;
     }
 
     public long getProducerId() {
@@ -23,7 +26,6 @@ public class MyCartDTO {
     public void setProducerId(long producerId) {
         this.producerId = producerId;
     }
-
 
     public int getItemQuantity() {
         return itemQuantity;
@@ -47,5 +49,13 @@ public class MyCartDTO {
 
     public void setItemName(String itemName) {
         ItemName = itemName;
+    }
+
+    public long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(long productId) {
+        this.productId = productId;
     }
 }

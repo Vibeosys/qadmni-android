@@ -150,11 +150,12 @@ public class QadmniHelper extends SQLiteOpenHelper {
                         do {
                             int myCartId = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlMyCart._ID));
                             int productId = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlMyCart.PRODUCT_ID));
+                            int producerId = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlMyCart.PRODUCER_ID));
                             String productName = cursor.getString(cursor.getColumnIndex(SqlContract.SqlMyCart.PRODUCT_NAME));
                             int productQyt = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlMyCart.PRODUCT_QTY));
                             String productUnitPrice = cursor.getString(cursor.getColumnIndex(SqlContract.SqlMyCart.ITEM_UNIT_PRICE));
 
-                            MyCartDTO myCartDTO = new MyCartDTO(productId, productQyt, productUnitPrice, productName);
+                            MyCartDTO myCartDTO = new MyCartDTO(producerId, productQyt, productUnitPrice, productName, productId);
                             myCartDTOs.add(myCartDTO);
                         } while (cursor.moveToNext());
                     }
@@ -315,4 +316,93 @@ public class QadmniHelper extends SQLiteOpenHelper {
         }
         return count;
     }
+
+    public boolean deleteMyCartDetailsWithWhere(long id) {
+        boolean flagError = false;
+        String errorMessage = "";
+        SQLiteDatabase sqLiteDatabase = null;
+        sqLiteDatabase = getWritableDatabase();
+        long count = -1;
+        try {
+            synchronized (sqLiteDatabase) {
+                count = sqLiteDatabase.delete(SqlContract.SqlMyCart.TABLE_NAME,
+                        SqlContract.SqlMyCart.PRODUCT_ID + "=?", new String[]{String.valueOf(id)});
+                Log.d(TAG, " ## delete my cart successfully" + id);
+            }
+            flagError = true;
+        } catch (Exception e) {
+            flagError = false;
+            errorMessage = e.getMessage();
+            e.printStackTrace();
+            Log.d(TAG, "## delete my cart not successfully" + e.toString());
+            //sqLiteDatabase.close();
+
+        } finally {
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+            if (!flagError)
+                Log.e(TAG, "Delete Customer" + errorMessage);
+        }
+        return count != -1;
+    }
+
+    public boolean editCart(MyCartDTO myCartDTO) {
+        boolean flagError = false;
+        String errorMessage = "";
+        SQLiteDatabase sqLiteDatabase = null;
+        ContentValues contentValues = null;
+        int rowCount = 0;
+        long count = -1;
+        int qty = myCartDTO.getItemQuantity();
+        try {
+            String[] whereClause = new String[]{String.valueOf(myCartDTO.getProductId())};
+            sqLiteDatabase = getReadableDatabase();
+            synchronized (sqLiteDatabase) {
+                Cursor cursor = sqLiteDatabase.rawQuery("Select * From " + SqlContract.SqlMyCart.TABLE_NAME
+                        + " Where " + SqlContract.SqlMyCart.PRODUCT_ID + "=?", whereClause);
+                rowCount = cursor.getCount();
+                cursor.close();
+                sqLiteDatabase.close();
+            }
+
+            sqLiteDatabase = getWritableDatabase();
+            synchronized (sqLiteDatabase) {
+                contentValues = new ContentValues();
+                contentValues.put(SqlContract.SqlMyCart.PRODUCT_ID, myCartDTO.getProductId());
+                contentValues.put(SqlContract.SqlMyCart.PRODUCT_NAME, myCartDTO.getItemName());
+                contentValues.put(SqlContract.SqlMyCart.PRODUCT_QTY, qty);
+                contentValues.put(SqlContract.SqlMyCart.PRODUCER_ID, myCartDTO.getProducerId());
+                contentValues.put(SqlContract.SqlMyCart.ITEM_UNIT_PRICE, myCartDTO.getUnitPrice());
+                if (rowCount == 0 && qty != 0) {
+                    if (!sqLiteDatabase.isOpen()) sqLiteDatabase = getWritableDatabase();
+                    count = sqLiteDatabase.insert(SqlContract.SqlMyCart.TABLE_NAME, null, contentValues);
+                } else if (qty == 0) {
+                    if (!sqLiteDatabase.isOpen()) sqLiteDatabase = getWritableDatabase();
+                    count = sqLiteDatabase.delete(SqlContract.SqlMyCart.TABLE_NAME,
+                            SqlContract.SqlMyCart.PRODUCT_ID + "=?", whereClause);
+                } else {
+                    if (!sqLiteDatabase.isOpen()) sqLiteDatabase = getWritableDatabase();
+                    count = sqLiteDatabase.update(SqlContract.SqlMyCart.TABLE_NAME, contentValues,
+                            SqlContract.SqlMyCart.PRODUCT_ID + "=? ", whereClause);
+                }
+
+                flagError = true;
+                contentValues.clear();
+                Log.i(TAG, "Values are inserted into TempTable");
+            }
+        } catch (Exception e) {
+            flagError = false;
+            errorMessage = e.getMessage();
+            Log.e(TAG, "error at insertOrUpdateTempOrder");
+        } finally {
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+            if (!flagError)
+                Log.e(TAG, "Insert Or Update Temp Order");
+        }
+
+        return count != -1;
+
+    }
+
 }

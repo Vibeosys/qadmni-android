@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -18,8 +19,9 @@ import com.qadmni.data.MyCartDTO;
 import com.qadmni.utils.UserAuth;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class UserMyCartActivity extends BaseActivity {
+public class UserMyCartActivity extends BaseActivity implements MyCartAdapter.OnQuantityChangeListener {
     private static final int CALL_LOGIN = 32;
     ArrayList<MyCartDTO> myCartDTOs = null;
     MyCartAdapter myCartAdapter;
@@ -37,7 +39,9 @@ public class UserMyCartActivity extends BaseActivity {
         editCart = (TextView) findViewById(R.id.editCart);
         myCartDTOs = qadmniHelper.getCartDetails();
         myCartAdapter = new MyCartAdapter(myCartDTOs, getApplicationContext());
+        myCartAdapter.setOnQuantityChangeListener(this);
         listView.setAdapter(myCartAdapter);
+
         mAddMoreLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,9 +53,9 @@ public class UserMyCartActivity extends BaseActivity {
         editCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
+
+                myCartAdapter.setVisiblity(true);
+                myCartAdapter.notifyDataSetChanged();
             }
         });
         bottomLayout.setOnClickListener(new View.OnClickListener() {
@@ -74,9 +78,19 @@ public class UserMyCartActivity extends BaseActivity {
             if (resultCode == Activity.RESULT_OK) {
                 boolean chkLogin = data.getExtras().getBoolean(CustomerLoginActivity.LOGIN_RESULT);
                 if (chkLogin) {
-                   
+
                 }
             }
         }
+    }
+
+    @Override
+    public void onQuantityChange(MyCartDTO myCartDTO, int position) {
+        boolean result1 = qadmniHelper.editCart(myCartDTO);
+    }
+
+    @Override
+    public void onDeleteClick(MyCartDTO myCartDTO, int position) {
+        boolean result=qadmniHelper.deleteMyCartDetailsWithWhere(myCartDTO.getProductId());
     }
 }
