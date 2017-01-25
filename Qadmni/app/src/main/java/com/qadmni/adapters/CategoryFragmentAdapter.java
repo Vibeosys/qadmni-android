@@ -18,53 +18,35 @@ import java.util.Objects;
  * Created by shrinivas on 13-01-2017.
  */
 public class CategoryFragmentAdapter extends FragmentStatePagerAdapter {
-    ArrayList<CategoryListResponseDTO> categoryListResponseDTOs = new ArrayList<>();
-    ArrayList<Integer> count = new ArrayList<>();
-    CategoryMasterDTO categoryMasterDTO;
+    ArrayList<ItemListFragment> itemListFragments;
 
-    public CategoryFragmentAdapter(FragmentManager fm, ArrayList<CategoryListResponseDTO> categoryListResponseDTOs) {
+    public CategoryFragmentAdapter(FragmentManager fm, ArrayList<ItemListFragment> itemListFragments) {
         super(fm);
-        this.categoryListResponseDTOs = categoryListResponseDTOs;
+        this.itemListFragments = itemListFragments;
     }
 
     @Override
     public Fragment getItem(int i) {
-
-            categoryMasterDTO = new CategoryMasterDTO(categoryListResponseDTOs.get(i));
-            Fragment fragment = new ItemListFragment();
-            Bundle args = new Bundle();
-            // Our object is just an integer :-P
-            args.putParcelable(ItemListFragment.ARG_OBJECT, categoryMasterDTO);
-            fragment.setArguments(args);
-            return fragment;
+        return itemListFragments.get(i);
     }
 
     @Override
     public int getCount() {
-        return categoryListResponseDTOs.size();
+        return itemListFragments.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        // return "OBJECT " + (position + 1);
-        CategoryListResponseDTO categoryListResponseDTO = categoryListResponseDTOs.get(position);
-        return " " + categoryListResponseDTO.getCategory();
+        return this.itemListFragments.get(position).getCategoryMasterDTO().getCategory();
     }
 
-   /* @Override
+    /*@Override
     public int getItemPosition(Object object) {
-        ItemListFragment fragment = (ItemListFragment) object;
-        Bundle args = fragment.getArguments();
-        if (args != null) {
-            categoryMasterDTO = args.getParcelable(ItemListFragment.ARG_OBJECT);
-            int position = categoryListResponseDTOs.indexOf(categoryMasterDTO);
-            if (position >= 0) {
-                return position;
-            } else {
-                return POSITION_NONE;
-            }
-        }
-
-        return POSITION_NONE;
+        int index = itemListFragments.indexOf(object);
+        if (index == -1)
+            return POSITION_NONE;
+        else
+            return index;
     }*/
+
 }

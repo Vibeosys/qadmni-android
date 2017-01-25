@@ -69,8 +69,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainLoginActivity" />
-        <activity
-            android:name=".activity.CustomerRegisterActivity"/>
+        <activity android:name=".activity.CustomerRegisterActivity" />
 
         <!-- One signal integration -->
         <meta-data
@@ -124,8 +123,12 @@
         <activity
             android:name=".activity.UserOrderHistoryActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".activity.FilterUserListActivity" />
-        <activity android:name=".activity.VendorOrderListActivity"></activity>
+        <activity
+            android:name=".activity.FilterUserListActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".activity.VendorOrderListActivity"
+            android:parentActivityName=".activity.VendorMainActivity"></activity>
         <activity
             android:name=".activity.CustomerForgotPassword"
             android:parentActivityName=".activity.CustomerLoginActivity"></activity>

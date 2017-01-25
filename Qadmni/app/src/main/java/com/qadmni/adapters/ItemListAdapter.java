@@ -37,6 +37,7 @@ public class ItemListAdapter extends BaseAdapter {
 
     public ItemListAdapter(ArrayList<ItemListDetailsDTO> itemListDetailsDTOs, Context context,
                            SessionManager sessionManager) {
+        //this.itemListDetailsDTOs.clear();
         this.itemListDetailsDTOs = itemListDetailsDTOs;
         this.context = context;
         this.sessionManager = sessionManager;
@@ -192,6 +193,7 @@ public class ItemListAdapter extends BaseAdapter {
     }
 
     public void setItemListDetailsDTOs(ArrayList<ItemListDetailsDTO> itemListDetailsDTOs) {
+        //this.itemListDetailsDTOs.clear();
         this.itemListDetailsDTOs = itemListDetailsDTOs;
         notifyDataSetChanged();
     }

@@ -74,7 +74,7 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 public class ItemListFragment extends BaseFragment implements ServerSyncManager.OnSuccessResultReceived,
         ServerSyncManager.OnErrorResultReceived, ItemListAdapter.CustomButtonListener,
-        MainActivity.OnFilterApply, MainActivity.SearchClickListener {
+        MainActivity.OnFilterApply {
     public static final String ARG_OBJECT = "objectPar";
     private static final String TAG = ItemListFragment.class.getSimpleName();
     private CategoryMasterDTO categoryMasterDTO;
@@ -92,7 +92,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         super.onCreate(savedInstanceState);
         activity = (MainActivity) getActivity();
         activity.setOnFilterApply(this);
-        activity.setOnSearchClickListener(this);
+        //activity.setOnSearchClickListener(this);
         mLastLocation = activity.getLastLocation();
         Bundle args = getArguments();
         if (args != null) {
@@ -243,9 +243,9 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         //Log.d(TAG, "On filter click" + itemListAdapter.getItem(1));
     }
 
-    @Override
-    public void OnSearchClickListener(String query) {
-        Log.d(TAG, "category Name" + categoryMasterDTO.getCategory());
+    // @Override
+    public void onSearchClickListener(String query) {
+        Log.d(TAG, "##category Name" + categoryMasterDTO.getCategory());
         if (this.itemListAdapter != null) {
             if (!TextUtils.isEmpty(query)) {
                 ArrayList<ItemListDetailsDTO> searchItems = new ArrayList<>();
@@ -258,9 +258,9 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                         searchItems.add(itemDetails);
                     }
                 }
-                this.itemListDetailsDTOArrayList = searchItems;
-                itemListAdapter.setItemListDetailsDTOs(this.itemListDetailsDTOArrayList);
+                itemListAdapter.setItemListDetailsDTOs(searchItems);
             } else if (query.equals("")) {
+                this.itemListDetailsDTOArrayList.clear();
                 callToWebService();
             }
         }
@@ -270,6 +270,12 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         private static final String DIRECTIONS_API_BASE = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric";
         // API KEY of the project Google Map Api For work
         private static final String API_KEY = "AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0";
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.show();
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -350,6 +356,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            progressDialog.dismiss();
             itemListAdapter.setItemListDetailsDTOs(itemListDetailsDTOArrayList);
         }
     }
@@ -381,7 +388,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                     getActivity().sendBroadcast(mSendIntent);
 
                 } else {
-                    customAlterDialog(getContext().getResources().getString(R.string.app_name),getContext().getResources().getString(R.string.str_cart_validation));
+                    customAlterDialog(getContext().getResources().getString(R.string.app_name), getContext().getResources().getString(R.string.str_cart_validation));
                     //Toast.makeText(getActivity(), "You cannot add from another vendor", Toast.LENGTH_LONG).show();
                 }
 
@@ -412,5 +419,9 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
             }
 
         }
+    }
+
+    public CategoryMasterDTO getCategoryMasterDTO() {
+        return this.categoryMasterDTO;
     }
 }

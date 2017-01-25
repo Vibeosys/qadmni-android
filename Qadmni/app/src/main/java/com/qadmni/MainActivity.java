@@ -1,6 +1,5 @@
 package com.qadmni;
 
-import android.*;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,7 +22,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,12 +41,11 @@ import com.qadmni.activity.MainLoginActivity;
 import com.qadmni.activity.SelectLanguageActivity;
 import com.qadmni.activity.UserMyCartActivity;
 import com.qadmni.activity.UserOrderHistoryActivity;
-import com.qadmni.activity.VendorLoginActivity;
 import com.qadmni.adapters.CategoryFragmentAdapter;
-import com.qadmni.adapters.ItemListAdapter;
-import com.qadmni.data.ItemListDetailsDTO;
+import com.qadmni.data.CategoryMasterDTO;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.responseDataDTO.CategoryListResponseDTO;
+import com.qadmni.fragments.ItemListFragment;
 import com.qadmni.utils.Constants;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
@@ -76,7 +73,6 @@ public class MainActivity extends BaseActivity
     public static Utils2 notificationUtil;
     BroadcastReceiver broadcastReceiver;
     IntentFilter filter;
-    public static SearchClickListener searchClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,11 +168,11 @@ public class MainActivity extends BaseActivity
 
         SearchView searchView = (SearchView) menu.findItem(R.id.detail_search).getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-                if (searchClickListener != null)
-                    searchClickListener.OnSearchClickListener(query);
+                ItemListFragment itemFramgent = (ItemListFragment) categoryFragmentAdapter.getItem(mViewPager.getCurrentItem());
+                itemFramgent.onSearchClickListener(query);
                 return false;
             }
 
@@ -189,8 +185,8 @@ public class MainActivity extends BaseActivity
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                if (searchClickListener != null)
-                    searchClickListener.OnSearchClickListener("");
+                ItemListFragment itemFramgent = (ItemListFragment) categoryFragmentAdapter.getItem(mViewPager.getCurrentItem());
+                itemFramgent.onSearchClickListener("");
                 return false;
             }
         });
@@ -288,11 +284,20 @@ public class MainActivity extends BaseActivity
         switch (requestToken) {
             case ServerRequestConstants.REQUEST_GET_CATEGORY:
                 ArrayList<CategoryListResponseDTO> categoryListResponseDTOs = CategoryListResponseDTO.deSerializedToJson(data);
+                ArrayList<ItemListFragment> itemList = new ArrayList<ItemListFragment>();
+                for (CategoryListResponseDTO category : categoryListResponseDTOs) {
+                    CategoryMasterDTO categoryMasterDTO = new CategoryMasterDTO(category);
+                    ItemListFragment fragment = new ItemListFragment();
+                    Bundle args = new Bundle();
+                    // Our object is just an integer :-P
+                    args.putParcelable(ItemListFragment.ARG_OBJECT, categoryMasterDTO);
+                    fragment.setArguments(args);
+                    itemList.add(fragment);
+                }
                 categoryFragmentAdapter = new CategoryFragmentAdapter(
-                        getSupportFragmentManager(), categoryListResponseDTOs);
-                mViewPager.setOffscreenPageLimit(1);
+                        getSupportFragmentManager(), itemList);
+                //mViewPager.setOffscreenPageLimit(1);
                 mViewPager.setAdapter(categoryFragmentAdapter);
-                break;
         }
 
     }
@@ -431,11 +436,4 @@ public class MainActivity extends BaseActivity
         unregisterReceiver(broadcastReceiver);
     }
 
-    public static void setOnSearchClickListener(SearchClickListener listener) {
-        searchClickListener = listener;
-    }
-
-    public interface SearchClickListener {
-        public void OnSearchClickListener(String query);
-    }
 }
