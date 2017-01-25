@@ -1,5 +1,8 @@
 package com.qadmni.adapters;
 
+/**
+ * Created by akshay on 16-01-2017.
+ */
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -17,9 +20,6 @@ import com.qadmni.utils.CustomVolleyRequestQueue;
 
 import java.util.ArrayList;
 
-/**
- * Created by akshay on 16-01-2017.
- */
 public class VendorItemAdapter extends RecyclerView.Adapter<VendorItemAdapter.ItemViewHolder> {
 
     private Context mContext;
@@ -79,7 +79,7 @@ public class VendorItemAdapter extends RecyclerView.Adapter<VendorItemAdapter.It
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         protected TextView txtItemName, txtDetails, txtAmount, txtAvail;
         protected NetworkImageView imgProduct;
-        protected Button btnUpdate;
+        //protected Button btnUpdate;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -88,7 +88,7 @@ public class VendorItemAdapter extends RecyclerView.Adapter<VendorItemAdapter.It
             txtDetails = (TextView) itemView.findViewById(R.id.txtDetails);
             txtAmount = (TextView) itemView.findViewById(R.id.txtAmount);
             txtAvail = (TextView) itemView.findViewById(R.id.txtAvail);
-            btnUpdate = (Button) itemView.findViewById(R.id.btn_update);
+            //btnUpdate = (Button) itemView.findViewById(R.id.btn_update);
         }
     }
 }

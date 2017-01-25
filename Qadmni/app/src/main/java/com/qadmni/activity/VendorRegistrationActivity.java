@@ -10,9 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.qadmni.R;
+import com.qadmni.data.requestDataDTO.BaseRequestDTO;
+import com.qadmni.data.requestDataDTO.CustomerLoginReqDTO;
+import com.qadmni.data.requestDataDTO.DuplicateEmailReqDTO;
 import com.qadmni.data.requestDataDTO.RegisterVendorReqDTO;
 import com.qadmni.utils.NetworkUtils;
+import com.qadmni.utils.OneSignalIdHandler;
+import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
 import com.qadmni.utils.Validator;
 
@@ -21,6 +27,7 @@ public class VendorRegistrationActivity extends BaseActivity implements View.OnC
 
     private EditText edtName, edtPassword, edtConfirmPass, edtEmail, edtPhone;
     private Button btnNext;
+    private String strName, strPassword, confirmPass, strEmail, strPh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +68,11 @@ public class VendorRegistrationActivity extends BaseActivity implements View.OnC
     }
 
     private void checkEmail() {
-        String strName = edtName.getText().toString();
-        String strPassword = edtPassword.getText().toString();
-        String confirmPass = edtConfirmPass.getText().toString();
-        String strEmail = edtEmail.getText().toString();
-        String strPh = edtPhone.getText().toString();
+        strName = edtName.getText().toString();
+        strPassword = edtPassword.getText().toString();
+        confirmPass = edtConfirmPass.getText().toString();
+        strEmail = edtEmail.getText().toString();
+        strPh = edtPhone.getText().toString();
 
         View focusView = null;
         boolean check = false;
@@ -107,28 +114,50 @@ public class VendorRegistrationActivity extends BaseActivity implements View.OnC
             focusView.requestFocus();
         } else {
             //send request to server for email check
-            RegisterVendorReqDTO registerVendorReqDTO = new RegisterVendorReqDTO();
-            registerVendorReqDTO.setProducerName(strName);
-            registerVendorReqDTO.setEmailId(strEmail);
-            registerVendorReqDTO.setPassword(strPassword);
-            Intent iBusinessDetails = new Intent(getApplicationContext(), VenderShopDetailsActivity.class);
-            iBusinessDetails.putExtra(VenderShopDetailsActivity.SHOP_DETAILS, registerVendorReqDTO);
-            startActivity(iBusinessDetails);
+            progressDialog.show();
+            DuplicateEmailReqDTO duplicateEmailReqDTO = new DuplicateEmailReqDTO(strEmail);
+            Gson gson = new Gson();
+            String serializedJsonString = gson.toJson(duplicateEmailReqDTO);
+            BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+            baseRequestDTO.setData(serializedJsonString);
+            mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_IS_EMAIL_DUPLICATE,
+                    mSessionManager.isDuplicateUrl(), baseRequestDTO);
         }
     }
 
     @Override
     public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
-
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_IS_EMAIL_DUPLICATE:
+                customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+                break;
+        }
     }
 
     @Override
     public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
-
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_IS_EMAIL_DUPLICATE:
+                customAlterDialog(getString(R.string.str_email_error), errorMessage);
+                break;
+        }
     }
 
     @Override
     public void onResultReceived(@NonNull String data, int requestToken) {
-
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_IS_EMAIL_DUPLICATE:
+                RegisterVendorReqDTO registerVendorReqDTO = new RegisterVendorReqDTO();
+                registerVendorReqDTO.setProducerName(strName);
+                registerVendorReqDTO.setEmailId(strEmail);
+                registerVendorReqDTO.setPassword(strPassword);
+                Intent iBusinessDetails = new Intent(getApplicationContext(), VenderShopDetailsActivity.class);
+                iBusinessDetails.putExtra(VenderShopDetailsActivity.SHOP_DETAILS, registerVendorReqDTO);
+                startActivity(iBusinessDetails);
+                break;
+        }
     }
 }

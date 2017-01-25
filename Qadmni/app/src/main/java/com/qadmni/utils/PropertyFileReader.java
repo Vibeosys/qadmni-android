@@ -108,16 +108,20 @@ public class PropertyFileReader {
     public String vendorOrder() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.VENDOR_ORDER);
     }
-    public String customerForgotPw()
-    {
-        return getEndPointUri()+mProperties.getProperty(PropertyTypeConstants.CUSTOMER_FORGOT_PW);
+
+    public String customerForgotPw() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.CUSTOMER_FORGOT_PW);
     }
-    public String vendorForgotPw()
-    {
-        return getEndPointUri()+mProperties.getProperty(PropertyTypeConstants.VENDOR_FORGOT_PW);
+
+    public String vendorForgotPw() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.VENDOR_FORGOT_PW);
     }
-    public String pastOrder()
-    {
-        return getEndPointUri()+mProperties.getProperty(PropertyTypeConstants.PAST_ORDERS);
+
+    public String pastOrder() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.PAST_ORDERS);
+    }
+
+    public String isDuplicateEmail() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.IS_DUPLICATE_EMAIL);
     }
 }

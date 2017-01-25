@@ -69,6 +69,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.CUSTOMER_FORGOT_PW, mPropertyFileReader.customerForgotPw());
         editor.putString(PropertyTypeConstants.VENDOR_FORGOT_PW, mPropertyFileReader.vendorForgotPw());
         editor.putString(PropertyTypeConstants.PAST_ORDERS, mPropertyFileReader.pastOrder());
+        editor.putString(PropertyTypeConstants.IS_DUPLICATE_EMAIL, mPropertyFileReader.isDuplicateEmail());
         editor.putInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, mPropertyFileReader.getDbVersion());
         editor.apply();
         return true;
@@ -323,5 +324,9 @@ public class SessionManager {
 
     public String getVendorOrder() {
         return mProjectSharedPref.getString(PropertyTypeConstants.VENDOR_ORDER, null);
+    }
+
+    public String isDuplicateUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.IS_DUPLICATE_EMAIL, null);
     }
 }
