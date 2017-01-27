@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.qadmni.MainActivity;
 import com.qadmni.R;
 import com.qadmni.adapters.OrderHistoryAdapter;
 import com.qadmni.utils.UserAuth;
@@ -61,5 +62,12 @@ public class UserOrderHistoryActivity extends BaseActivity {
 
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        finish();
     }
 }

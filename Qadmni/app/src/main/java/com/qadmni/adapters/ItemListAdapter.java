@@ -192,9 +192,9 @@ public class ItemListAdapter extends BaseAdapter {
         return itemListDetailsDTOs;
     }
 
-    public void setItemListDetailsDTOs(ArrayList<ItemListDetailsDTO> itemListDetailsDTOs) {
-        //this.itemListDetailsDTOs.clear();
-        this.itemListDetailsDTOs = itemListDetailsDTOs;
+    public void setItemListDetailsDTOs(ArrayList<ItemListDetailsDTO> listData) {
+        //itemListDetailsDTOs.clear();
+        itemListDetailsDTOs = listData;
         notifyDataSetChanged();
     }
 }

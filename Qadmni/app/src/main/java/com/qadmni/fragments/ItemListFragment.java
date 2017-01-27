@@ -112,7 +112,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         // properly.
         View rootView = inflater.inflate(R.layout.fragment_item_list_collection, container, false);
         mListView = (ListView) rootView.findViewById(R.id.item_list);
-        itemListAdapter = new ItemListAdapter(itemListDetailsDTOArrayList, getContext(), mSessionManager);
+        itemListAdapter = new ItemListAdapter(this.itemListDetailsDTOArrayList, getContext(), mSessionManager);
         itemListAdapter.setCustomButtonListner(this);
         mListView.setAdapter(itemListAdapter);
         Log.d(TAG, "## fragment created View" + categoryMasterDTO.getCategory());
@@ -143,19 +143,19 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
 
     @Override
     public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
-       // progressDialog.dismiss();
+        // progressDialog.dismiss();
         // customAlterDialog(getResources().getString(R.string.str_err_server_err), error.getMessage());
     }
 
     @Override
     public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
-      //  progressDialog.dismiss();
+        //  progressDialog.dismiss();
         //   customAlterDialog(getResources().getString(R.string.str_err_server_err), errorMessage);
     }
 
     @Override
     public void onResultReceived(@NonNull String data, int requestToken) {
-     //   progressDialog.dismiss();
+        //   progressDialog.dismiss();
         switch (requestToken) {
             case ServerRequestConstants.REQUEST_GET_ITEM_LIST:
                 ItemListResponseDTO itemListResponseDTO = ItemListResponseDTO.deserializeJson(data);
@@ -209,6 +209,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
             for (int i = 0; i < producerLocationDetailsDTOs.size(); i++) {
                 ProducerLocationDetailsDTO producerLocationDetailsDTO = producerLocationDetailsDTOs.get(i);
                 if (itemInfoLists != null) {
+                    this.itemListDetailsDTOArrayList.clear();
                     for (int j = 0; j < itemInfoLists.size(); j++) {
                         ItemInfoList itemInfoList = itemInfoLists.get(j);
                         if (producerLocationDetailsDTO.getProducerId() == itemInfoList.getProducerId()) {
@@ -222,7 +223,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                                     producerLocationDetailsDTO.getUserLon(), "",
                                     "", itemInfoList.getReviews());
                             itemListDetailsDTO.setQuantity(quantity);
-                            itemListDetailsDTOArrayList.add(itemListDetailsDTO);
+                            this.itemListDetailsDTOArrayList.add(itemListDetailsDTO);
 
                         }
                     }
@@ -274,7 +275,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-       //     progressDialog.show();
+            //     progressDialog.show();
         }
 
         @Override
@@ -356,7 +357,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-           // progressDialog.dismiss();
+            // progressDialog.dismiss();
             itemListAdapter.setItemListDetailsDTOs(itemListDetailsDTOArrayList);
         }
     }
