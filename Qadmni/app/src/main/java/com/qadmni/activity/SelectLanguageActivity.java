@@ -1,7 +1,6 @@
 package com.qadmni.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 
 import com.qadmni.MainActivity;
 import com.qadmni.R;
-import com.qadmni.utils.LocaleHelper;
+import com.qadmni.helpers.LocaleHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,12 +59,12 @@ public class SelectLanguageActivity extends BaseActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                LocaleHelper.setLocale(getApplicationContext(), lang);
                 if (lang.equals("en")) {
                     mSessionManager.setUserSelectedLang("En");
                 } else if (lang.equals("ar")) {
                     mSessionManager.setUserSelectedLang("Ar");
                 }
-                LocaleHelper.setLocale(getApplicationContext(), lang);
                 recreate();
 
             }

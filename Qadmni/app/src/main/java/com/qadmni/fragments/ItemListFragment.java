@@ -230,7 +230,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                 }
             }
                 /*Set Adapter*/
-            if (NetworkUtils.isActiveNetworkAvailable(getActivity())) {
+            if (NetworkUtils.isActiveNetworkAvailable(getContext())) {
                 new ApiDirectionsAsyncTask().execute();
             } else {
                 Log.d("TAG", "No internet connection");
@@ -275,7 +275,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //     progressDialog.show();
+               progressDialog.show();
         }
 
         @Override
@@ -357,7 +357,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            // progressDialog.dismiss();
+            progressDialog.dismiss();
             itemListAdapter.setItemListDetailsDTOs(itemListDetailsDTOArrayList);
         }
     }

@@ -40,7 +40,7 @@ public class BaseFragment extends Fragment {
         mServerSyncManager = new ServerSyncManager(getActivity().getApplicationContext(), mSessionManager);
         qadmniHelper = new QadmniHelper(getActivity(), mSessionManager);
         qadmniHelper.getDatabaseStructure();
-        progressDialog = DialogUtils.getProgressDialog(getActivity());
+        progressDialog = DialogUtils.getProgressDialog(getContext());
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     }
 

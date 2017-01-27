@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 import com.qadmni.R;
-import com.qadmni.utils.LocaleHelper;
+import com.qadmni.helpers.LocaleHelper;
 
 
 /**
