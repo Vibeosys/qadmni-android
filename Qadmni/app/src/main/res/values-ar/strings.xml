@@ -2,40 +2,40 @@
 <resources>
     <string name="app_name">Qadmni</string>
     <string name="str_delivery_mode">تاخذ طلبك </string>
-    <string name="str_live_track" translatable="false">طلباتك الحين </string>
-    <string name="action_settings" translatable="false">الضبط</string>
-    <string name="add_more" translatable="false">زود اكثر</string>
-    <string name="btn_apply" translatable="false">تطبيق</string>
-    <string name="btn_check_out" translatable="false">تم </string>
-    <string name="delivery" translatable="false">نوصله لك</string>
-    <string name="dlg_cancel" translatable="false">الغاء</string>
-    <string name="raduis_selected" translatable="false">كيلومتر </string>
-    <string name="salad_by" translatable="false">يبعد </string>
-    <string name="salad_distance" translatable="false">كيلومتر</string>
-    <string name="salad_time" translatable="false">دقائق</string>
-    <string name="sar" translatable="false">ريال</string>
-    <string name="search_items" translatable="false">بحث</string>
-    <string name="str_add_new_product" translatable="false">ضيف منتج جديد</string>
-    <string name="str_asap" translatable="false">اسرع شي</string>
-    <string name="str_avail_soon" translatable="false">متوفر للبيع </string>
-    <string name="str_btn_save" translatable="false">حفظ</string>
-    <string name="str_cancel" translatable="false">الغاء</string>
-    <string name="str_cash" translatable="false">كاش</string>
-    <string name="str_clear" translatable="false">مسح</string>
-    <string name="str_confirm_n_pay" translatable="false">اكد وادفع</string>
-    <string name="str_confirm_user_password" translatable="false">أكد كلمه السر</string>
-    <string name="str_create_acc" translatable="false">سوي لك حساب</string>
-    <string name="str_delivery" translatable="false">توصيل</string>
-    <string name="str_edit" translatable="false">عدل</string>
-    <string name="str_email_hint" translatable="false">الايميل</string>
-    <string name="str_english" translatable="false">English</string>
-    <string name="str_farther" translatable="false">الابعد</string>
-    <string name="str_fav_list" translatable="false">تفضيلاتي</string>
-    <string name="str_filter" translatable="false">فلتره</string>
-    <string name="str_filter_activity_title" translatable="false">فلتره المنتجات</string>
-    <string name="str_free" translatable="false">مجاني</string>
-    <string name="str_high" translatable="false">الاعلى</string>
-    <string name="str_home_delivery" translatable="false">يجيك لعندك</string>
+    <string name="str_live_track">طلباتك الحين </string>
+    <string name="action_settings" >الضبط</string>
+    <string name="add_more" >زود اكثر</string>
+    <string name="btn_apply" >تطبيق</string>
+    <string name="btn_check_out" >تم </string>
+    <string name="delivery" >نوصله لك</string>
+    <string name="dlg_cancel">الغاء</string>
+    <string name="raduis_selected">كيلومتر </string>
+    <string name="salad_by">يبعد </string>
+    <string name="salad_distance">كيلومتر</string>
+    <string name="salad_time" >دقائق</string>
+    <string name="sar" >ريال</string>
+    <string name="search_items" >بحث</string>
+    <string name="str_add_new_product" >ضيف منتج جديد</string>
+    <string name="str_asap" >اسرع شي</string>
+    <string name="str_avail_soon" >متوفر للبيع </string>
+    <string name="str_btn_save" >حفظ</string>
+    <string name="str_cancel" >الغاء</string>
+    <string name="str_cash" >كاش</string>
+    <string name="str_clear" >مسح</string>
+    <string name="str_confirm_n_pay" >اكد وادفع</string>
+    <string name="str_confirm_user_password" >أكد كلمه السر</string>
+    <string name="str_create_acc">سوي لك حساب</string>
+    <string name="str_delivery">توصيل</string>
+    <string name="str_edit">عدل</string>
+    <string name="str_email_hint">الايميل</string>
+    <string name="str_english">English</string>
+    <string name="str_farther">الابعد</string>
+    <string name="str_fav_list" >تفضيلاتي</string>
+    <string name="str_filter">فلتره</string>
+    <string name="str_filter_activity_title">فلتره المنتجات</string>
+    <string name="str_free">مجاني</string>
+    <string name="str_high">الاعلى</string>
+    <string name="str_home_delivery">يجيك لعندك</string>
     <string name="str_login">ادخل</string>
     <string name="str_login_to_acc">ادخل لحسابك </string>
     <string name="str_logout">اخرج</string>
@@ -89,4 +89,25 @@
     <string name="str_vender_login">دخول البائع</string>
     <string name="str_your_cart">ضيافتك</string>
     <string name="your_cart">ضيافتي</string>
+    <string name="str_forgot_msg">بيوصلك علي الايميل اللي سجلت فيه معنا</string>
+    <string name="my_profile">ملفي</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="onesignal_app_id">29d2c9ef-09ee-468b-96c9-b26340758d9a</string>
+    <string name="pick_up">تاخذ طلبك </string>
+    <string name="place_order">كمل طلبك </string>
+    <string name="price_tv">ريال</string>
+    <string name="str_arabic">العربية</string>
+    <string name="str_btn_pay">الدفع</string>
+    <string name="str_btn_send_email">اضغط هنا عشان توصلك كلمه السر</string>
+    <string name="str_change_status">غيير حالتك</string>
+    <string name="str_customer_address">عنوان ضيفنا</string>
+    <string name="str_customer_name_hint">اسمك يا جميل</string>
+    <string name="str_details">التفاصيل</string>
+    <string name="str_google_map_key">AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0</string>
+    <string name="str_google_matrix_key">AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0</string>
+    <string name="str_order_devlivered">وصلك</string>
+    <string name="str_pay_pal">باي بال</string>
+    <string name="str_show_on_map">شوفها بالخريطه </string>
+    <string name="str_update_status">حدث حالتك</string>
 </resources>
