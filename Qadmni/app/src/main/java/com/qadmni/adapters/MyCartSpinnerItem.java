@@ -20,8 +20,8 @@ public class MyCartSpinnerItem extends BaseAdapter {
 
     MyCartSpinnerItem(Context mContext) {
         this.mContext = mContext;
-        for (int i = 0; i <=10; i++) {
-            arrayList.add(i,i);
+        for (int i = 0; i <= 10; i++) {
+            arrayList.add(i, i);
 
         }
     }

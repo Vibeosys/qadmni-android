@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -62,8 +63,9 @@ public class MyCartAdapter extends BaseAdapter {
             viewHolder.itemQuantity = (TextView) row.findViewById(R.id.quantity);
             viewHolder.itemSAR = (TextView) row.findViewById(R.id.idPrice);
             viewHolder.mSetSelectedValue = (Spinner) row.findViewById(R.id.spinnerId);
-            viewHolder.mDeleteBtn = (ImageView) row.findViewById(R.id.deletebtn);
-            viewHolder.mSaveBtn = (ImageView) row.findViewById(R.id.savebtn);
+            viewHolder.mDeleteBtn = (Button) row.findViewById(R.id.deletebtn);
+            viewHolder.mSaveBtn = (Button) row.findViewById(R.id.savebtn);
+
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -82,9 +84,9 @@ public class MyCartAdapter extends BaseAdapter {
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     int selectedVal = (int) myCartSpinnerItem.getItem(i);
                     myCartDTO.setItemQuantity(selectedVal);
-                    if (onQuantityChangeListener != null) {
+                   /* if (onQuantityChangeListener != null) {
                         onQuantityChangeListener.onQuantityChange(myCartDTO, position);
-                    }
+                    }*/
                 }
 
                 @Override
@@ -92,22 +94,35 @@ public class MyCartAdapter extends BaseAdapter {
 
                 }
             });
+            viewHolder.mSaveBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //myCartDTO.setItemQuantity(selectedVal);
+                    if (onQuantityChangeListener != null) {
+                        onQuantityChangeListener.onQuantityChange(myCartDTO, position);
+                    }
+                }
+            });
             viewHolder.mDeleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (onQuantityChangeListener != null) {
                         onQuantityChangeListener.onDeleteClick(myCartDTO, position);
+                        myCartDTOs.remove(position);
+                        notifyDataSetChanged();
                     }
                 }
             });
             viewHolder.itemQuantity.setVisibility(View.GONE);
             viewHolder.mDeleteBtn.setVisibility(View.VISIBLE);
             viewHolder.mSaveBtn.setVisibility(View.VISIBLE);
+
         } else {
             viewHolder.mSetSelectedValue.setVisibility(View.GONE);
             viewHolder.mDeleteBtn.setVisibility(View.GONE);
-            viewHolder.itemQuantity.setVisibility(View.VISIBLE);
             viewHolder.mSaveBtn.setVisibility(View.GONE);
+            viewHolder.itemQuantity.setVisibility(View.VISIBLE);
+
         }
 
         return row;
@@ -116,7 +131,7 @@ public class MyCartAdapter extends BaseAdapter {
     class ViewHolder {
         protected TextView itemName, itemQuantity, itemSAR;
         protected Spinner mSetSelectedValue;
-        protected ImageView mDeleteBtn, mSaveBtn;
+        protected Button mDeleteBtn, mSaveBtn;
     }
 
     public void setVisiblity(boolean visiblity) {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qadmni.R;
@@ -13,6 +14,7 @@ import com.qadmni.activity.BaseActivity;
 import com.qadmni.data.responseDataDTO.LiveOrdersResponseDTO;
 import com.qadmni.utils.DateUtils;
 import com.qadmni.utils.DeliveryMethods;
+import com.qadmni.utils.PaymentMode;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,6 +60,8 @@ public class LiveOrdersAdapter extends BaseAdapter {
             viewHolder.amountInSAR = (TextView) row.findViewById(R.id.sarAmount);
             viewHolder.deliveryMode = (TextView) row.findViewById(R.id.deliveryType);
             viewHolder.orderDate = (TextView) row.findViewById(R.id.orderDate);
+            viewHolder.orderStatus = (ImageView) row.findViewById(R.id.order_status);
+            viewHolder.paymentMode = (TextView) row.findViewById(R.id.paymentMode);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) row.getTag();
@@ -65,11 +69,27 @@ public class LiveOrdersAdapter extends BaseAdapter {
 
         LiveOrdersResponseDTO liveOrdersResponseDTOS = liveOrdersResponseDTO.get(i);
         String deliveryMethod = liveOrdersResponseDTOS.getDeliveryMode();
+        String paymentMode = liveOrdersResponseDTOS.getPaymentMode();
         if (deliveryMethod.equals(DeliveryMethods.PICK_UP)) {
             viewHolder.deliveryMode.setText(context.getResources().getString(R.string.str_delivery_mode));
-        }if(deliveryMethod.equals(DeliveryMethods.HOME_DELIVERY))
-        {
+        }
+        if (deliveryMethod.equals(DeliveryMethods.HOME_DELIVERY)) {
             viewHolder.deliveryMode.setText(context.getResources().getString(R.string.str_home_delivery));
+        }
+        if (paymentMode.equals(PaymentMode.ONLINE_PAYPAL)) {
+            viewHolder.paymentMode.setText(context.getResources().getString(R.string.str_order_demo_delivery_type));
+        }
+        if (paymentMode.equals(PaymentMode.CASH_MODE)) {
+            viewHolder.paymentMode.setText(context.getResources().getString(R.string.str_cash_mode));
+        }
+        if (liveOrdersResponseDTOS.getStageNo() == 1) {
+            viewHolder.orderStatus.setImageDrawable(context.getDrawable(R.drawable.form_wiz_1));
+        }
+        if (liveOrdersResponseDTOS.getStageNo() == 2) {
+            viewHolder.orderStatus.setImageDrawable(context.getDrawable(R.drawable.form_wiz_2));
+        }
+        if (liveOrdersResponseDTOS.getStageNo() == 3) {
+            viewHolder.orderStatus.setImageDrawable(context.getDrawable(R.drawable.form_wiz_3));
         }
         viewHolder.orderId.setText("" + liveOrdersResponseDTOS.getOrderId());
         viewHolder.producerName.setText("" + liveOrdersResponseDTOS.getProducerBusinessName());
@@ -86,5 +106,6 @@ public class LiveOrdersAdapter extends BaseAdapter {
 
     class ViewHolder {
         TextView orderId, orderDate, producerName, paymentMode, deliveryMode, amountInSAR, stageNo, currentStatusCode, deliveryStatus;
+        ImageView orderStatus;
     }
 }

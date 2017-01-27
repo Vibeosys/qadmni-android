@@ -218,6 +218,7 @@
     <string name="str_vendor_forgot_pwd">Vendor forgot password</string>
     <string name="str_customer_forgot_pwd">Customer forgot password</string>
     <string name="str_email_error">Email Not Available</string>
+    <string name="str_cash_mode">Cash</string>
 
     <integer-array name="choices">
         <item>1</item>

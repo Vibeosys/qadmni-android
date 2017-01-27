@@ -91,6 +91,7 @@ public class UserMyCartActivity extends BaseActivity implements MyCartAdapter.On
 
     @Override
     public void onDeleteClick(MyCartDTO myCartDTO, int position) {
-        boolean result=qadmniHelper.deleteMyCartDetailsWithWhere(myCartDTO.getProductId());
+        boolean result = qadmniHelper.deleteMyCartDetailsWithWhere(myCartDTO.getProductId());
+        myCartAdapter.notifyDataSetChanged();
     }
 }

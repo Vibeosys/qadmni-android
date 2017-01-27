@@ -143,19 +143,19 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
 
     @Override
     public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
-        progressDialog.dismiss();
+       // progressDialog.dismiss();
         // customAlterDialog(getResources().getString(R.string.str_err_server_err), error.getMessage());
     }
 
     @Override
     public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
-        progressDialog.dismiss();
+      //  progressDialog.dismiss();
         //   customAlterDialog(getResources().getString(R.string.str_err_server_err), errorMessage);
     }
 
     @Override
     public void onResultReceived(@NonNull String data, int requestToken) {
-        progressDialog.dismiss();
+     //   progressDialog.dismiss();
         switch (requestToken) {
             case ServerRequestConstants.REQUEST_GET_ITEM_LIST:
                 ItemListResponseDTO itemListResponseDTO = ItemListResponseDTO.deserializeJson(data);
@@ -274,7 +274,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog.show();
+       //     progressDialog.show();
         }
 
         @Override
@@ -356,7 +356,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            progressDialog.dismiss();
+           // progressDialog.dismiss();
             itemListAdapter.setItemListDetailsDTOs(itemListDetailsDTOArrayList);
         }
     }
