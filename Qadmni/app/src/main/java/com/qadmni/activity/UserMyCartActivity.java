@@ -33,6 +33,7 @@ public class UserMyCartActivity extends BaseActivity implements MyCartAdapter.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_my_cart);
+        setTitle(getResources().getString(R.string.str_my_cart));
         listView = (ListView) findViewById(R.id.myCartList);
         mAddMoreLayout = (LinearLayout) findViewById(R.id.AddMoreLayout);
         bottomLayout = (LinearLayout) findViewById(R.id.bottomLayout);
@@ -64,8 +65,16 @@ public class UserMyCartActivity extends BaseActivity implements MyCartAdapter.On
                 if (!UserAuth.isUserLoggedIn()) {
                     startActivityForResult(new Intent(getApplicationContext(), CustomerLoginActivity.class), CALL_LOGIN);
                 } else {
-                    Intent intent = new Intent(getApplicationContext(), PlaceOrderActivity.class);
-                    startActivity(intent);
+                    int count = qadmniHelper.getCountCartTable();
+                    if(count==0)
+                    {
+                        customAlterDialog(getResources().getString(R.string.str_my_cart),getResources().getString(R.string.str_empty_cart));
+                    }
+                    if (count != 0) {
+                        Intent intent = new Intent(getApplicationContext(), PlaceOrderActivity.class);
+                        startActivity(intent);
+                    }
+
                 }
             }
         });

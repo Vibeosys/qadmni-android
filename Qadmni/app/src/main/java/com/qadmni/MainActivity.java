@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.graphics.drawable.LayerDrawable;
 import android.location.Location;
 import android.location.LocationManager;
@@ -14,6 +15,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,10 +24,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,7 +68,7 @@ public class MainActivity extends BaseActivity
     private CategoryFragmentAdapter categoryFragmentAdapter;
     private ViewPager mViewPager;
     private ArrayList<CategoryListResponseDTO> categoryListResponseDTOs;
-    private TextView mNavigationUserEmailId, mNavigationUserName;
+    private TextView mNavigationUserEmailId, mNavigationUserName, mCartCountNav;
     private int EDIT_LOCATION_PERMISSION_CODE = 566;
     private LocationRequest mLocationRequest;
     private Location mLastLocation;
@@ -94,6 +98,8 @@ public class MainActivity extends BaseActivity
         View headerView = navigationView.getHeaderView(0);
         mNavigationUserEmailId = (TextView) headerView.findViewById(R.id.txt_user_email);
         mNavigationUserName = (TextView) headerView.findViewById(R.id.txt_user_name);
+        //mCartCountNav = (TextView)MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.nav_myCart));
+        mCartCountNav = (TextView) navigationView.getMenu().findItem(R.id.nav_myCart).getActionView().findViewById(R.id.counter);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         int userType = mSessionManager.getUserType();
         if (userType == UserType.USER_OTHER) {
@@ -126,6 +132,16 @@ public class MainActivity extends BaseActivity
                 }
             }
         };
+        // initializeCountDrawer();
+    }
+
+    private void initializeCountDrawer(int result) {
+        mCartCountNav.setGravity(Gravity.CENTER_VERTICAL);
+        mCartCountNav.setTypeface(null, Typeface.BOLD);
+        mCartCountNav.setTextColor(getResources().getColor(R.color.dialog_color));
+        mCartCountNav.setText("" + result);
+        mCartCountNav.setPadding(4, 0, 4, 0);
+        mCartCountNav.setBackgroundColor(getResources().getColor(R.color.accentText));
     }
 
     public void updateUI(final int result) {
@@ -135,6 +151,7 @@ public class MainActivity extends BaseActivity
             public void run() {
 
                 notificationUtil.setBadgeCount(result);
+                initializeCountDrawer(result);
             }
         });
     }
@@ -195,6 +212,7 @@ public class MainActivity extends BaseActivity
         int record = qadmniHelper.getCountCartTable();
         if (record != 0) {
             updateUI(record);
+            initializeCountDrawer(record);
         }
         return true;
     }

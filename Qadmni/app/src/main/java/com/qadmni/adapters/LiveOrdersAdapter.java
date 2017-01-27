@@ -80,7 +80,7 @@ public class LiveOrdersAdapter extends BaseAdapter {
             viewHolder.paymentMode.setText(context.getResources().getString(R.string.str_order_demo_delivery_type));
         }
         if (paymentMode.equals(PaymentMode.CASH_MODE)) {
-            viewHolder.paymentMode.setText(context.getResources().getString(R.string.str_cash_mode));
+            viewHolder.paymentMode.setText(context.getResources().getString(R.string.str_cash_small));
         }
         if (liveOrdersResponseDTOS.getStageNo() == 1) {
             viewHolder.orderStatus.setImageDrawable(context.getDrawable(R.drawable.form_wiz_1));
