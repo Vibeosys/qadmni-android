@@ -3,6 +3,7 @@ package com.qadmni.adapters;
 /**
  * Created by akshay on 16-01-2017.
  */
+
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -47,6 +48,7 @@ public class VendorItemAdapter extends RecyclerView.Adapter<VendorItemAdapter.It
         holder.txtItemName.setText(item.getItemName());
         holder.txtDetails.setText(item.getItemDesc());
         holder.txtAmount.setText(String.format("%.0f", item.getPrice()));
+        holder.txtCategory.setText(item.getCategory());
         int isAvail = item.getAvailableForSell();
         if (isAvail == 1) {
             holder.txtAvail.setText(mContext.getString(R.string.str_avail_soon));
@@ -77,7 +79,7 @@ public class VendorItemAdapter extends RecyclerView.Adapter<VendorItemAdapter.It
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        protected TextView txtItemName, txtDetails, txtAmount, txtAvail;
+        protected TextView txtItemName, txtDetails, txtAmount, txtAvail, txtCategory;
         protected NetworkImageView imgProduct;
         //protected Button btnUpdate;
 
@@ -88,6 +90,7 @@ public class VendorItemAdapter extends RecyclerView.Adapter<VendorItemAdapter.It
             txtDetails = (TextView) itemView.findViewById(R.id.txtDetails);
             txtAmount = (TextView) itemView.findViewById(R.id.txtAmount);
             txtAvail = (TextView) itemView.findViewById(R.id.txtAvail);
+            txtCategory = (TextView) itemView.findViewById(R.id.txtCategory);
             //btnUpdate = (Button) itemView.findViewById(R.id.btn_update);
         }
     }

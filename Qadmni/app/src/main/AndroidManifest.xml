@@ -135,6 +135,14 @@
         <activity
             android:name=".activity.VenderForgotPassword"
             android:parentActivityName=".activity.VendorLoginActivity"></activity>
+
+        <service
+            android:name=".utils.NotificationExtender"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.onesignal.NotificationExtender" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
