@@ -82,13 +82,13 @@ public class ItemListAdapter extends BaseAdapter {
             viewHolder.mSubtractionBtn = (Button) row.findViewById(R.id.minus_product);
             viewHolder.itemQuantity = (TextView) row.findViewById(R.id.no_product_val);
             viewHolder.simpleRatingBar = (RatingBar) row.findViewById(R.id.product_ratings);
+            viewHolder.itemOffer = (TextView) row.findViewById(R.id.offerText);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
             viewHolder.imgProduct.setImageUrl(null, mImageLoader);
         }
         final ItemListDetailsDTO itemListDetailsDTO = itemListDetailsDTOs.get(i);
-        // ItemInfoList itemInfoListDTO = itemInfoLists.get(i);
         String temp = itemListDetailsDTO.getItemName();
         viewHolder.itemName.setText(itemListDetailsDTO.getItemName());
         viewHolder.itemDescription.setText(itemListDetailsDTO.getItemDesc());
@@ -98,6 +98,12 @@ public class ItemListAdapter extends BaseAdapter {
         viewHolder.itemSar.setText("" + itemListDetailsDTO.getUnitPrice());
         viewHolder.itemReviews.setText("" + itemListDetailsDTO.getReviews() + "\t" + context.getResources().getString(R.string.str_reviews));
         viewHolder.itemQuantity.setText("" + itemListDetailsDTO.getQuantity());
+        if (itemListDetailsDTO.getOfferText() != null && !itemListDetailsDTO.getOfferText().equals("No offer")) {
+            viewHolder.itemOffer.setVisibility(View.VISIBLE);
+            viewHolder.itemOffer.setText(itemListDetailsDTO.getOfferText());
+        } else if (itemListDetailsDTO.getOfferText() == null || itemListDetailsDTO.getOfferText().equals("No offer")) {
+            viewHolder.itemOffer.setVisibility(View.GONE);
+        }
         float userRating = (float) itemListDetailsDTO.getRating();
         viewHolder.simpleRatingBar.setRating(userRating);
         try {
@@ -136,7 +142,7 @@ public class ItemListAdapter extends BaseAdapter {
 
     class ViewHolder {
         protected TextView itemName, itemReviews, ProducerName, itemDescription, itemDistances,
-                itemTime, itemSar, itemQuantity;
+                itemTime, itemSar, itemQuantity, itemOffer;
         protected NetworkImageView imgProduct;
         protected Button mAdditionBtn, mSubtractionBtn;
         protected RatingBar simpleRatingBar;
