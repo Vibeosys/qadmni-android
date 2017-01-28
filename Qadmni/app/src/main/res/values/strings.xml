@@ -43,7 +43,7 @@
     <string name="str_shop_name_hint" translatable="false">Business Name (English)</string>
     <string name="str_shop_location_hint">Business Location</string>
     <string name="str_register_now">Register Now</string>
-    <string name="str_google_map_key">AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0</string>
+    <string name="str_google_map_key" translatable="false">AIzaSyADHuvEn15aYIA9wBHtusur25M1w4MhEW0</string>
     <string name="str_location_not_found" translatable="false">Location is not found</string>
     <string name="str_select" translatable="false">Select</string>
     <string name="str_err_shop_name_empty" translatable="false">Please enter shop name in english</string>
@@ -80,7 +80,7 @@
     <string name="str_register_err_title" translatable="false">Register Error</string>
     <string name="str_net_err" translatable="false">Network Error</string>
     <string name="str_err_net_msg" translatable="false">Please connect to the internet</string>
-    <string name="onesignal_app_id">29d2c9ef-09ee-468b-96c9-b26340758d9a</string>
+    <string name="onesignal_app_id" translatable="false">29d2c9ef-09ee-468b-96c9-b26340758d9a</string>
     <string name="str_reviews" translatable="false">Reviews</string>
     <string name="str_price">Price</string>
     <string name="str_cancel">Cancel</string>
@@ -88,7 +88,7 @@
     <string name="str_err_product_details_empty" translatable="false">Please add product details in english</string>
     <string name="str_err_price_empty" translatable="false">Please enter valid price</string>
     <string name="str_image_upload_success" translatable="false">Item added successfully</string>
-    <string name="str_google_matrix_key">AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0</string>
+    <string name="str_google_matrix_key" translatable="false">AIzaSyADHuvEn15aYIA9wBHtusur25M1w4MhEW0</string>
 
     <string name="str_category_hint" translatable="false">Category</string>
     <string name="str_err_add_product" translatable="false">Add Product Error</string>

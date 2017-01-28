@@ -93,7 +93,6 @@
     <string name="my_profile">ملفي</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="onesignal_app_id">29d2c9ef-09ee-468b-96c9-b26340758d9a</string>
     <string name="pick_up">تاخذ طلبك </string>
     <string name="place_order">كمل طلبك </string>
     <string name="price_tv">ريال</string>
@@ -104,8 +103,6 @@
     <string name="str_customer_address">عنوان ضيفنا</string>
     <string name="str_customer_name_hint">اسمك يا جميل</string>
     <string name="str_details">التفاصيل</string>
-    <string name="str_google_map_key">AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0</string>
-    <string name="str_google_matrix_key">AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0</string>
     <string name="str_order_devlivered">وصلك</string>
     <string name="str_pay_pal">باي بال</string>
     <string name="str_show_on_map">شوفها بالخريطه </string>
