@@ -99,7 +99,7 @@ public class ItemListAdapter extends BaseAdapter {
         viewHolder.itemReviews.setText("" + itemListDetailsDTO.getReviews() + "\t" + context.getResources().getString(R.string.str_reviews));
         viewHolder.itemQuantity.setText("" + itemListDetailsDTO.getQuantity());
         viewHolder.simpleRatingBar.setIndicator(true);
-        if (itemListDetailsDTO.getOfferText() != null && !itemListDetailsDTO.getOfferText().equals("No offer")) {
+         if (itemListDetailsDTO.getOfferText() != null && !itemListDetailsDTO.getOfferText().equals("No offer")) {
             viewHolder.itemOffer.setVisibility(View.VISIBLE);
             viewHolder.itemOffer.setText(itemListDetailsDTO.getOfferText());
         } else if (itemListDetailsDTO.getOfferText() == null || itemListDetailsDTO.getOfferText().equals("No offer")) {

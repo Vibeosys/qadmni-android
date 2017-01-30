@@ -270,12 +270,13 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
     public class ApiDirectionsAsyncTask extends AsyncTask<Void, Integer, Void> {
         private static final String DIRECTIONS_API_BASE = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric";
         // API KEY of the project Google Map Api For work
-        private static final String API_KEY = "AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0";
+        //   private static final String API_KEY = "AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0";
+        private final String API_KEY = getContext().getResources().getString(R.string.str_google_map_key);
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-               progressDialog.show();
+            progressDialog.show();
         }
 
         @Override
@@ -424,5 +425,11 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
 
     public CategoryMasterDTO getCategoryMasterDTO() {
         return this.categoryMasterDTO;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        progressDialog.dismiss();
     }
 }
