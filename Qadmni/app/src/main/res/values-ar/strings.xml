@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Qadmni</string>
+    <string name="app_name">قدمني</string>
     <string name="str_delivery_mode">تاخذ طلبك </string>
     <string name="str_live_track">طلباتك الحين </string>
     <string name="action_settings" >الضبط</string>
@@ -107,4 +107,86 @@
     <string name="str_pay_pal">باي بال</string>
     <string name="str_show_on_map">شوفها بالخريطه </string>
     <string name="str_update_status">حدث حالتك</string>
+    <string name="btn_reset">اعادة ضبط</string>
+    <string name="charge_details">تفاصيل الضريبة</string>
+    <string name="dlg_ok">تمام</string>
+    <string name="location_problem">مشكلة في الموقع</string>
+    <string name="my_subscription">اشتراكاتي</string>
+    <string name="please_wait">ثواني…</string>
+    <string name="str_add_line">اختار الموقع اللي نوصل لك عليه </string>
+    <string name="str_add_not_selected">ماحددت مكانك !</string>
+    <string name="str_address_main">اختر موقعك</string>
+    <string name="str_amount_hint">الكميه</string>
+    <string name="str_cart_validation" translatable="false">ما تقدر تضيف من محل ثاني</string>
+    <string name="str_cash_mode">كاش</string>
+    <string name="str_cash_small">كاش</string>
+    <string name="str_category_hint">تصنيف</string>
+    <string name="str_customer_forgot_pwd">العميل فقد كلمه المرور</string>
+    <string name="str_delivery_in_progress" translatable="false">التوصيل قيد التنفيذ</string>
+    <string name="str_delivery_type_not_selected">اختر نوع الطلب </string>
+    <string name="str_details_ar">تفاصيل المنتج (عربي)</string>
+    <string name="str_details_en">تفاصيل المنتج (انجليزي)</string>
+    <string name="str_details_product"></string>
+    <string name="str_email_error">موموجود الايميل</string>
+    <string name="str_err_add_product">خطأ باضافه المنتج</string>
+    <string name="str_err_categry_list">تصنيف خطأ</string>
+    <string name="str_err_email_empty">لوسمحت ادخل الايميل</string>
+    <string name="str_err_email_wrong">لوسمحت ادخل الايميل الصحيح</string>
+    <string name="str_err_image">لوسمحت اختار صوره المنتج </string>
+    <string name="str_err_location_denied">تم رفض الموقع</string>
+    <string name="str_err_location_map">اختار الموقع الصحيح</string>
+    <string name="str_err_name_empty">لوسمحت اكتب اسمك ياجميل</string>
+    <string name="str_err_net_msg">اشبك على النت</string>
+    <string name="str_err_order_confirm">خطأ بتاكيد الطلب</string>
+    <string name="str_err_order_init">اووبس لم تزبط معنا ، عيد الطلب </string>
+    <string name="str_err_pass_emty">لوسمحت اكتب كلمه المرور</string>
+    <string name="str_err_pass_wrong">غلط عليك اكتب كلمه المرور الصح</string>
+    <string name="str_err_ph_empty">رقم الجوال</string>
+    <string name="str_err_ph_wrong">ادخل رقم الجوال الصحيح</string>
+    <string name="str_err_price_empty">ادخل السعر الصحيح</string>
+    <string name="str_err_product_details_ar_empty">ادخل معلومات المنتج بالعربي</string>
+    <string name="str_err_product_details_empty">اضيف معلومات المنتج بالنجليزيه</string>
+    <string name="str_err_product_name_ar_empty">ا دخل اسم المنتج بالعربي</string>
+    <string name="str_err_product_name_empty">ادخل اسم المنتج بالانجليزيه</string>
+    <string name="str_err_server_err">اووبس خطأ الخادم</string>
+    <string name="str_err_shop_address_empty">اختر موقع صحيح</string>
+    <string name="str_err_shop_name_ar_empty">ادخل اسم المحل بالعربي</string>
+    <string name="str_err_shop_name_empty">تدخل اسم المحل بالانجليزي</string>
+    <string name="str_err_username_empty">ادخل اسم المستخدم</string>
+    <string name="str_location_not_found" translatable="false">ما لقينا موقعك </string>
+    <string name="str_image_upload_success">تم اضافه المنتج بنجاح</string>
+    <string name="str_live_order_error" translatable="false">خطأ في الطلب</string>
+    <string name="str_login_err_title">مشكله في تسجيل الدخول</string>
+    <string name="str_net_err">مشكله في الشبكه</string>
+    <string name="str_not_avail" translatable="false">خلص عليك!</string>
+    <string name="str_order_confirm_success" translatable="false">الحمدلله تم تأكيد الطلب</string>
+    <string name="str_order_date_data" translatable="false"></string>
+    <string name="str_order_pickup_complete" translatable="false">الحمدلله اخذت طلبك</string>
+    <string name="str_order_placed_code">كود الطلب </string>
+    <string name="str_order_ready_to_pickup">جاهز تاخذه</string>
+    <string name="str_order_time_for_pick_over">خلص وقتك عشان تاخذه</string>
+    <string name="str_past_order_error">خطأ في الطلبات القديمه </string>
+    <string name="str_payment">الدفع</string>
+    <string name="str_payment_mode_not_slected">اختر طريقه الدفع</string>
+    <string name="str_pick_time">اختر الوقت و التاريخ</string>
+    <string name="str_pick_up">استلام الطلب </string>
+    <string name="str_place_order_title">خطأ في وضع الطلب</string>
+    <string name="str_product_name_ar_hint"> اسم المنتج بالعربي</string>
+    <string name="str_product_name_en_hint">اسم المنتج بالانجليزيه</string>
+    <string name="str_product_offer">عرض على المنتج</string>
+    <string name="str_register_customer_success">شرفتنا</string>
+    <string name="str_register_err_title">خطأ في التسجيل</string>
+    <string name="str_register_murchent_success">تم تسجيل التاجر بنجاح</string>
+    <string name="str_reviews">اراء</string>
+    <string name="str_select">اختيار</string>
+    <string name="str_server_err_desc">في شي غلط عيد مره ثانيه</string>
+    <string name="str_server_err_title">الخادم الخطأ</string>
+    <string name="str_shop_name_ar_hint">اسم المحل</string>
+    <string name="str_shop_name_hint">اسم المحل بالانجليزي</string>
+    <string name="str_vendor_dashboard">لوحه تحكم البائع</string>
+    <string name="str_vendor_forgot_pwd">البائع نسى كلمه المرور</string>
+    <string name="title_activity_vendor_main" translatable="false"></string>
+    <string name="usd">دولار</string>
+    <string name="str_empty_cart" translatable="false">ضيافتك ما فيها منتج، اختر منتجاتك</string>
+    <string name="user_denied_permission">غير مسموح لك لهذه العمليه </string>
 </resources>

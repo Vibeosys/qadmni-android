@@ -19,10 +19,10 @@
     <string name="str_english">English</string>
     <string name="str_arabic">العربية</string>
 
-    <string name="dlg_ok" translatable="false">Ok</string>
+    <string name="dlg_ok">Ok</string>
     <string name="dlg_cancel">Cancel</string>
-    <string name="str_err_server_err" translatable="false">Server Error</string>
-    <string name="please_wait" translatable="false">Please wait…</string>
+    <string name="str_err_server_err">Server Error</string>
+    <string name="please_wait">Please wait…</string>
 
     <string name="str_name_hint">Name</string>
     <string name="str_user_password">Password</string>
@@ -31,40 +31,40 @@
     <string name="str_ph_hint">Phone</string>
     <string name="str_subscribe_btn">Subscribe Now</string>
     <string name="str_next">Next</string>
-    <string name="str_err_name_empty" translatable="false">Please enter your name</string>
-    <string name="str_err_pass_emty" translatable="false">Please enter password</string>
-    <string name="str_err_email_empty" translatable="false">Please enter your email</string>
-    <string name="str_err_ph_empty" translatable="false">Plase enter phone number</string>
-    <string name="str_err_pass_wrong" translatable="false">Please enter correct password</string>
-    <string name="str_err_ph_wrong" translatable="false">Please enter correct phone number</string>
-    <string name="str_err_email_wrong" translatable="false">Please enter correct email id</string>
+    <string name="str_err_name_empty">Please enter your name</string>
+    <string name="str_err_pass_emty">Please enter password</string>
+    <string name="str_err_email_empty">Please enter your email</string>
+    <string name="str_err_ph_empty">Plase enter phone number</string>
+    <string name="str_err_pass_wrong">Please enter correct password</string>
+    <string name="str_err_ph_wrong">Please enter correct phone number</string>
+    <string name="str_err_email_wrong">Please enter correct email id</string>
 
     <string name="str_shop_details">Shop details</string>
-    <string name="str_shop_name_hint" translatable="false">Business Name (English)</string>
+    <string name="str_shop_name_hint">Business Name (English)</string>
     <string name="str_shop_location_hint">Business Location</string>
     <string name="str_register_now">Register Now</string>
     <string name="str_google_map_key" translatable="false">AIzaSyADHuvEn15aYIA9wBHtusur25M1w4MhEW0</string>
-    <string name="str_location_not_found" translatable="false">Location is not found</string>
-    <string name="str_select" translatable="false">Select</string>
-    <string name="str_err_shop_name_empty" translatable="false">Please enter shop name in english</string>
-    <string name="str_register_murchent_success" translatable="false">Merchant registered successfully</string>
+    <string name="str_location_not_found">Location is not found</string>
+    <string name="str_select">Select</string>
+    <string name="str_err_shop_name_empty">Please enter shop name in english</string>
+    <string name="str_register_murchent_success">Merchant registered successfully</string>
     <string name="salad_by">by</string>
     <string name="salad_distance">Km</string>
     <string name="salad_time">min</string>
     <string name="sar">SAR</string>
-    <string name="str_err_shop_address_empty" translatable="false">Please select address correctly</string>
+    <string name="str_err_shop_address_empty">Please select address correctly</string>
     <string name="str_user_name_hint">Email Id</string>
     <string name="str_login_to_acc">Login to your account</string>
     <string name="str_user_forgot_password">Cannot access your account?</string>
     <string name="str_new_quadmni">New to qadmni?</string>
     <string name="str_create_acc">Create account</string>
-    <string name="str_err_username_empty" translatable="false">Please enter username</string>
+    <string name="str_err_username_empty">Please enter username</string>
     <string name="title_activity_vendor_main" translatable="false">VendorMainActivity</string>
     <string name="str_add_new_product">Add New Product</string>
-    <string name="my_subscription" translatable="false">My Subscriptions</string>
-    <string name="str_server_err_title" translatable="false">Server Error</string>
-    <string name="str_server_err_desc" translatable="false">Something went wrong on server try again</string>
-    <string name="str_login_err_title" translatable="false">Login Error</string>
+    <string name="my_subscription">My Subscriptions</string>
+    <string name="str_server_err_title">Server Error</string>
+    <string name="str_server_err_desc">Something went wrong on server try again</string>
+    <string name="str_login_err_title">Login Error</string>
 
     <string name="str_details">Details</string>
     <string name="str_details_product" translatable="false">delicious ice cream made up of coconut and cream ...</string>
@@ -76,52 +76,52 @@
     <string name="str_login">Login</string>
     <string name="str_start_quickly">Get started quickly</string>
     <string name="str_register">Register</string>
-    <string name="str_register_customer_success" translatable="false">Registration is successfull</string>
-    <string name="str_register_err_title" translatable="false">Register Error</string>
-    <string name="str_net_err" translatable="false">Network Error</string>
-    <string name="str_err_net_msg" translatable="false">Please connect to the internet</string>
+    <string name="str_register_customer_success">Registration is successfull</string>
+    <string name="str_register_err_title">Register Error</string>
+    <string name="str_net_err">Network Error</string>
+    <string name="str_err_net_msg">Please connect to the internet</string>
     <string name="onesignal_app_id" translatable="false">29d2c9ef-09ee-468b-96c9-b26340758d9a</string>
-    <string name="str_reviews" translatable="false">Reviews</string>
+    <string name="str_reviews">Reviews</string>
     <string name="str_price">Price</string>
     <string name="str_cancel">Cancel</string>
-    <string name="str_err_product_name_empty" translatable="false">Please enter product name in english</string>
-    <string name="str_err_product_details_empty" translatable="false">Please add product details in english</string>
-    <string name="str_err_price_empty" translatable="false">Please enter valid price</string>
-    <string name="str_image_upload_success" translatable="false">Item added successfully</string>
+    <string name="str_err_product_name_empty">Please enter product name in english</string>
+    <string name="str_err_product_details_empty">Please add product details in english</string>
+    <string name="str_err_price_empty">Please enter valid price</string>
+    <string name="str_image_upload_success">Item added successfully</string>
     <string name="str_google_matrix_key" translatable="false">AIzaSyADHuvEn15aYIA9wBHtusur25M1w4MhEW0</string>
 
-    <string name="str_category_hint" translatable="false">Category</string>
-    <string name="str_err_add_product" translatable="false">Add Product Error</string>
-    <string name="str_err_categry_list" translatable="false">Cateogry Error</string>
-    <string name="str_err_image" translatable="false">Please select the product image</string>
-    <string name="str_product_name_en_hint" translatable="false">Product Name (English)</string>
-    <string name="str_product_name_ar_hint" translatable="false">Product Name (Arabic)</string>
-    <string name="str_details_en" translatable="false">Product Details (English)</string>
-    <string name="str_details_ar" translatable="false">Product Details (Arabic)</string>
-    <string name="str_err_product_name_ar_empty" translatable="false">Please enter product name in arabic</string>
-    <string name="str_err_product_details_ar_empty" translatable="false">Please enter productdetails in arabic</string>
-    <string name="str_product_offer" translatable="false">Product offer</string>
-    <string name="str_vendor_dashboard" translatable="false">Vendor Dashboard</string>
+    <string name="str_category_hint">Category</string>
+    <string name="str_err_add_product">Add Product Error</string>
+    <string name="str_err_categry_list">Cateogry Error</string>
+    <string name="str_err_image">Please select the product image</string>
+    <string name="str_product_name_en_hint">Product Name (English)</string>
+    <string name="str_product_name_ar_hint">Product Name (Arabic)</string>
+    <string name="str_details_en">Product Details (English)</string>
+    <string name="str_details_ar">Product Details (Arabic)</string>
+    <string name="str_err_product_name_ar_empty">Please enter product name in arabic</string>
+    <string name="str_err_product_details_ar_empty">Please enter productdetails in arabic</string>
+    <string name="str_product_offer">Product offer</string>
+    <string name="str_vendor_dashboard">Vendor Dashboard</string>
     <string name="place_order">Place Your Order</string>
-    <string name="str_shop_name_ar_hint" translatable="false">Business Name (Arabic)</string>
-    <string name="str_err_shop_name_ar_empty" translatable="false">Please enter shop name in arabic</string>
+    <string name="str_shop_name_ar_hint">Business Name (Arabic)</string>
+    <string name="str_err_shop_name_ar_empty">Please enter shop name in arabic</string>
 
     <string name="pick_up">Pick Up</string>
     <string name="delivery">Delivery</string>
     <string name="str_delivery">DELIVERY</string>
     <string name="str_asap">ASAP</string>
     <string name="str_schedule">Schedule</string>
-    <string name="str_pick_time" translatable="false"><![CDATA[Pick a date & time]]></string>
-    <string name="str_payment" translatable="false">PAYMENT</string>
+    <string name="str_pick_time"><![CDATA[Pick a date & time]]></string>
+    <string name="str_payment">PAYMENT</string>
     <string name="str_pay_opt">PAYPAL</string>
     <string name="str_cash">CASH</string>
-    <string name="str_address_main" translatable="false">Select Address</string>
-    <string name="str_add_line" translatable="false">Tap on map to select address</string>
-    <string name="str_add_not_selected" translatable="false">Address not selected</string>
-    <string name="str_delivery_type_not_selected" translatable="false">Please select delivery type</string>
-    <string name="str_payment_mode_not_slected" translatable="false">Please select payment method</string>
-    <string name="str_err_location_map" translatable="false">Please select the proper location</string>
-    <string name="str_place_order_title" translatable="false">Place Order Error</string>
+    <string name="str_address_main">Select Address</string>
+    <string name="str_add_line">Tap on map to select address</string>
+    <string name="str_add_not_selected">Address not selected</string>
+    <string name="str_delivery_type_not_selected">Please select delivery type</string>
+    <string name="str_payment_mode_not_slected">Please select payment method</string>
+    <string name="str_err_location_map">Please select the proper location</string>
+    <string name="str_place_order_title">Place Order Error</string>
 
     <!--My Cart activity-->
     <string name="str_your_cart">Your Cart</string>
@@ -132,21 +132,21 @@
     <string name="cart_one_item_price" translatable="false">20</string>
     <string name="str_total">Total</string>
     <string name="str_btn_pay">PAY</string>
-    <string name="charge_details" translatable="false">Tax details</string>
-    <string name="usd" translatable="false">USD</string>
-    <string name="str_err_order_init" translatable="false">Your order is not generated try again</string>
+    <string name="charge_details">Tax details</string>
+    <string name="usd">USD</string>
+    <string name="str_err_order_init">Your order is not generated try again</string>
     <string name="str_free">Free</string>
-    <string name="str_not_avail" translatable="false">Not available for sell</string>
+    <string name="str_not_avail">Not available for sell</string>
     <string name="str_confirm_n_pay">Confirm and Pay</string>
     <string name="add_more">Add more</string>
-    <string name="user_denied_permission" translatable="false">User denied permission</string>
-    <string name="location_problem" translatable="false">Location problem</string>
+    <string name="user_denied_permission">Permission is denied for this operation</string>
+    <string name="location_problem">Location problem</string>
 
     <!--Order History-->
     <string name="str_live_track">LIVE ORDERS</string>
     <string name="str_past_orders">PAST ORDERS</string>
-    <string name="str_err_order_confirm" translatable="false">Confirm Order Error</string>
-    <string name="str_order_confirm_success" translatable="false">Order confirm successfully</string>
+    <string name="str_err_order_confirm">Confirm Order Error</string>
+    <string name="str_order_confirm_success">Order confirm successfully</string>
 
     <string name="str_sort">SORT BY</string>
     <string name="str_filter">FILTER BY</string>
@@ -160,8 +160,8 @@
     <string name="raduis_selected">km.</string>
     <string name="str_review">Review</string>
     <string name="str_filter_activity_title">Filter Product</string>
-    <string name="str_err_location_denied" translatable="false">Location Denied</string>
-    <string name="btn_reset" translatable="false">RESET</string>
+    <string name="str_err_location_denied">Location Denied</string>
+    <string name="btn_reset">RESET</string>
     <!--Live orders-->
     <string name="str_track_order">FROM</string>
     <string name="str_track_company_name" translatable="false">United Foods Pvt.ltd</string>
@@ -196,30 +196,30 @@
     <string name="str_change_status">Change status</string>
     <string name="str_update_status">Update status</string>
     <string name="str_pay_pal">Pay Pal</string>
-    <string name="str_cash_small" translatable="false">Cash</string>
-    <string name="str_pick_up" translatable="false">Pick Up</string>
+    <string name="str_cash_small">Cash</string>
+    <string name="str_pick_up">Pick Up</string>
 
     <string name="str_forgot_msg">You will receive your credentials,if your email id matches with registered email id</string>
     <string name="str_btn_send_email">Click here to get your password</string>
-    <string name="str_amount_hint" translatable="false">Amount</string>
-    <string name="str_delivery_in_progress" translatable="false">Delivery in progress</string>
+    <string name="str_amount_hint">Amount</string>
+    <string name="str_delivery_in_progress">Delivery in progress</string>
     <string name="str_order_devlivered">Delivered</string>
-    <string name="str_order_placed_code" translatable="false">Order placed code</string>
-    <string name="str_order_ready_to_pickup" translatable="false">Ready to pickup</string>
-    <string name="str_order_pickup_complete" translatable="false">Order pickup complete</string>
-    <string name="str_order_time_for_pick_over" translatable="false">Time for pick up is over</string>
+    <string name="str_order_placed_code">Order placed code</string>
+    <string name="str_order_ready_to_pickup">Ready to pickup</string>
+    <string name="str_order_pickup_complete">Order pickup complete</string>
+    <string name="str_order_time_for_pick_over">Time for pick up is over</string>
     <string name="str_previous_date_1" translatable="false">04-04-2016 10:23 PM</string>
     <string name="price_tv">SAR</string>
-    <string name="str_past_order_error" translatable="false">Past Order error</string>
-    <string name="str_live_order_error" translatable="false">Live Order error</string>
-    <string name="str_cart_validation" translatable="false">You cannot add from another vendor</string>
+    <string name="str_past_order_error">Past Order error</string>
+    <string name="str_live_order_error">Live Order error</string>
+    <string name="str_cart_validation">You cannot add from another vendor</string>
     <string name="str_email_send_msg" translatable="false">Credentials  is send to register email id</string>
 
-    <string name="str_vendor_forgot_pwd" translatable="false">Vendor forgot password</string>
-    <string name="str_customer_forgot_pwd" translatable="false">Customer forgot password</string>
-    <string name="str_email_error" translatable="false">Email Not Available</string>
-    <string name="str_cash_mode" translatable="false">Cash</string>
-<string name="str_empty_cart" translatable="false">Your cart is empty,please select the products</string>
+    <string name="str_vendor_forgot_pwd">Vendor forgot password</string>
+    <string name="str_customer_forgot_pwd">Customer forgot password</string>
+    <string name="str_email_error">Email Not Available</string>
+    <string name="str_cash_mode">Cash</string>
+<string name="str_empty_cart">Your cart is empty,please select the products</string>
     <integer-array name="choices">
         <item>1</item>
         <item>2</item>
