@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 import android.view.ViewGroup;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.qadmni.data.CategoryMasterDTO;
 import com.qadmni.data.responseDataDTO.CategoryListResponseDTO;
 import com.qadmni.fragments.ItemListFragment;
@@ -18,6 +19,7 @@ import java.util.Objects;
  * Created by shrinivas on 13-01-2017.
  */
 public class CategoryFragmentAdapter extends FragmentStatePagerAdapter {
+    private static final String TAG = CategoryFragmentAdapter.class.getSimpleName();
     ArrayList<ItemListFragment> itemListFragments;
 
     public CategoryFragmentAdapter(FragmentManager fm, ArrayList<ItemListFragment> itemListFragments) {
@@ -37,7 +39,14 @@ public class CategoryFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return this.itemListFragments.get(position).getCategoryMasterDTO().getCategory();
+        String name = "";
+        try {
+            name = this.itemListFragments.get(position).getCategoryMasterDTO().getCategory();
+        } catch (NullPointerException e) {
+            name = "";
+            FirebaseCrash.log("Error in " + TAG + " catch block " + e.getMessage());
+        }
+        return name;
     }
 
     /*@Override

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.gson.Gson;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
@@ -134,6 +135,7 @@ public class ConfirmAndPayActivity extends BaseActivity implements
         switch (requestToken) {
             case ServerRequestConstants.REQUEST_PROCESS_ORDER:
                 customAlterDialog(getString(R.string.str_err_order_confirm), errorMessage);
+                //FirebaseCrash.report(new Exception("Order Process is not work on server side"));
                 break;
             case ServerRequestConstants.REQUEST_CONFIRM_ORDER:
                 customAlterDialog(getString(R.string.str_err_order_confirm), errorMessage);

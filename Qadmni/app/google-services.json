@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "777924269922",
+    "firebase_url": "https://qadmni-4153d.firebaseio.com",
+    "project_id": "qadmni-4153d",
+    "storage_bucket": "qadmni-4153d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777924269922:android:28ddeaf16122645a",
+        "android_client_info": {
+          "package_name": "com.qadmni"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "777924269922-tbr2kbik7en981a6m2mmcpl4tm83f5fg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.qadmni",
+            "certificate_hash": "E97F6ADF82D1397591E01FBFD460788CF398C89C"
+          }
+        },
+        {
+          "client_id": "777924269922-c61oniapd6r40h51jubtj565ukrunekn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtKVv4YwwtRVEhMVpruQ9M_WVcMK6BqGg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "777924269922-c61oniapd6r40h51jubtj565ukrunekn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

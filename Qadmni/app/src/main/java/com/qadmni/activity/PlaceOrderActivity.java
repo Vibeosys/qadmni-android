@@ -64,7 +64,7 @@ public class PlaceOrderActivity extends BaseActivity implements
     private LatLng selectedLatLng;
     private String address;
     private CheckBox chkAsapDelivery, chkScheduleDelivery, chkPayPal, chkCash;
-    private String deliveryMethod, paymentMethod;
+    private String deliveryMethod="", paymentMethod="";
     private Calendar mFilterCalender = Calendar.getInstance();
     DateUtils dateUtils = new DateUtils();
     long deliverySchedule;
