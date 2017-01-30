@@ -7,7 +7,7 @@ android {
         applicationId "com.qadmni"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 2
+        versionCode 3
         versionName "1.0"
         multiDexEnabled true
         manifestPlaceholders = [manifestApplicationId          : "${applicationId}",
@@ -57,7 +57,7 @@ dependencies {
     compile 'com.onesignal:OneSignal:3.+@aar'
     //GCM
     compile 'com.google.android.gms:play-services-gcm:10.0.1'
-//Firebase crash reporting
+    //Firebase crash reporting
     compile 'com.google.firebase:firebase-crash:10.0.1'
 }
 apply plugin: 'com.google.gms.google-services'

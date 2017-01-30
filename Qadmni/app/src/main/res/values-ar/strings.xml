@@ -117,16 +117,15 @@
     <string name="str_add_not_selected">ماحددت مكانك !</string>
     <string name="str_address_main">اختر موقعك</string>
     <string name="str_amount_hint">الكميه</string>
-    <string name="str_cart_validation" translatable="false">ما تقدر تضيف من محل ثاني</string>
+    <string name="str_cart_validation">ما تقدر تضيف من محل ثاني</string>
     <string name="str_cash_mode">كاش</string>
     <string name="str_cash_small">كاش</string>
     <string name="str_category_hint">تصنيف</string>
     <string name="str_customer_forgot_pwd">العميل فقد كلمه المرور</string>
-    <string name="str_delivery_in_progress" translatable="false">التوصيل قيد التنفيذ</string>
+    <string name="str_delivery_in_progress">التوصيل قيد التنفيذ</string>
     <string name="str_delivery_type_not_selected">اختر نوع الطلب </string>
     <string name="str_details_ar">تفاصيل المنتج (عربي)</string>
     <string name="str_details_en">تفاصيل المنتج (انجليزي)</string>
-    <string name="str_details_product"></string>
     <string name="str_email_error">موموجود الايميل</string>
     <string name="str_err_add_product">خطأ باضافه المنتج</string>
     <string name="str_err_categry_list">تصنيف خطأ</string>
@@ -153,15 +152,14 @@
     <string name="str_err_shop_name_ar_empty">ادخل اسم المحل بالعربي</string>
     <string name="str_err_shop_name_empty">تدخل اسم المحل بالانجليزي</string>
     <string name="str_err_username_empty">ادخل اسم المستخدم</string>
-    <string name="str_location_not_found" translatable="false">ما لقينا موقعك </string>
+    <string name="str_location_not_found">ما لقينا موقعك </string>
     <string name="str_image_upload_success">تم اضافه المنتج بنجاح</string>
-    <string name="str_live_order_error" translatable="false">خطأ في الطلب</string>
+    <string name="str_live_order_error">خطأ في الطلب</string>
     <string name="str_login_err_title">مشكله في تسجيل الدخول</string>
     <string name="str_net_err">مشكله في الشبكه</string>
-    <string name="str_not_avail" translatable="false">خلص عليك!</string>
-    <string name="str_order_confirm_success" translatable="false">الحمدلله تم تأكيد الطلب</string>
-    <string name="str_order_date_data" translatable="false"></string>
-    <string name="str_order_pickup_complete" translatable="false">الحمدلله اخذت طلبك</string>
+    <string name="str_not_avail">خلص عليك!</string>
+    <string name="str_order_confirm_success">الحمدلله تم تأكيد الطلب</string>
+    <string name="str_order_pickup_complete">الحمدلله اخذت طلبك</string>
     <string name="str_order_placed_code">كود الطلب </string>
     <string name="str_order_ready_to_pickup">جاهز تاخذه</string>
     <string name="str_order_time_for_pick_over">خلص وقتك عشان تاخذه</string>
@@ -185,8 +183,7 @@
     <string name="str_shop_name_hint">اسم المحل بالانجليزي</string>
     <string name="str_vendor_dashboard">لوحه تحكم البائع</string>
     <string name="str_vendor_forgot_pwd">البائع نسى كلمه المرور</string>
-    <string name="title_activity_vendor_main" translatable="false"></string>
     <string name="usd">دولار</string>
-    <string name="str_empty_cart" translatable="false">ضيافتك ما فيها منتج، اختر منتجاتك</string>
+    <string name="str_empty_cart">ضيافتك ما فيها منتج، اختر منتجاتك</string>
     <string name="user_denied_permission">غير مسموح لك لهذه العمليه </string>
 </resources>
