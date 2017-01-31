@@ -11,11 +11,13 @@ import android.location.Geocoder;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -64,10 +66,12 @@ public class PlaceOrderActivity extends BaseActivity implements
     private LatLng selectedLatLng;
     private String address;
     private CheckBox chkAsapDelivery, chkScheduleDelivery, chkPayPal, chkCash;
-    private String deliveryMethod="", paymentMethod="";
+    private String deliveryMethod = "", paymentMethod = "";
     private Calendar mFilterCalender = Calendar.getInstance();
     DateUtils dateUtils = new DateUtils();
     long deliverySchedule;
+    private EditText edtGiftMsg;
+    private CheckBox chkGift;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +82,7 @@ public class PlaceOrderActivity extends BaseActivity implements
         mMapView = (MapView) findViewById(R.id.mapView);
         txtAddL1 = (TextView) findViewById(R.id.txt_address_line1);
         txtAddL2 = (TextView) findViewById(R.id.txt_address_line2);
+        edtGiftMsg = (EditText) findViewById(R.id.edt_message);
         radGrpDeliveryType = (RadioGroup) findViewById(R.id.radio_grp_delivery_type);
         btnSearchAdd = (LinearLayout) findViewById(R.id.btn_search_address);
         btnPlaceOrder = (LinearLayout) findViewById(R.id.btn_place_order);
@@ -85,6 +90,7 @@ public class PlaceOrderActivity extends BaseActivity implements
         chkScheduleDelivery = (CheckBox) findViewById(R.id.chk_schedule_delivery);
         chkPayPal = (CheckBox) findViewById(R.id.chk_pay_pal);
         chkCash = (CheckBox) findViewById(R.id.chk_cash);
+        chkGift = (CheckBox) findViewById(R.id.chk_gift_Wrap_delivery);
         txtScheduleDate = (TextView) findViewById(R.id.txt_pick_date);
 
         btnSearchAdd.setOnClickListener(this);
@@ -95,6 +101,7 @@ public class PlaceOrderActivity extends BaseActivity implements
         chkScheduleDelivery.setOnCheckedChangeListener(this);
         chkPayPal.setOnCheckedChangeListener(this);
         chkCash.setOnCheckedChangeListener(this);
+        chkGift.setOnCheckedChangeListener(this);
 
         mMapView.onCreate(savedInstanceState);
         mServerSyncManager.setOnStringErrorReceived(this);
@@ -131,7 +138,7 @@ public class PlaceOrderActivity extends BaseActivity implements
         String address1 = txtAddL1.getText().toString();
         String address2 = txtAddL2.getText().toString();
         deliveryType = radGrpDeliveryType.getCheckedRadioButtonId();
-
+        String msg = "";
         boolean check = false;
         if (address1.isEmpty() || address1.equals(getString(R.string.str_address_main))) {
             Toast.makeText(getApplicationContext(), getString(R.string.str_add_not_selected),
@@ -149,8 +156,13 @@ public class PlaceOrderActivity extends BaseActivity implements
             Toast.makeText(getApplicationContext(), getString(R.string.str_payment_mode_not_slected),
                     Toast.LENGTH_SHORT).show();
             check = true;
+        } else if (chkGift.isChecked()) {
+            msg = edtGiftMsg.getText().toString();
+            if (TextUtils.isEmpty(msg)) {
+                check = true;
+                edtGiftMsg.setError(getString(R.string.str_err_msg_empty));
+            }
         }
-
         if (check) {
 
         } else {
@@ -262,6 +274,13 @@ public class PlaceOrderActivity extends BaseActivity implements
                 if (value) {
                     chkPayPal.setChecked(false);
                     paymentMethod = PaymentMethods.CASH;
+                }
+                break;
+            case R.id.chk_gift_Wrap_delivery:
+                if (value) {
+                    edtGiftMsg.setVisibility(View.VISIBLE);
+                } else {
+                    edtGiftMsg.setVisibility(View.GONE);
                 }
                 break;
         }

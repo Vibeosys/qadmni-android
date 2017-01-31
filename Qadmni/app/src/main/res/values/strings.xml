@@ -219,7 +219,11 @@
     <string name="str_customer_forgot_pwd">Customer forgot password</string>
     <string name="str_email_error">Email Not Available</string>
     <string name="str_cash_mode">Cash</string>
-<string name="str_empty_cart">Your cart is empty,please select the products</string>
+    <string name="str_empty_cart">Your cart is empty,please select the products</string>
+    <string name="str_packing">PACKING</string>
+    <string name="str_gift_wrap">Gift wrapping</string>
+    <string name="str_mesg_hint">Card Message</string>
+    <string name="str_err_msg_empty">Please enter the gift message</string>
     <integer-array name="choices">
         <item>1</item>
         <item>2</item>
