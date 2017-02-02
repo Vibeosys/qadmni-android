@@ -31,6 +31,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.gson.Gson;
 import com.qadmni.MainActivity;
 import com.qadmni.R;
@@ -170,8 +171,13 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
 
     public void setData() {
         Location location = new Location("");
-        location.setLatitude(mLastLocation.getLatitude());
-        location.setLongitude(mLastLocation.getLongitude());
+        try {
+            location.setLatitude(mLastLocation.getLatitude());
+            location.setLongitude(mLastLocation.getLongitude());
+        } catch (NullPointerException e) {
+            FirebaseCrash.log(TAG + " error in current location" + e.getMessage());
+        }
+
         if (producerLocationses != null) {
             producerLocationDetailsDTOs = new ArrayList<>();
             for (int i = 0; i < producerLocationses.size(); i++) {

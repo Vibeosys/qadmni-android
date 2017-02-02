@@ -19,6 +19,7 @@
             android:orientation="vertical">
 
             <com.qadmni.views.ImageViewArabic
+                android:id="@+id/imgLogo"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_margin="4dp"

@@ -8,6 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -18,6 +19,7 @@ import com.qadmni.data.VendorDTO;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.requestDataDTO.VendorLoginReqDTO;
 import com.qadmni.data.responseDataDTO.VendorLoginResDTO;
+import com.qadmni.helpers.LocaleHelper;
 import com.qadmni.utils.NetworkUtils;
 import com.qadmni.utils.OneSignalIdHandler;
 import com.qadmni.utils.ServerRequestConstants;
@@ -31,6 +33,7 @@ public class VendorLoginActivity extends BaseActivity implements View.OnClickLis
     private TextView txtForgotPass, txtNewUser;
     private Button btnLogin;
     private String userName, password;
+    //private ImageView imgLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class VendorLoginActivity extends BaseActivity implements View.OnClickLis
         edtPassword = (EditText) findViewById(R.id.edt_password);
         txtForgotPass = (TextView) findViewById(R.id.txt_forgot_pass);
         txtNewUser = (TextView) findViewById(R.id.txt_new_acc);
+        //imgLogo = (ImageView) findViewById(R.id.imgLogo);
         btnLogin = (Button) findViewById(R.id.btn_login);
 
         txtForgotPass.setOnClickListener(this);
@@ -51,6 +55,13 @@ public class VendorLoginActivity extends BaseActivity implements View.OnClickLis
         btnLogin.setOnClickListener(this);
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
+        String language = LocaleHelper.getLanguage(getApplicationContext());
+       /* if (language.equals("en")) {
+            imgLogo.setImageDrawable(getResources().getDrawable(R.drawable.qadmni_img_logo_english, null));
+        } else if (language.equals("ar")) {
+            imgLogo.setImageDrawable(getResources().getDrawable(R.drawable.qadmni_img_logo_arabic, null));
+        }*/
+
     }
 
     @Override
