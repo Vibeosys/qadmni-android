@@ -3,14 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash_screen_back"
-    android:gravity="top|center"
+    android:background="@drawable/splash_screen_back_one"
+    android:gravity="center"
     tools:context="com.qadmni.activity.SplashActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/header_icon" />
+        android:src="@drawable/splash_screen_logo" />
 </RelativeLayout>
