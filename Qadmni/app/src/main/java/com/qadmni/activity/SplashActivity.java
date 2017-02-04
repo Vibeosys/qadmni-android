@@ -14,12 +14,12 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        new Handler().postDelayed(new Runnable() {
+       /* new Handler().postDelayed(new Runnable() {
 
-            /*
+            *//*
              * Showing splash screen with a timer. This will be useful when you
              * want to show case your app logo / company
-             */
+             *//*
 
             @Override
             public void run() {
@@ -31,6 +31,6 @@ public class SplashActivity extends AppCompatActivity {
                 // close this activity
                 finish();
             }
-        }, SPLASH_TIME_OUT);
+        }, SPLASH_TIME_OUT);*/
     }
 }

@@ -4,11 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splash_screen_back_one"
-    android:gravity="center"
+    android:gravity="top"
     tools:context="com.qadmni.activity.SplashActivity">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <!--<de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/splash_screen_logo" />
+        android:src="@drawable/splash_screen_logo" />-->
+    <!-- <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Qadmni"
+         android:padding="8dp"
+         android:textColor="@android:color/white"
+         android:textSize="42sp" />-->
+    <com.qadmni.views.ImageViewArabic
+        android:id="@+id/imgLogo"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="4dp"
+        android:src="@drawable/qadmni_img_logo_english" />
 </RelativeLayout>
