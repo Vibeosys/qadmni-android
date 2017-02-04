@@ -6,12 +6,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.qadmni.data.BaseDTO;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by akshay on 16-01-2017.
  */
-public class VendorItemResDTO extends BaseDTO {
+public class VendorItemResDTO extends BaseDTO implements Serializable {
     private static final String TAG = VendorItemResDTO.class.getSimpleName();
     private long itemId;
     private String itemName;

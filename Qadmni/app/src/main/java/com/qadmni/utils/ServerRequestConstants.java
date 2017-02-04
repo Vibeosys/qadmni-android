@@ -21,4 +21,7 @@ public class ServerRequestConstants {
     public static final int REQUEST_VENDOR_FORGOT_PASSWORD = 134;
     public static final int REQUEST_PAST_ORDERS = 135;
     public static final int REQUEST_IS_EMAIL_DUPLICATE = 136;
+    public static final int REQUEST_UPDATE_PRODUCT = 137;
+    public static final int REQUEST_ITEM_DETAILS = 138;
+    public static final int REQUEST_USER_FAV = 139;
 }

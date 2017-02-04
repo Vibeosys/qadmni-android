@@ -124,4 +124,16 @@ public class PropertyFileReader {
     public String isDuplicateEmail() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.IS_DUPLICATE_EMAIL);
     }
+
+    public String updateProductUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.UPDATE_PRODUCT);
+    }
+
+    public String getItemDetails() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_ITEM_DETAILS);
+    }
+
+    public String getUserFavItem() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_FAV_ITEM_LIST);
+    }
 }

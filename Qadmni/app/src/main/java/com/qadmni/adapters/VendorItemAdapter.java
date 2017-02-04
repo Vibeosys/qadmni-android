@@ -24,8 +24,9 @@ import java.util.ArrayList;
 public class VendorItemAdapter extends RecyclerView.Adapter<VendorItemAdapter.ItemViewHolder> {
 
     private Context mContext;
-    private ArrayList<VendorItemResDTO> mData;
+    private ArrayList<VendorItemResDTO> mData = new ArrayList<>();
     private ImageLoader mImageLoader;
+    private OnButtonClickListener onButtonClickListener;
 
     public VendorItemAdapter(Context mContext, ArrayList<VendorItemResDTO> mData) {
         this.mContext = mContext;
@@ -42,7 +43,7 @@ public class VendorItemAdapter extends RecyclerView.Adapter<VendorItemAdapter.It
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder holder, int position) {
+    public void onBindViewHolder(ItemViewHolder holder, final int position) {
         holder.imgProduct.setImageUrl(null, mImageLoader);
         final VendorItemResDTO item = mData.get(position);
         holder.txtItemName.setText(item.getItemName());
@@ -71,6 +72,13 @@ public class VendorItemAdapter extends RecyclerView.Adapter<VendorItemAdapter.It
         } catch (NullPointerException e) {
             holder.imgProduct.setDefaultImageResId(R.drawable.default_img);
         }
+        holder.btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onButtonClickListener != null)
+                    onButtonClickListener.onButtonClick(item, position);
+            }
+        });
     }
 
     @Override
@@ -81,7 +89,7 @@ public class VendorItemAdapter extends RecyclerView.Adapter<VendorItemAdapter.It
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         protected TextView txtItemName, txtDetails, txtAmount, txtAvail, txtCategory;
         protected NetworkImageView imgProduct;
-        //protected Button btnUpdate;
+        protected Button btnUpdate;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -91,7 +99,15 @@ public class VendorItemAdapter extends RecyclerView.Adapter<VendorItemAdapter.It
             txtAmount = (TextView) itemView.findViewById(R.id.txtAmount);
             txtAvail = (TextView) itemView.findViewById(R.id.txtAvail);
             txtCategory = (TextView) itemView.findViewById(R.id.txtCategory);
-            //btnUpdate = (Button) itemView.findViewById(R.id.btn_update);
+            btnUpdate = (Button) itemView.findViewById(R.id.btn_update);
         }
+    }
+
+    public interface OnButtonClickListener {
+        void onButtonClick(VendorItemResDTO vendorItemResDTO, int position);
+    }
+
+    public void setOnButtonClickListener(OnButtonClickListener listener) {
+        this.onButtonClickListener = listener;
     }
 }

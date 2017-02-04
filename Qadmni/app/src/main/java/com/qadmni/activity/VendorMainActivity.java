@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 public class VendorMainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, ServerSyncManager.OnSuccessResultReceived,
-        ServerSyncManager.OnErrorResultReceived {
+        ServerSyncManager.OnErrorResultReceived, VendorItemAdapter.OnButtonClickListener {
     private RecyclerView reItemList;
     private VendorItemAdapter adapter;
     private TextView mNavigationUserEmailId, mNavigationUserName;
@@ -171,8 +171,18 @@ public class VendorMainActivity extends BaseActivity
             case ServerRequestConstants.REQUEST_VENDOR_ITEMS:
                 ArrayList<VendorItemResDTO> vendorItemResDTOs = VendorItemResDTO.deSerializeToArray(data);
                 adapter = new VendorItemAdapter(getApplicationContext(), vendorItemResDTOs);
+                adapter.setOnButtonClickListener(this);
                 reItemList.setAdapter(adapter);
                 break;
         }
+    }
+
+    @Override
+    public void onButtonClick(VendorItemResDTO vendorItemResDTO, int position) {
+        Intent intent = new Intent(getApplicationContext(), AddOrUpdateProductActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putLong("productId", vendorItemResDTO.getItemId());
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

@@ -70,6 +70,9 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.VENDOR_FORGOT_PW, mPropertyFileReader.vendorForgotPw());
         editor.putString(PropertyTypeConstants.PAST_ORDERS, mPropertyFileReader.pastOrder());
         editor.putString(PropertyTypeConstants.IS_DUPLICATE_EMAIL, mPropertyFileReader.isDuplicateEmail());
+        editor.putString(PropertyTypeConstants.UPDATE_PRODUCT, mPropertyFileReader.updateProductUrl());
+        editor.putString(PropertyTypeConstants.GET_ITEM_DETAILS, mPropertyFileReader.getItemDetails());
+        editor.putString(PropertyTypeConstants.GET_FAV_ITEM_LIST, mPropertyFileReader.getUserFavItem());
         editor.putInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, mPropertyFileReader.getDbVersion());
         editor.apply();
         return true;
@@ -328,5 +331,17 @@ public class SessionManager {
 
     public String isDuplicateUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.IS_DUPLICATE_EMAIL, null);
+    }
+
+    public String updateProductUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.UPDATE_PRODUCT, null);
+    }
+
+    public String getItemDetails() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.GET_ITEM_DETAILS, null);
+    }
+
+    public String getUserFavItem() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.GET_FAV_ITEM_LIST, null);
     }
 }

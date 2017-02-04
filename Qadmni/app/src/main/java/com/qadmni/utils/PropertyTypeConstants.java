@@ -21,11 +21,14 @@ public class PropertyTypeConstants {
     public static final String CONFIRM_ORDER = "api.endpoint.confirmorder";
     public static final String VENDOR_ORDER = "api.endpoint.vendororder";
     public static final String DATABASE_VERSION_NUMBER = "database.version.number";
-    public static final String LIVE_ORDERS="api.endpoint.liveorders";
-    public static final String CUSTOMER_FORGOT_PW="api.enpoint.customerforgotpassword";
-    public static final String VENDOR_FORGOT_PW="api.endpoint.vendorforgotpassword";
-    public static  final String PAST_ORDERS="api.endpoint.pastorders";
-    public static  final String IS_DUPLICATE_EMAIL="api.endpoint.duplicateemail";
+    public static final String LIVE_ORDERS = "api.endpoint.liveorders";
+    public static final String CUSTOMER_FORGOT_PW = "api.enpoint.customerforgotpassword";
+    public static final String VENDOR_FORGOT_PW = "api.endpoint.vendorforgotpassword";
+    public static final String PAST_ORDERS = "api.endpoint.pastorders";
+    public static final String IS_DUPLICATE_EMAIL = "api.endpoint.duplicateemail";
+    public static final String UPDATE_PRODUCT = "api.endpoint.updateproduct";
+    public static final String GET_ITEM_DETAILS = "api.endpoint.getitemdetails";
+    public static final String GET_FAV_ITEM_LIST = "api.endpoint.getuserfavitems";
 
     public static final String APP_USER_TYPE = "user.type";
 
@@ -49,5 +52,4 @@ public class PropertyTypeConstants {
     public static final String CUSTOMER_FILTER_SELECTED_PRICE = "user.customer.selectedprice";
 
     public static final String PRODUCER_ID = "item.producer.id";
-
 }

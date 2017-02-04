@@ -64,7 +64,7 @@ public class CategorySpinnerAdapter extends BaseAdapter {
         TextView spinnerChild;
     }
 
-    public int getPosition(int categoryId) {
+    public int getPosition(long categoryId) {
         int position = 0;
         for (int i = 0; i < categoryResponseDTOs.size(); i++) {
             if (categoryId == categoryResponseDTOs.get(i).getCategoryId()) {

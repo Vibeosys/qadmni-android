@@ -224,6 +224,7 @@
     <string name="str_gift_wrap" translatable="false">Gift wrapping</string>
     <string name="str_mesg_hint" translatable="false">Card Message</string>
     <string name="str_err_msg_empty" translatable="false">Please enter the gift message</string>
+    <string name="str_update_product_success">Product updated successfully</string>
     <integer-array name="choices">
         <item>1</item>
         <item>2</item>
