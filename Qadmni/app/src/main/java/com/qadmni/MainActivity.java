@@ -301,7 +301,16 @@ public class MainActivity extends BaseActivity
     @Override
     public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
         progressDialog.dismiss();
-        customAlterDialog(getResources().getString(R.string.str_err_server_err), errorMessage);
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_GET_CATEGORY:
+                customAlterDialog(getResources().getString(R.string.str_err_server_err), errorMessage);
+                break;
+            case ServerRequestConstants.REQUEST_USER_FAV:
+                onRequestGpsPermission();
+                break;
+        }
+
+
     }
 
     @Override
