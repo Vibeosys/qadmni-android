@@ -74,6 +74,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.GET_ITEM_DETAILS, mPropertyFileReader.getItemDetails());
         editor.putString(PropertyTypeConstants.GET_FAV_ITEM_LIST, mPropertyFileReader.getUserFavItem());
         editor.putString(PropertyTypeConstants.ADD_OR_REMOVE_FAV, mPropertyFileReader.addRemoveFav());
+        editor.putString(PropertyTypeConstants.UPDATE_DELIVERY_STATUS, mPropertyFileReader.updateDeliveryStatus());
         editor.putInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, mPropertyFileReader.getDbVersion());
         editor.apply();
         return true;
@@ -349,4 +350,11 @@ public class SessionManager {
     public String addOrRemoveFav() {
         return mProjectSharedPref.getString(PropertyTypeConstants.ADD_OR_REMOVE_FAV, null);
     }
+    public String getUpdateOrderStatusUrl()
+    {
+        return  mProjectSharedPref.getString(PropertyTypeConstants.UPDATE_DELIVERY_STATUS,null);
+    }
+
+
+
 }

@@ -179,7 +179,7 @@
                             android:layout_height="wrap_content"
                             android:background="@android:color/white"
                             android:orientation="vertical"
-                            android:visibility="gone">
+                            android:visibility="visible">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -275,6 +275,52 @@
                                  android:layout_width="match_parent"
                                  android:layout_height="1dp"
                                  android:background="@android:color/darker_gray" />-->
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="26dp"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:padding="8dp">
+
+                                <TextView
+                                    android:id="@+id/orderStatus_1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/str_change_status"
+                                    android:textColor="@android:color/primary_text_light"
+                                    android:textSize="16sp" />
+
+                                <Spinner
+                                    android:id="@+id/spinner_status"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:padding="4dp"
+                                    android:textAlignment="center"
+                                    android:textColor="@android:color/primary_text_light"
+                                    android:textSize="16sp"></Spinner>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="26dp"
+                                android:orientation="horizontal"
+                                android:padding="8dp">
+
+
+                                <Button
+                                    android:id="@+id/updateOrderStatus"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.8"
+                                    android:background="@drawable/custome_with_blue"
+                                    android:minHeight="32sp"
+                                    android:text="@string/str_update_status"
+                                    android:textColor="@android:color/black" />
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -290,7 +336,8 @@
             android:layout_marginEnd="22dp"
             android:background="@drawable/float_button"
             android:elevation="8dp"
-            android:src="@drawable/ic_arrow_drop_down_white_48dp" />
+            android:src="@drawable/ic_arrow_drop_down_white_48dp"
+            android:visibility="gone" />
     </FrameLayout>
 
 </LinearLayout>

@@ -29,8 +29,10 @@ public class VendorOrderDTO extends BaseDTO {
     private int stageNo;
     private String currentStatusCode;
     private int deliveryStatusId;
-    private ArrayList<String> updatableStatusCodes;
+    // private ArrayList<String> UpdatableStatusCodesDTO;
     private boolean canUpdateStatus;
+    private UpdatableStatusCodesDTO[] updatableStatusCodes;
+
 
     public VendorOrderDTO() {
     }
@@ -163,13 +165,13 @@ public class VendorOrderDTO extends BaseDTO {
         this.deliveryStatusId = deliveryStatusId;
     }
 
-    public ArrayList<String> getUpdatableStatusCodes() {
-        return updatableStatusCodes;
+   /* public ArrayList<String> getUpdatableStatusCodes() {
+        return UpdatableStatusCodesDTO;
     }
 
-    public void setUpdatableStatusCodes(ArrayList<String> updatableStatusCodes) {
-        this.updatableStatusCodes = updatableStatusCodes;
-    }
+    public void setUpdatableStatusCodes(ArrayList<String> UpdatableStatusCodesDTO) {
+        this.UpdatableStatusCodesDTO = UpdatableStatusCodesDTO;
+    }*/
 
     public boolean isCanUpdateStatus() {
         return canUpdateStatus;
@@ -188,6 +190,14 @@ public class VendorOrderDTO extends BaseDTO {
             Log.d(TAG, "Exception in deserialization VendorOrderDTO" + e.toString());
         }
         return responseDTO;
+    }
+
+    public UpdatableStatusCodesDTO[] getUpdatableStatusCodesDTOs() {
+        return updatableStatusCodes;
+    }
+
+    public void setUpdatableStatusCodesDTOs(UpdatableStatusCodesDTO[] updatableStatusCodesDTOs) {
+        this.updatableStatusCodes = updatableStatusCodesDTOs;
     }
 
     public static ArrayList<VendorOrderDTO> deSerializeToArray(String serializedString) {

@@ -5,12 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.qadmni.R;
 import com.qadmni.adapters.VendorItemAdapter;
 import com.qadmni.adapters.VendorOrderListAdapter;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
+import com.qadmni.data.requestDataDTO.UpdateDeliveryStatus;
+import com.qadmni.data.responseDataDTO.UpdatableStatusCodesDTO;
 import com.qadmni.data.responseDataDTO.VendorOrderDTO;
 import com.qadmni.utils.NetworkUtils;
 import com.qadmni.utils.ServerRequestConstants;
@@ -19,7 +23,7 @@ import com.qadmni.utils.ServerSyncManager;
 import java.util.ArrayList;
 
 public class VendorOrderListActivity extends BaseActivity implements ServerSyncManager.OnErrorResultReceived,
-        ServerSyncManager.OnSuccessResultReceived {
+        ServerSyncManager.OnSuccessResultReceived, VendorOrderListAdapter.UpdateButton {
 
     private RecyclerView reItemList;
     private VendorOrderListAdapter adapter;
@@ -43,6 +47,7 @@ public class VendorOrderListActivity extends BaseActivity implements ServerSyncM
         }
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
+
     }
 
     @Override
@@ -61,9 +66,28 @@ public class VendorOrderListActivity extends BaseActivity implements ServerSyncM
         switch (requestToken) {
             case ServerRequestConstants.REQUEST_VENDOR_ORDER:
                 ArrayList<VendorOrderDTO> vendorOrderDTOs = VendorOrderDTO.deSerializeToArray(data);
-                adapter = new VendorOrderListAdapter(getApplicationContext(), vendorOrderDTOs);
+
+
+                adapter = new VendorOrderListAdapter(VendorOrderListActivity.this, vendorOrderDTOs);
                 reItemList.setAdapter(adapter);
+                adapter.setOrderStatus(this);
+                break;
+            case ServerRequestConstants.REQUEST_UPDATE_DELIVERY_STATUS:
+                Log.d("TAG", "TAG");
+                Log.d("TAG", "TAG");
+                Log.d("TAG", "TAG");
                 break;
         }
+    }
+
+    @Override
+    public void SendOrderStatus(long id, int status) {
+        UpdateDeliveryStatus updateDeliveryStatus = new UpdateDeliveryStatus(id,status);
+        Gson gson = new Gson();
+        String serializedJsonString = gson.toJson(updateDeliveryStatus);
+        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+        baseRequestDTO.setData(serializedJsonString);
+        mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_UPDATE_DELIVERY_STATUS,
+                mSessionManager.getUpdateOrderStatusUrl(), baseRequestDTO);
     }
 }

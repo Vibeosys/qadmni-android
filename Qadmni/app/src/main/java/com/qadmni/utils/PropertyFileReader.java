@@ -83,6 +83,10 @@ public class PropertyFileReader {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.ADD_PRODUCT_IMAGE);
     }
 
+    public String updateDeliveryStatus()
+    {
+        return getEndPointUri()+mProperties.getProperty(PropertyTypeConstants.UPDATE_DELIVERY_STATUS);
+    }
     public int getDbVersion() {
         String versionNumber = mProperties.getProperty(PropertyTypeConstants.DATABASE_VERSION_NUMBER);
         return Integer.valueOf(versionNumber);
