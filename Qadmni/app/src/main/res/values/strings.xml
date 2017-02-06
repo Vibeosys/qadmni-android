@@ -237,4 +237,5 @@
         <item>9</item>
         <item>10</item>
     </integer-array>
+    <string name="str_product_status">Order Status has been updated</string>
 </resources>

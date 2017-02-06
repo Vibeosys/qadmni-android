@@ -98,40 +98,40 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
                 if (deliveryStaus.equals(DeliveryStatusSpinner.PICK_UP_COMPLETED)) {
                     spinnerData.add("Order completed");
                 }
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>
-                        (mContext, android.R.layout.simple_spinner_item, spinnerData);
-
-                dataAdapter.setDropDownViewResource
-                        (android.R.layout.simple_spinner_dropdown_item);
-                holder.spinnerStatus.setAdapter(dataAdapter);
-                holder.spinnerStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        String selectedVal = adapterView.getItemAtPosition(i).toString();
-                        if (selectedVal.equals("Ready to pick up")) {
-                            sendSelectedId = 5;
-                        }
-                        if (selectedVal.equals("Order status waiting")) {
-                            sendSelectedId = 6;
-                        }
-                        if (selectedVal.equals("Order completed")) {
-                            sendSelectedId = 7;
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
             }
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>
+                    (mContext, android.R.layout.simple_spinner_item, spinnerData);
+
+            dataAdapter.setDropDownViewResource
+                    (android.R.layout.simple_spinner_dropdown_item);
+            holder.spinnerStatus.setAdapter(dataAdapter);
+            holder.spinnerStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    String selectedVal = adapterView.getItemAtPosition(i).toString();
+                    if (selectedVal.equals("Ready to pick up")) {
+                        sendSelectedId = 5;
+                    }
+                    if (selectedVal.equals("Order status waiting")) {
+                        sendSelectedId = 6;
+                    }
+                    if (selectedVal.equals("Order completed")) {
+                        sendSelectedId = 7;
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
             holder.updateOrderStatus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   if(updateButton!=null)
-                   {
-                       updateButton.SendOrderStatus(vendorOrderDTO.getOrderId(),sendSelectedId);
-                   }
+                    if (updateButton != null) {
+                        updateButton.SendOrderStatus(vendorOrderDTO.getOrderId(), sendSelectedId);
+                    }
                 }
             });
         } else {
@@ -195,12 +195,12 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
             spinnerStatus = (Spinner) itemView.findViewById(R.id.spinner_status);
         }
     }
-   public interface UpdateButton
-    {
-        public void SendOrderStatus(long id,int status);
+
+    public interface UpdateButton {
+        public void SendOrderStatus(long id, int status);
     }
-    public void setOrderStatus(UpdateButton orderStatus)
-    {
-        this.updateButton=orderStatus;
+
+    public void setOrderStatus(UpdateButton orderStatus) {
+        this.updateButton = orderStatus;
     }
 }

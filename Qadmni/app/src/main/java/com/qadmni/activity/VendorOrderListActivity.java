@@ -40,14 +40,18 @@ public class VendorOrderListActivity extends BaseActivity implements ServerSyncM
             createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
                     getResources().getString(R.string.str_err_net_msg));
         } else {
-            progressDialog.show();
-            BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
-            mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_VENDOR_ORDER,
-                    mSessionManager.getVendorOrder(), baseRequestDTO);
+            callToWebservice();
         }
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
 
+    }
+
+    public void callToWebservice() {
+        progressDialog.show();
+        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+        mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_VENDOR_ORDER,
+                mSessionManager.getVendorOrder(), baseRequestDTO);
     }
 
     @Override
@@ -66,23 +70,21 @@ public class VendorOrderListActivity extends BaseActivity implements ServerSyncM
         switch (requestToken) {
             case ServerRequestConstants.REQUEST_VENDOR_ORDER:
                 ArrayList<VendorOrderDTO> vendorOrderDTOs = VendorOrderDTO.deSerializeToArray(data);
-
-
                 adapter = new VendorOrderListAdapter(VendorOrderListActivity.this, vendorOrderDTOs);
                 reItemList.setAdapter(adapter);
                 adapter.setOrderStatus(this);
                 break;
             case ServerRequestConstants.REQUEST_UPDATE_DELIVERY_STATUS:
-                Log.d("TAG", "TAG");
-                Log.d("TAG", "TAG");
-                Log.d("TAG", "TAG");
+                customAlterDialog(getResources().getString(R.string.app_name), getResources().getString(R.string.str_product_status));
+                callToWebservice();
                 break;
         }
     }
 
     @Override
     public void SendOrderStatus(long id, int status) {
-        UpdateDeliveryStatus updateDeliveryStatus = new UpdateDeliveryStatus(id,status);
+        progressDialog.dismiss();
+        UpdateDeliveryStatus updateDeliveryStatus = new UpdateDeliveryStatus(id, status);
         Gson gson = new Gson();
         String serializedJsonString = gson.toJson(updateDeliveryStatus);
         BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
