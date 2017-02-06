@@ -26,6 +26,7 @@ import com.qadmni.R;
 import com.qadmni.adapters.ItemListAdapter;
 import com.qadmni.data.ItemListDetailsDTO;
 import com.qadmni.data.ProducerLocationDetailsDTO;
+import com.qadmni.data.requestDataDTO.AddFavReqDTO;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.requestDataDTO.CustomerLoginReqDTO;
 import com.qadmni.data.responseDataDTO.ItemInfoList;
@@ -69,6 +70,7 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_fav_list);
+        setTitle(getResources().getString(R.string.str_fav_list));
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
         mListView = (ListView) findViewById(R.id.item_list);
@@ -97,6 +99,8 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
                 itemInfoLists = userFavResDTO.getItemInfoList();
                 producerLocationses = userFavResDTO.getProducerLocations();
                 setData();
+                break;
+            case ServerRequestConstants.REQUEST_ADD_REMOVE_FAV:
                 break;
         }
     }
@@ -237,6 +241,7 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
                         ItemInfoList itemInfoList = itemInfoLists.get(j);
                         if (producerLocationDetailsDTO.getProducerId() == itemInfoList.getProducerId()) {
                             int quantity = qadmniHelper.getItemQuantity(itemInfoList.getItemId());
+                            boolean isFav = qadmniHelper.getMyFavItem(itemInfoList.getItemId());
                             ItemListDetailsDTO itemListDetailsDTO = new ItemListDetailsDTO(itemInfoList.getItemId(),
                                     itemInfoList.getItemDesc(), itemInfoList.getItemName(),
                                     itemInfoList.getUnitPrice(), itemInfoList.getOfferText(), itemInfoList.getRating(),
@@ -246,6 +251,7 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
                                     producerLocationDetailsDTO.getUserLon(), "",
                                     "", itemInfoList.getReviews());
                             itemListDetailsDTO.setQuantity(quantity);
+                            itemListDetailsDTO.setMyFav(isFav);
                             this.itemListDetailsDTOArrayList.add(itemListDetailsDTO);
 
                         }
@@ -307,6 +313,27 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
             }
 
         }
+        if (id == R.id.ic_favourite) {
+            boolean isFav = itemListDetailsDTOs.isMyFav();
+            itemListDetailsDTOs.setMyFav(!isFav);
+            itemListAdapter.notifyDataSetChanged();
+            callToaddRemoveFav(itemListDetailsDTOs.getItemId(), !isFav);
+        }
+    }
+
+    private void callToaddRemoveFav(long itemId, boolean isFav) {
+        if (isFav) {
+            qadmniHelper.insertFav(itemId);
+        } else {
+            qadmniHelper.deleteMyFav(itemId);
+        }
+        AddFavReqDTO addFavReqDTO = new AddFavReqDTO(itemId, isFav ? 1 : 0);
+        Gson gson = new Gson();
+        String serializedJsonString = gson.toJson(addFavReqDTO);
+        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+        baseRequestDTO.setData(serializedJsonString);
+        mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_ADD_REMOVE_FAV,
+                mSessionManager.addOrRemoveFav(), baseRequestDTO);
     }
 
     public class ApiDirectionsAsyncTask extends AsyncTask<Void, Integer, Void> {
@@ -403,5 +430,11 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
             progressDialog.dismiss();
             itemListAdapter.setItemListDetailsDTOs(itemListDetailsDTOArrayList);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        progressDialog.dismiss();
     }
 }

@@ -11,12 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:background="@android:color/white"
         android:padding="8dp"
         card_view:cardCornerRadius="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/white"
             android:orientation="vertical"
             android:weightSum="2">
 
@@ -132,6 +134,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@android:color/white"
                 android:orientation="vertical"
                 android:padding="8dp">
 
@@ -186,6 +189,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="4dp"
+                    android:background="@android:color/white"
                     android:weightSum="2">
 
                     <LinearLayout
@@ -273,6 +277,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="4dp"
+                    android:background="@android:color/white"
                     android:weightSum="2">
 
                     <LinearLayout
@@ -310,6 +315,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
+                        android:background="@android:color/white"
                         android:orientation="horizontal">
 
                         <LinearLayout

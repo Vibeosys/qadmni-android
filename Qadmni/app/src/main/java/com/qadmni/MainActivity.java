@@ -89,7 +89,7 @@ public class MainActivity extends BaseActivity
         setSupportActionBar(toolbar);
         filter = new IntentFilter();
         filter.addAction(Constants.SEND_BROADCAST_SIGNAL);
-
+        setTitle(getString(R.string.app_name));
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

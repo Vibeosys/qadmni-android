@@ -435,13 +435,19 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
 
         if (id == R.id.ic_favourite) {
             boolean isFav = itemListDetailsDTOs.isMyFav();
-            itemListDetailsDTOs.setMyFav(!itemListDetailsDTOs.isMyFav());
-            callToaddRemoveFav(itemListDetailsDTOs.getItemId(), isFav);
+            itemListDetailsDTOs.setMyFav(!isFav);
+            itemListAdapter.notifyDataSetChanged();
+            callToaddRemoveFav(itemListDetailsDTOs.getItemId(), !isFav);
         }
     }
 
     private void callToaddRemoveFav(long itemId, boolean isFav) {
-        AddFavReqDTO addFavReqDTO = new AddFavReqDTO(itemId, isFav ? 0 : 1);
+        if (isFav) {
+            qadmniHelper.insertFav(itemId);
+        } else {
+            qadmniHelper.deleteMyFav(itemId);
+        }
+        AddFavReqDTO addFavReqDTO = new AddFavReqDTO(itemId, isFav ? 1 : 0);
         Gson gson = new Gson();
         String serializedJsonString = gson.toJson(addFavReqDTO);
         BaseRequestDTO baseRequestDTO = new BaseRequestDTO();

@@ -146,7 +146,9 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activity.UserFavListActivity" />
+        <activity
+            android:name=".activity.UserFavListActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activity.DisplayUserAddressMap"
             android:parentActivityName=".activity.VendorOrderListActivity"></activity>

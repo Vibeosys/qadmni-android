@@ -14,7 +14,7 @@
         android:id="@+id/circleView"
         android:layout_width="140dp"
         android:layout_height="140dp"
-        android:src="@drawable/header_icon" />
+        android:src="@drawable/splash_screen_logo" />
 
     <TextView
         android:id="@+id/txt_user_name"

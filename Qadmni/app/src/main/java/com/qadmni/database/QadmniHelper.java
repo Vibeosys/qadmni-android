@@ -57,8 +57,13 @@ public class QadmniHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        try {
+            db.execSQL(CREATE_MY_FAV);
+            Log.d(TAG, "##Signal Table Create " + CREATE_MY_FAV);
+        } catch (SQLiteException e) {
+            Log.e(TAG, "##Could not create my_fav table" + e.toString());
+        }
     }
 
     public void getDatabaseStructure() {
@@ -488,5 +493,95 @@ public class QadmniHelper extends SQLiteOpenHelper {
                 Log.e(TAG, "Add payment List" + errorMessage);
         }
         return isPresent;
+    }
+
+    public boolean insertFav(long itemId) {
+        boolean flagError = false;
+        String errorMessage = "";
+        SQLiteDatabase sqLiteDatabase = null;
+        ContentValues contentValues = null;
+        long count = -1;
+        try {
+            sqLiteDatabase = getWritableDatabase();
+            synchronized (sqLiteDatabase) {
+                contentValues = new ContentValues();
+
+                contentValues.put(SqlContract.SqlMyFav._ID, itemId);
+                if (!sqLiteDatabase.isOpen()) sqLiteDatabase = getWritableDatabase();
+                count = sqLiteDatabase.insert(SqlContract.SqlMyFav.TABLE_NAME, null, contentValues);
+                contentValues.clear();
+                Log.d(TAG, "## Table Item is added successfully" + itemId);
+                flagError = true;
+            }
+
+        } catch (Exception e) {
+            flagError = false;
+            errorMessage = e.getMessage();
+            Log.d(TAG, "## Error at insert in fav" + e.toString());
+        } finally {
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+            if (!flagError)
+                FirebaseCrash.log(TAG + " error insert in fav" + flagError);
+        }
+        return count != -1;
+    }
+
+    public boolean deleteMyFav(long id) {
+        boolean flagError = false;
+        String errorMessage = "";
+        SQLiteDatabase sqLiteDatabase = null;
+        sqLiteDatabase = getWritableDatabase();
+        long count = -1;
+        try {
+            synchronized (sqLiteDatabase) {
+                count = sqLiteDatabase.delete(SqlContract.SqlMyFav.TABLE_NAME,
+                        SqlContract.SqlMyFav._ID + "=?", new String[]{String.valueOf(id)});
+                Log.d(TAG, " ## delete my Fav successfully" + id);
+            }
+            flagError = true;
+        } catch (Exception e) {
+            flagError = false;
+            errorMessage = e.getMessage();
+            e.printStackTrace();
+            Log.d(TAG, "## delete my Fav not successfully" + e.toString());
+            //sqLiteDatabase.close();
+
+        } finally {
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+            if (!flagError)
+                Log.e(TAG, "Delete my fav" + errorMessage);
+        }
+        return count != -1;
+    }
+
+    public boolean deleteMyFav() {
+        boolean flagError = false;
+        String errorMessage = "";
+        SQLiteDatabase sqLiteDatabase = null;
+        sqLiteDatabase = getWritableDatabase();
+        long count = -1;
+        try {
+            synchronized (sqLiteDatabase) {
+                count = sqLiteDatabase.delete(SqlContract.SqlMyFav.TABLE_NAME,
+                        null, null);
+                Log.d(TAG, " ## delete my fav successfully");
+            }
+            flagError = true;
+        } catch (Exception e) {
+            flagError = false;
+            errorMessage = e.getMessage();
+            e.printStackTrace();
+            Log.d(TAG, "## delete my fav not successfully" + e.toString());
+            //sqLiteDatabase.close();
+
+        } finally {
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+            if (!flagError)
+                Log.e(TAG, "Delete fav" + errorMessage);
+        }
+        return count != -1;
     }
 }
