@@ -8,12 +8,15 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.qadmni.data.ItemListDetailsDTO;
 import com.qadmni.data.MyCartDTO;
 import com.qadmni.data.requestDataDTO.OrderItemDTO;
+import com.qadmni.data.responseDataDTO.ItemInfoList;
 import com.qadmni.utils.SessionManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by akshay on 19-01-2017.
@@ -30,6 +33,9 @@ public class QadmniHelper extends SQLiteOpenHelper {
             "  INT NULL DEFAULT 0," + SqlContract.SqlMyCart.PRODUCER_ID +
             "  INT NULL," + SqlContract.SqlMyCart.ITEM_UNIT_PRICE + " INT NULL DEFAULT 0)";
 
+    private final String CREATE_MY_FAV = "CREATE TABLE IF NOT EXISTS " + SqlContract.SqlMyFav.TABLE_NAME +
+            "(" + SqlContract.SqlMyFav._ID + " INTEGER PRIMARY KEY)";
+
     public QadmniHelper(Context context, SessionManager sessionManager) {
         super(context, DATABASE_NAME, null, sessionManager.getDatabaseVersion());
     }
@@ -41,6 +47,12 @@ public class QadmniHelper extends SQLiteOpenHelper {
             Log.d(TAG, "##Signal Table Create " + CREATE_MY_CART);
         } catch (SQLiteException e) {
             Log.e(TAG, "##Could not create myCart table" + e.toString());
+        }
+        try {
+            db.execSQL(CREATE_MY_FAV);
+            Log.d(TAG, "##Signal Table Create " + CREATE_MY_FAV);
+        } catch (SQLiteException e) {
+            Log.e(TAG, "##Could not create my_fav table" + e.toString());
         }
     }
 
@@ -405,4 +417,76 @@ public class QadmniHelper extends SQLiteOpenHelper {
 
     }
 
+    public boolean insertFavList(List<ItemInfoList> itemListDetailsDTOs) {
+        boolean flagError = false;
+        String errorMessage = "";
+        SQLiteDatabase sqLiteDatabase = null;
+        ContentValues contentValues = null;
+        long count = -1;
+        try {
+            sqLiteDatabase = getWritableDatabase();
+            synchronized (sqLiteDatabase) {
+                contentValues = new ContentValues();
+                for (ItemInfoList itemListDetailsDTO : itemListDetailsDTOs) {
+                    contentValues.put(SqlContract.SqlMyFav._ID, itemListDetailsDTO.getItemId());
+                    if (!sqLiteDatabase.isOpen()) sqLiteDatabase = getWritableDatabase();
+                    count = sqLiteDatabase.insert(SqlContract.SqlMyFav.TABLE_NAME, null, contentValues);
+                    contentValues.clear();
+                    Log.d(TAG, "## Table Item is added successfully" + itemListDetailsDTO.getItemId());
+
+                }
+                flagError = true;
+            }
+
+        } catch (Exception e) {
+            flagError = false;
+            errorMessage = e.getMessage();
+            Log.d(TAG, "## Error at insert in fav" + e.toString());
+        } finally {
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+            if (!flagError)
+                FirebaseCrash.log(TAG + " error insert in fav" + flagError);
+        }
+        return count != -1;
+    }
+
+    public boolean getMyFavItem(long itemId) {
+        boolean flagError = false;
+        String errorMessage = "";
+        SQLiteDatabase sqLiteDatabase = null;
+        Cursor cursor = null;
+        boolean isPresent = false;
+        try {
+            sqLiteDatabase = getReadableDatabase();
+            synchronized (sqLiteDatabase) {
+                cursor = sqLiteDatabase.rawQuery("Select * From " + SqlContract.SqlMyFav.TABLE_NAME + " where " + SqlContract.SqlMyFav._ID + "=?",
+                        new String[]{String.valueOf(itemId)});
+                if (cursor != null) {
+                    if (cursor.getCount() > 0) {
+                        isPresent = true;
+                    }
+                }
+                flagError = true;
+                //cursor.close();
+                //sqLiteDatabase.close();
+            }
+        } catch (Exception e) {
+            isPresent = false;
+            flagError = false;
+            errorMessage = e.getMessage();
+            Log.e(TAG, "Error at getPaymentList table " + e.toString());
+        } finally
+
+        {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen())
+                sqLiteDatabase.close();
+            if (!flagError)
+                Log.e(TAG, "Add payment List" + errorMessage);
+        }
+        return isPresent;
+    }
 }

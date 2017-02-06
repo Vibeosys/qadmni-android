@@ -50,6 +50,8 @@ import com.qadmni.adapters.CategoryFragmentAdapter;
 import com.qadmni.data.CategoryMasterDTO;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.responseDataDTO.CategoryListResponseDTO;
+import com.qadmni.data.responseDataDTO.ItemInfoList;
+import com.qadmni.data.responseDataDTO.UserFavResDTO;
 import com.qadmni.fragments.ItemListFragment;
 import com.qadmni.utils.Constants;
 import com.qadmni.utils.ServerRequestConstants;
@@ -116,10 +118,13 @@ public class MainActivity extends BaseActivity
             }
         }
 
-        onRequestGpsPermission();
+
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
-
+        progressDialog.show();
+        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+        mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_USER_FAV,
+                mSessionManager.getUserFavItem(), baseRequestDTO);
 
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -319,6 +324,13 @@ public class MainActivity extends BaseActivity
                         getSupportFragmentManager(), itemList);
                 //mViewPager.setOffscreenPageLimit(1);
                 mViewPager.setAdapter(categoryFragmentAdapter);
+                break;
+            case ServerRequestConstants.REQUEST_USER_FAV:
+                UserFavResDTO userFavResDTO = UserFavResDTO.deserializeJson(data);
+                ArrayList<ItemInfoList> itemInfoLists = userFavResDTO.getItemInfoList();
+                qadmniHelper.insertFavList(itemInfoLists);
+                onRequestGpsPermission();
+                break;
         }
 
     }

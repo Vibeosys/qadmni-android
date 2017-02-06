@@ -29,6 +29,7 @@ public class PropertyTypeConstants {
     public static final String UPDATE_PRODUCT = "api.endpoint.updateproduct";
     public static final String GET_ITEM_DETAILS = "api.endpoint.getitemdetails";
     public static final String GET_FAV_ITEM_LIST = "api.endpoint.getuserfavitems";
+    public static final String ADD_OR_REMOVE_FAV = "api.endpoint.addorremovefav";
 
     public static final String APP_USER_TYPE = "user.type";
 

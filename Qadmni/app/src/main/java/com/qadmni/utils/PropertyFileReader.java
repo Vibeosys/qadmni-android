@@ -136,4 +136,8 @@ public class PropertyFileReader {
     public String getUserFavItem() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_FAV_ITEM_LIST);
     }
+
+    public String addRemoveFav() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.ADD_OR_REMOVE_FAV);
+    }
 }

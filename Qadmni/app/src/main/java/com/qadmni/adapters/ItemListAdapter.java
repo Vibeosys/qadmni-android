@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -83,6 +84,7 @@ public class ItemListAdapter extends BaseAdapter {
             viewHolder.itemQuantity = (TextView) row.findViewById(R.id.no_product_val);
             viewHolder.simpleRatingBar = (SimpleRatingBar) row.findViewById(R.id.product_ratings);
             viewHolder.itemOffer = (TextView) row.findViewById(R.id.offerText);
+            viewHolder.imgFav = (ImageView) row.findViewById(R.id.ic_favourite);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -99,7 +101,7 @@ public class ItemListAdapter extends BaseAdapter {
         viewHolder.itemReviews.setText("" + itemListDetailsDTO.getReviews() + "\t" + context.getResources().getString(R.string.str_reviews));
         viewHolder.itemQuantity.setText("" + itemListDetailsDTO.getQuantity());
         viewHolder.simpleRatingBar.setIndicator(true);
-         if (itemListDetailsDTO.getOfferText() != null && !itemListDetailsDTO.getOfferText().equals("No offer")) {
+        if (itemListDetailsDTO.getOfferText() != null && !itemListDetailsDTO.getOfferText().equals("No offer")) {
             viewHolder.itemOffer.setVisibility(View.VISIBLE);
             viewHolder.itemOffer.setText(itemListDetailsDTO.getOfferText());
         } else if (itemListDetailsDTO.getOfferText() == null || itemListDetailsDTO.getOfferText().equals("No offer")) {
@@ -123,6 +125,12 @@ public class ItemListAdapter extends BaseAdapter {
         } catch (NullPointerException e) {
             viewHolder.imgProduct.setDefaultImageResId(R.drawable.default_img);
         }
+        final boolean isMyFav = itemListDetailsDTO.isMyFav();
+        if (isMyFav) {
+            viewHolder.imgFav.setImageDrawable(context.getDrawable(R.drawable.ic_favourites_pink_24));
+        } else {
+            viewHolder.imgFav.setImageDrawable(context.getDrawable(R.drawable.ic_favourite_24dp));
+        }
         viewHolder.mAdditionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,6 +145,16 @@ public class ItemListAdapter extends BaseAdapter {
                     customButtonListener.onButtonClickListener(view.getId(), i, itemListDetailsDTO.getQuantity(), itemListDetailsDTO);
             }
         });
+
+        viewHolder.imgFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (customButtonListener != null) {
+                    customButtonListener.onButtonClickListener(view.getId(), i, itemListDetailsDTO.getQuantity(), itemListDetailsDTO);
+                }
+
+            }
+        });
         return row;
     }
 
@@ -147,7 +165,7 @@ public class ItemListAdapter extends BaseAdapter {
         protected NetworkImageView imgProduct;
         protected Button mAdditionBtn, mSubtractionBtn;
         protected SimpleRatingBar simpleRatingBar;
-
+        protected ImageView imgFav;
     }
 
     public interface CustomButtonListener {

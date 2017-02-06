@@ -24,4 +24,5 @@ public class ServerRequestConstants {
     public static final int REQUEST_UPDATE_PRODUCT = 137;
     public static final int REQUEST_ITEM_DETAILS = 138;
     public static final int REQUEST_USER_FAV = 139;
+    public static final int REQUEST_ADD_REMOVE_FAV = 140;
 }

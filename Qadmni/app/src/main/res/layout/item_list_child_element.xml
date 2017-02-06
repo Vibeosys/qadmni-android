@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:card_view="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
-        card_view:cardCornerRadius="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:padding="8dp">
+        android:padding="8dp"
+        card_view:cardCornerRadius="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -82,7 +82,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2.5"
                                 android:gravity="center|end"
-                                android:src="@drawable/img_selector_hover" />
+                                android:src="@drawable/ic_favourite_24dp" />
                         </LinearLayout>
 
                         <LinearLayout

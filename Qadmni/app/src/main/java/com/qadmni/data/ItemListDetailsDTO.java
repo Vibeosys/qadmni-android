@@ -25,6 +25,7 @@ public class ItemListDetailsDTO {
     private String userTime;
     private int quantity;
     private double doubleDistance;
+    private boolean isMyFav;
 
     public ItemListDetailsDTO(long itemId, String itemDesc, String itemName, double unitPrice,
                               String offerText, double rating, String imageUrl, long producerId,
@@ -191,6 +192,14 @@ public class ItemListDetailsDTO {
 
     public void setDoubleDistance(double doubleDistance) {
         this.doubleDistance = doubleDistance;
+    }
+
+    public boolean isMyFav() {
+        return isMyFav;
+    }
+
+    public void setMyFav(boolean myFav) {
+        isMyFav = myFav;
     }
 
     public static class PriceComparator implements Comparator<ItemListDetailsDTO> {

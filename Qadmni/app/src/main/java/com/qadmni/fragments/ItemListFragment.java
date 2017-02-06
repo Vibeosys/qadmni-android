@@ -40,6 +40,7 @@ import com.qadmni.adapters.ItemListAdapter;
 import com.qadmni.data.CategoryMasterDTO;
 import com.qadmni.data.ItemListDetailsDTO;
 import com.qadmni.data.ProducerLocationDetailsDTO;
+import com.qadmni.data.requestDataDTO.AddFavReqDTO;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.requestDataDTO.GetItemListDTO;
 import com.qadmni.data.responseDataDTO.CategoryListResponseDTO;
@@ -164,6 +165,8 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                 producerLocationses = ProducerLocations.deSerializedToJson(itemListResponseDTO.getProducerLocations());
                 setData();
                 break;
+            case ServerRequestConstants.REQUEST_ADD_REMOVE_FAV:
+                break;
         }
 
     }
@@ -220,6 +223,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                         ItemInfoList itemInfoList = itemInfoLists.get(j);
                         if (producerLocationDetailsDTO.getProducerId() == itemInfoList.getProducerId()) {
                             int quantity = qadmniHelper.getItemQuantity(itemInfoList.getItemId());
+                            boolean isMyFav = qadmniHelper.getMyFavItem(itemInfoList.getItemId());
                             ItemListDetailsDTO itemListDetailsDTO = new ItemListDetailsDTO(itemInfoList.getItemId(),
                                     itemInfoList.getItemDesc(), itemInfoList.getItemName(),
                                     itemInfoList.getUnitPrice(), itemInfoList.getOfferText(), itemInfoList.getRating(),
@@ -229,6 +233,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                                     producerLocationDetailsDTO.getUserLon(), "",
                                     "", itemInfoList.getReviews());
                             itemListDetailsDTO.setQuantity(quantity);
+                            itemListDetailsDTO.setMyFav(isMyFav);
                             this.itemListDetailsDTOArrayList.add(itemListDetailsDTO);
 
                         }
@@ -427,6 +432,22 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
             }
 
         }
+
+        if (id == R.id.ic_favourite) {
+            boolean isFav = itemListDetailsDTOs.isMyFav();
+            itemListDetailsDTOs.setMyFav(!itemListDetailsDTOs.isMyFav());
+            callToaddRemoveFav(itemListDetailsDTOs.getItemId(), isFav);
+        }
+    }
+
+    private void callToaddRemoveFav(long itemId, boolean isFav) {
+        AddFavReqDTO addFavReqDTO = new AddFavReqDTO(itemId, isFav ? 0 : 1);
+        Gson gson = new Gson();
+        String serializedJsonString = gson.toJson(addFavReqDTO);
+        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+        baseRequestDTO.setData(serializedJsonString);
+        mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_ADD_REMOVE_FAV,
+                mSessionManager.addOrRemoveFav(), baseRequestDTO);
     }
 
     public CategoryMasterDTO getCategoryMasterDTO() {
