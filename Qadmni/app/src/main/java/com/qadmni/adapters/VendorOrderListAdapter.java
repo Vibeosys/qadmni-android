@@ -83,7 +83,7 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
         holder.customerName.setText(vendorOrderDTO.getCustomerName());
         String orderCode = vendorOrderDTO.getCurrentStatusCode();
         if (vendorOrderDTO.isCanUpdateStatus() == true) {
-            holder.fab.setVisibility(View.VISIBLE);
+
             updatableStatusCodesDTOs = UpdatableStatusCodesDTO.deserializeJson(vendorOrderDTO.getUpdatableStatusCodesDTOs());
             spinnerData = new ArrayList<>();
             for (int i = 0; i < updatableStatusCodesDTOs.size(); i++) {
@@ -135,7 +135,7 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
                 }
             });
         } else {
-            holder.fab.setVisibility(View.INVISIBLE);
+            holder.layHide.setVisibility(View.GONE);
         }
         holder.orderStatus.setText(this.orderStatusString.getValueOrderStatus(orderCode));
         holder.customerAmount.setText(String.format("SAR %.2f", vendorOrderDTO.getAmountInSAR()));
@@ -150,16 +150,22 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
                 mContext.startActivity(intent);
             }
         });
-        if (vendorOrderDTO.isCanUpdateStatus()) {
-            holder.fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        // if (vendorOrderDTO.isCanUpdateStatus()) {
+        holder.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.layHide.setVisibility(View.VISIBLE);
+                if (vendorOrderDTO.isCanUpdateStatus() == true) {
                     holder.layHide.setVisibility(View.VISIBLE);
+                    holder.layHide2.setVisibility(View.VISIBLE);
+                } else {
+                    holder.layHide2.setVisibility(View.GONE);
                 }
-            });
-        } else {
+            }
+        });
+       /* } else {
             holder.fab.setVisibility(View.INVISIBLE);
-        }
+        }*/
 
     }
 
@@ -174,7 +180,7 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
         protected Button updateOrderStatus;
         protected Spinner spinnerStatus;
         protected ImageView imgTracker;
-        protected LinearLayout layHide;
+        protected LinearLayout layHide, layHide2;
         protected ImageButton fab;
 
         public OrderViewHolder(View itemView) {
@@ -190,6 +196,7 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
             customerAmount = (TextView) itemView.findViewById(R.id.customerAmount);
             imgTracker = (ImageView) itemView.findViewById(R.id.imgTracker);
             layHide = (LinearLayout) itemView.findViewById(R.id.lay_hide);
+            layHide2 = (LinearLayout) itemView.findViewById(R.id.lay_hide_2);
             fab = (ImageButton) itemView.findViewById(R.id.fab);
             updateOrderStatus = (Button) itemView.findViewById(R.id.updateOrderStatus);
             spinnerStatus = (Spinner) itemView.findViewById(R.id.spinner_status);
