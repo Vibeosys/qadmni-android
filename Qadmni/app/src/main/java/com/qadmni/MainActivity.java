@@ -43,6 +43,7 @@ import com.qadmni.activity.BaseActivity;
 import com.qadmni.activity.FilterUserListActivity;
 import com.qadmni.activity.MainLoginActivity;
 import com.qadmni.activity.SelectLanguageActivity;
+import com.qadmni.activity.UserFavListActivity;
 import com.qadmni.activity.UserMyCartActivity;
 import com.qadmni.activity.UserOrderHistoryActivity;
 import com.qadmni.adapters.CategoryFragmentAdapter;
@@ -256,6 +257,8 @@ public class MainActivity extends BaseActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_favourite) {
+            Intent intent = new Intent(getApplicationContext(), UserFavListActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_profile) {
 

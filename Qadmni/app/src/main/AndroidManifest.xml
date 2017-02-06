@@ -43,9 +43,11 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/str_google_map_key" />
 
-       <!-- <uses-feature
+        <!--
+            <uses-feature
             android:glEsVersion="0x00020000"
-            android:required="true" />-->
+            android:required="true" />
+        -->
 
         <activity
             android:name=".activity.SelectLanguageActivity"
@@ -128,13 +130,13 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activity.VendorOrderListActivity"
-            android:parentActivityName=".activity.VendorMainActivity"></activity>
+            android:parentActivityName=".activity.VendorMainActivity" />
         <activity
             android:name=".activity.CustomerForgotPassword"
-            android:parentActivityName=".activity.CustomerLoginActivity"></activity>
+            android:parentActivityName=".activity.CustomerLoginActivity" />
         <activity
             android:name=".activity.VenderForgotPassword"
-            android:parentActivityName=".activity.VendorLoginActivity"></activity>
+            android:parentActivityName=".activity.VendorLoginActivity" />
 
         <service
             android:name=".utils.NotificationExtender"
@@ -143,6 +145,8 @@
                 <action android:name="com.onesignal.NotificationExtender" />
             </intent-filter>
         </service>
+
+        <activity android:name=".activity.UserFavListActivity"></activity>
     </application>
 
 </manifest>
