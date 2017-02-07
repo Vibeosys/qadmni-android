@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qadmni.R;
+import com.qadmni.utils.NetworkUtils;
 
 public class VendorProfileActivity extends BaseActivity implements View.OnClickListener {
     private TextView mUpdateProfile;
@@ -42,6 +44,7 @@ public class VendorProfileActivity extends BaseActivity implements View.OnClickL
         mUserPassword.setText("" + mSessionManager.getVendorPassword());
 
         mUserPhoto.setOnClickListener(this);
+        mUpdateProfile.setOnClickListener(this);
         mUserPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -71,8 +74,48 @@ public class VendorProfileActivity extends BaseActivity implements View.OnClickL
             case R.id.circleViewImage:
                 openGallery();
                 break;
+            case R.id.saveProfile:
+               boolean result= callToValidation();
+                if(result)
+                {
+                    if(NetworkUtils.isActiveNetworkAvailable(getApplicationContext()))
+                    {
+                        callToWebService();
+                    }
+                    else
+                    {
+                        customAlterDialog(getResources().getString(R.string.str_net_err),getResources().getString(R.string.str_err_net_msg));
+                    }
+
+                }
         }
 
+    }
+
+    private void callToWebService() {
+
+    }
+
+    private boolean callToValidation() {
+        String userName = mUserFirstName.getText().toString().trim();
+        String userEmail = mUserEmailId.getText().toString().trim();
+        String userPassword = mUserPassword.getText().toString().trim();
+        if (TextUtils.isEmpty(userName)) {
+            mUserFirstName.requestFocus();
+            mUserFirstName.setError(getResources().getString(R.string.str_pro_user));
+            return false;
+        }
+        if (TextUtils.isEmpty(userPassword)) {
+            mUserPassword.requestFocus();
+            mUserPassword.setError(getResources().getString(R.string.str_pro_password));
+            return false;
+        }
+        if (TextUtils.isEmpty(userEmail)) {
+            mUserEmailId.requestFocus();
+            mUserPassword.setError(getResources().getString(R.string.str_pro_email));
+            return false;
+        }
+        return true;
     }
 
     private void openGallery() {
