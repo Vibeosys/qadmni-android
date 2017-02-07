@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qadmni.R;
 import com.qadmni.activity.BaseActivity;
 import com.qadmni.data.responseDataDTO.LiveOrdersResponseDTO;
+import com.qadmni.data.responseDataDTO.PastOrderResponseDTO;
 import com.qadmni.utils.DateUtils;
 import com.qadmni.utils.DeliveryMethods;
 import com.qadmni.utils.PaymentMode;
@@ -25,6 +27,7 @@ import java.util.Date;
 public class LiveOrdersAdapter extends BaseAdapter {
     ArrayList<LiveOrdersResponseDTO> liveOrdersResponseDTO = null;
     Context context;
+    private OnFeedbackClickListener listener;
 
     public LiveOrdersAdapter(ArrayList<LiveOrdersResponseDTO> liveOrdersResponseDTO, Context context) {
         this.liveOrdersResponseDTO = liveOrdersResponseDTO;
@@ -62,12 +65,13 @@ public class LiveOrdersAdapter extends BaseAdapter {
             viewHolder.orderDate = (TextView) row.findViewById(R.id.orderDate);
             viewHolder.orderStatus = (ImageView) row.findViewById(R.id.order_status);
             viewHolder.paymentMode = (TextView) row.findViewById(R.id.paymentMode);
+            viewHolder.layFeedback = (LinearLayout) row.findViewById(R.id.lay_feedback);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) row.getTag();
         }
 
-        LiveOrdersResponseDTO liveOrdersResponseDTOS = liveOrdersResponseDTO.get(i);
+        final LiveOrdersResponseDTO liveOrdersResponseDTOS = liveOrdersResponseDTO.get(i);
         String deliveryMethod = liveOrdersResponseDTOS.getDeliveryMode();
         String paymentMode = liveOrdersResponseDTOS.getPaymentMode();
         if (deliveryMethod.equals(DeliveryMethods.PICK_UP)) {
@@ -100,12 +104,28 @@ public class LiveOrdersAdapter extends BaseAdapter {
         String stringYear = (String) android.text.format.DateFormat.format("dd-MM-yyyy", tempDate);
         String timeStr = (String) android.text.format.DateFormat.format("hh:mm a", tempDate);
         viewHolder.orderDate.setText("" + stringYear + "\t" + timeStr);
-
+        viewHolder.layFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listener != null) {
+                    listener.onFeedBackClick(liveOrdersResponseDTOS);
+                }
+            }
+        });
         return row;
     }
 
     class ViewHolder {
         TextView orderId, orderDate, producerName, paymentMode, deliveryMode, amountInSAR, stageNo, currentStatusCode, deliveryStatus;
         ImageView orderStatus;
+        LinearLayout layFeedback;
+    }
+
+    public interface OnFeedbackClickListener {
+        void onFeedBackClick(LiveOrdersResponseDTO liveOrdersResponseDTO);
+    }
+
+    public void setOnFeedbackClickListener(OnFeedbackClickListener listener) {
+        this.listener = listener;
     }
 }

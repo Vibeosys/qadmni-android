@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.qadmni.R;
+import com.qadmni.activity.AddOrUpdateProductActivity;
+import com.qadmni.activity.FeedBackActivity;
 import com.qadmni.adapters.LiveOrdersAdapter;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.requestDataDTO.GetItemListDTO;
@@ -29,7 +31,9 @@ import java.util.ArrayList;
 /**
  * Created by shrinivas on 20-01-2017.
  */
-public class LiveOrdersFragment extends BaseFragment implements ServerSyncManager.OnErrorResultReceived, ServerSyncManager.OnSuccessResultReceived {
+public class LiveOrdersFragment extends BaseFragment implements
+        ServerSyncManager.OnErrorResultReceived, ServerSyncManager.OnSuccessResultReceived,
+        LiveOrdersAdapter.OnFeedbackClickListener {
 
     TextView mTrackOrders, mFeedBack;
     ListView mListView;
@@ -84,19 +88,30 @@ public class LiveOrdersFragment extends BaseFragment implements ServerSyncManage
             case ServerRequestConstants.REQUEST_LIVE_ORDERS:
                 ArrayList<LiveOrdersResponseDTO> liveOrdersResponseDTO = LiveOrdersResponseDTO.deserializeJson(data);
                 LiveOrdersAdapter liveOrdersAdapter = new LiveOrdersAdapter(liveOrdersResponseDTO, getActivity());
+                liveOrdersAdapter.setOnFeedbackClickListener(this);
                 mListView.setAdapter(liveOrdersAdapter);
                 break;
         }
 
     }
-    /*public void OpenFeedBackDialog(Bundle savedInstanceState) {
-        final Dialog dlg = new Dialog(getActivity(), android.R.style.Theme_DeviceDefault_Dialog_MinWidth);
+
+    public void OpenFeedBackDialog(Bundle savedInstanceState) {
+       /* final Dialog dlg = new Dialog(getActivity(), android.R.style.Theme_DeviceDefault_Dialog_MinWidth);
         dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //View view = getLayoutInflater(savedInstanceState).inflate(R.layout.feedback_dialog_layout, null);
         dlg.setContentView(R.layout.feedback_dialog_layout);
 
         dlg.getWindow().setBackgroundDrawableResource(R.color.dialog_color);
         dlg.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        dlg.show();
-    }*/
+        dlg.show();*/
+    }
+
+    @Override
+    public void onFeedBackClick(LiveOrdersResponseDTO liveOrdersResponseDTO) {
+        Intent intent = new Intent(getContext(), FeedBackActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putLong("orderId", liveOrdersResponseDTO.getOrderId());
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }

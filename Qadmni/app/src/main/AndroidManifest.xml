@@ -151,7 +151,10 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activity.DisplayUserAddressMap"
-            android:parentActivityName=".activity.VendorOrderListActivity"></activity>
+            android:parentActivityName=".activity.VendorOrderListActivity" />
+        <activity
+            android:name=".activity.FeedBackActivity"
+            android:parentActivityName=".activity.UserOrderHistoryActivity" />
     </application>
 
 </manifest>

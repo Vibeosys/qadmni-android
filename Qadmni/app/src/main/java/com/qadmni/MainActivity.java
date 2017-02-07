@@ -335,6 +335,7 @@ public class MainActivity extends BaseActivity
                 mViewPager.setAdapter(categoryFragmentAdapter);
                 break;
             case ServerRequestConstants.REQUEST_USER_FAV:
+                qadmniHelper.deleteMyFav();
                 UserFavResDTO userFavResDTO = UserFavResDTO.deserializeJson(data);
                 ArrayList<ItemInfoList> itemInfoLists = userFavResDTO.getItemInfoList();
                 qadmniHelper.insertFavList(itemInfoLists);

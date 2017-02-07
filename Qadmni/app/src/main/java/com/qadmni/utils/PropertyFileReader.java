@@ -83,10 +83,10 @@ public class PropertyFileReader {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.ADD_PRODUCT_IMAGE);
     }
 
-    public String updateDeliveryStatus()
-    {
-        return getEndPointUri()+mProperties.getProperty(PropertyTypeConstants.UPDATE_DELIVERY_STATUS);
+    public String updateDeliveryStatus() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.UPDATE_DELIVERY_STATUS);
     }
+
     public int getDbVersion() {
         String versionNumber = mProperties.getProperty(PropertyTypeConstants.DATABASE_VERSION_NUMBER);
         return Integer.valueOf(versionNumber);
@@ -143,5 +143,13 @@ public class PropertyFileReader {
 
     public String addRemoveFav() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.ADD_OR_REMOVE_FAV);
+    }
+
+    public String getReviewItems() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_REVIEW_ITEMS);
+    }
+
+    public String submitReview() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.SUBMIT_REVIEW_ITEMS);
     }
 }
