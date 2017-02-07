@@ -73,7 +73,7 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
-            case R.id.circleViewImage:
+            case R.id.circleViewUser:
                 openGallery();
                 break;
             case R.id.saveProfile:

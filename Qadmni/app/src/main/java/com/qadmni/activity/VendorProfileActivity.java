@@ -33,7 +33,7 @@ public class VendorProfileActivity extends BaseActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor_profile);
-        mUpdateProfile = (TextView) findViewById(R.id.saveProfile);
+        mUpdateProfile = (TextView) findViewById(R.id.saveProfile_vendor);
         mUserFirstName = (EditText) findViewById(R.id.userName);
         mUserEmailId = (EditText) findViewById(R.id.userEmailId);
         mUserPassword = (EditText) findViewById(R.id.userPassword);
@@ -74,7 +74,7 @@ public class VendorProfileActivity extends BaseActivity implements View.OnClickL
             case R.id.circleViewImage:
                 openGallery();
                 break;
-            case R.id.saveProfile:
+            case R.id.saveProfile_vendor:
                boolean result= callToValidation();
                 if(result)
                 {
