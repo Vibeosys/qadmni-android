@@ -20,4 +20,5 @@
     <color name="divider_colour1">#a8e7e6e5</color>
     <color name="dialog_color">#ffffff</color>
     <color name="hyperlinkColour">#dc3392ff</color>
+    <color name="profileTransparnt">#940b0b0b</color>
 </resources>

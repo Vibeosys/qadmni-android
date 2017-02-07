@@ -240,4 +240,13 @@
     <string name="str_product_status">Order Status has been updated</string>
     <string name="str_submit">Submit</string>
     <string name="str_feedback_success">Thanks for giving feedback,Your sugesstions are valuable to us.</string>
+
+    <string name="str_profile_save">Save Profile</string>
+    <string name="str_customer_name">Simon Jones</string>
+    <string name="str_first_name">First Name</string>
+    <string name="str_customer_email">simon.jones@test.com</string>
+    <string name="str_user_address"><![CDATA[3602 Al Farawi St, Al Murabba, Riyadh 12612 8214, Saudi Arabia]]></string>
+    <string name="str_address">Address</string>
+    <string name="permission_read_storage_rationale">Storage read permission is needed to pick files.</string>
+    <string name="str_select_picture">Select Picture</string>
 </resources>

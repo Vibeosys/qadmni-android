@@ -109,9 +109,9 @@ public class VendorMainActivity extends BaseActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+       /* if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -134,8 +134,8 @@ public class VendorMainActivity extends BaseActivity
             callToLogOut();
         }
         if (id == R.id.nav_profile) {
-            /*Intent intent = new Intent(getApplicationContext(), PartnerProfileActivity.class);
-            startActivity(intent);*/
+            Intent intent = new Intent(getApplicationContext(), VendorProfileActivity.class);
+            startActivity(intent);
         }
         /*if (id == R.id.nav_subscription) {
             *//*Intent intent = new Intent(getApplicationContext(), PatnerRenewActivity.class);
