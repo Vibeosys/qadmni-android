@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.qadmni.R;
 import com.qadmni.activity.AddOrUpdateProductActivity;
 import com.qadmni.activity.FeedBackActivity;
+import com.qadmni.activity.OrderDetailsActivity;
 import com.qadmni.adapters.LiveOrdersAdapter;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.requestDataDTO.GetItemListDTO;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
  */
 public class LiveOrdersFragment extends BaseFragment implements
         ServerSyncManager.OnErrorResultReceived, ServerSyncManager.OnSuccessResultReceived,
-        LiveOrdersAdapter.OnFeedbackClickListener {
+        LiveOrdersAdapter.OnFeedbackClickListener, LiveOrdersAdapter.OnOrderDetailsClickListener {
 
     TextView mTrackOrders, mFeedBack;
     ListView mListView;
@@ -109,6 +110,15 @@ public class LiveOrdersFragment extends BaseFragment implements
     @Override
     public void onFeedBackClick(LiveOrdersResponseDTO liveOrdersResponseDTO) {
         Intent intent = new Intent(getContext(), FeedBackActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putLong("orderId", liveOrdersResponseDTO.getOrderId());
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onOrderDetails(LiveOrdersResponseDTO liveOrdersResponseDTO) {
+        Intent intent = new Intent(getContext(), OrderDetailsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putLong("orderId", liveOrdersResponseDTO.getOrderId());
         intent.putExtras(bundle);

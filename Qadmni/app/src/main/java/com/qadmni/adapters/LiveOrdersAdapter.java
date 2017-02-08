@@ -28,6 +28,7 @@ public class LiveOrdersAdapter extends BaseAdapter {
     ArrayList<LiveOrdersResponseDTO> liveOrdersResponseDTO = null;
     Context context;
     private OnFeedbackClickListener listener;
+    private OnOrderDetailsClickListener onOrderDetailsClickListener;
 
     public LiveOrdersAdapter(ArrayList<LiveOrdersResponseDTO> liveOrdersResponseDTO, Context context) {
         this.liveOrdersResponseDTO = liveOrdersResponseDTO;
@@ -66,6 +67,7 @@ public class LiveOrdersAdapter extends BaseAdapter {
             viewHolder.orderStatus = (ImageView) row.findViewById(R.id.order_status);
             viewHolder.paymentMode = (TextView) row.findViewById(R.id.paymentMode);
             viewHolder.layFeedback = (LinearLayout) row.findViewById(R.id.lay_feedback);
+            viewHolder.trackOrders = (TextView) row.findViewById(R.id.trackOrders);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) row.getTag();
@@ -112,11 +114,20 @@ public class LiveOrdersAdapter extends BaseAdapter {
                 }
             }
         });
+        viewHolder.trackOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onOrderDetailsClickListener != null) {
+                    onOrderDetailsClickListener.onOrderDetails(liveOrdersResponseDTOS);
+                }
+            }
+        });
         return row;
     }
 
     class ViewHolder {
-        TextView orderId, orderDate, producerName, paymentMode, deliveryMode, amountInSAR, stageNo, currentStatusCode, deliveryStatus;
+        TextView orderId, orderDate, producerName, paymentMode, deliveryMode, amountInSAR, stageNo,
+                currentStatusCode, deliveryStatus, trackOrders;
         ImageView orderStatus;
         LinearLayout layFeedback;
     }
@@ -127,5 +138,13 @@ public class LiveOrdersAdapter extends BaseAdapter {
 
     public void setOnFeedbackClickListener(OnFeedbackClickListener listener) {
         this.listener = listener;
+    }
+
+    public interface OnOrderDetailsClickListener {
+        void onOrderDetails(LiveOrdersResponseDTO liveOrdersResponseDTO);
+    }
+
+    public void setOnOrderDetailsClick(OnOrderDetailsClickListener onOrderDetailsClickListener) {
+        this.onOrderDetailsClickListener = onOrderDetailsClickListener;
     }
 }

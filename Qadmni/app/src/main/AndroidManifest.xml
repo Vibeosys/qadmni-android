@@ -160,7 +160,8 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activity.VendorProfileActivity"
-            android:parentActivityName=".activity.VendorMainActivity"></activity>
+            android:parentActivityName=".activity.VendorMainActivity" />
+        <activity android:name=".activity.OrderDetailsActivity"></activity>
     </application>
 
 </manifest>
