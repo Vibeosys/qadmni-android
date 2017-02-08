@@ -112,7 +112,7 @@ public class QadmniHelper extends SQLiteOpenHelper {
                 contentValues.put(SqlContract.SqlMyCart.PRODUCT_ID, itemDetails.getItemId());
                 contentValues.put(SqlContract.SqlMyCart.PRODUCT_NAME, itemDetails.getItemName());
                 contentValues.put(SqlContract.SqlMyCart.PRODUCT_QTY, qty);
-                contentValues.put(SqlContract.SqlMyCart.PRODUCER_ID, itemDetails.getProducerId());
+                contentValues.put(SqlContract.SqlMyCart.PRODUCER_ID, itemDetails.getProducerDetails().getProducerId());
                 contentValues.put(SqlContract.SqlMyCart.ITEM_UNIT_PRICE, itemDetails.getUnitPrice());
                 if (rowCount == 0 && qty != 0) {
                     if (!sqLiteDatabase.isOpen()) sqLiteDatabase = getWritableDatabase();

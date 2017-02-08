@@ -1,5 +1,7 @@
 package com.qadmni.data;
 
+import java.util.ArrayList;
+
 /**
  * Created by shrinivas on 17-01-2017.
  */
@@ -8,17 +10,20 @@ public class ProducerLocationDetailsDTO {
     private String businessName;
     private double businessLat;
     private double businessLong;
-    private double userLat;
-    private double userLon;
+    private String userDistance;
+    private String userTime;
+    private double doubleDistance;
 
     public ProducerLocationDetailsDTO(long producerId, String businessName, double businessLat,
-                                      double businessLong, double userLat, double userLon) {
+                                      double businessLong, String userDistance, String userTime,
+                                      double doubleDistance) {
         this.producerId = producerId;
         this.businessName = businessName;
         this.businessLat = businessLat;
         this.businessLong = businessLong;
-        this.userLat = userLat;
-        this.userLon = userLon;
+        this.userDistance = userDistance;
+        this.userTime = userTime;
+        this.doubleDistance = doubleDistance;
     }
 
     public long getProducerId() {
@@ -53,20 +58,39 @@ public class ProducerLocationDetailsDTO {
         this.businessLong = businessLong;
     }
 
-    public double getUserLat() {
-        return userLat;
+    public String getUserDistance() {
+        return userDistance;
     }
 
-    public void setUserLat(double userLat) {
-        this.userLat = userLat;
+    public void setUserDistance(String userDistance) {
+        this.userDistance = userDistance;
     }
 
-    public double getUserLon() {
-        return userLon;
+    public String getUserTime() {
+        return userTime;
     }
 
-    public void setUserLon(double userLon) {
-        this.userLon = userLon;
+    public void setUserTime(String userTime) {
+        this.userTime = userTime;
     }
 
+    public double getDoubleDistance() {
+        return doubleDistance;
+    }
+
+    public void setDoubleDistance(double doubleDistance) {
+        this.doubleDistance = doubleDistance;
+    }
+
+    public static ProducerLocationDetailsDTO getProducerById(long producerId, ArrayList<ProducerLocationDetailsDTO> producerLocationDetailsDTOs) {
+        ProducerLocationDetailsDTO producerLocationDetailsDTO = null;
+        for (ProducerLocationDetailsDTO producer : producerLocationDetailsDTOs) {
+            if (producer.getProducerId() == producerId) {
+                producerLocationDetailsDTO = producer;
+            } else {
+
+            }
+        }
+        return producerLocationDetailsDTO;
+    }
 }

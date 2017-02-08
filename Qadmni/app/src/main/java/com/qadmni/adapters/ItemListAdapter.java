@@ -30,19 +30,22 @@ import java.util.Collections;
  * Created by shrinivas on 16-01-2017.
  */
 public class ItemListAdapter extends BaseAdapter {
-    ArrayList<ItemListDetailsDTO> itemListDetailsDTOs;
+    ArrayList<ItemListDetailsDTO> itemListDetailsDTOs = new ArrayList<>();
     Context context;
     private ImageLoader mImageLoader;
     CustomButtonListener customButtonListener;
     SessionManager sessionManager;
 
     public ItemListAdapter(ArrayList<ItemListDetailsDTO> itemListDetailsDTOs, Context context,
-                           SessionManager sessionManager) {
+                           SessionManager sessionManager, boolean isFav) {
         //this.itemListDetailsDTOs.clear();
         this.itemListDetailsDTOs = itemListDetailsDTOs;
         this.context = context;
         this.sessionManager = sessionManager;
-        sortNFilter();
+        if (!isFav) {
+            sortNFilter();
+        }
+
     }
 
     @Override
@@ -94,9 +97,9 @@ public class ItemListAdapter extends BaseAdapter {
         String temp = itemListDetailsDTO.getItemName();
         viewHolder.itemName.setText(itemListDetailsDTO.getItemName());
         viewHolder.itemDescription.setText(itemListDetailsDTO.getItemDesc());
-        viewHolder.ProducerName.setText(itemListDetailsDTO.getBusinessName());
-        viewHolder.itemDistances.setText("" + itemListDetailsDTO.getUserDistance());
-        viewHolder.itemTime.setText("" + itemListDetailsDTO.getUserTime());
+        viewHolder.ProducerName.setText(itemListDetailsDTO.getProducerDetails().getBusinessName());
+        viewHolder.itemDistances.setText("" + itemListDetailsDTO.getProducerDetails().getUserDistance());
+        viewHolder.itemTime.setText("" + itemListDetailsDTO.getProducerDetails().getUserTime());
         viewHolder.itemSar.setText("" + itemListDetailsDTO.getUnitPrice());
         viewHolder.itemReviews.setText("" + itemListDetailsDTO.getReviews() + "\t" + context.getResources().getString(R.string.str_reviews));
         viewHolder.itemQuantity.setText("" + itemListDetailsDTO.getQuantity());

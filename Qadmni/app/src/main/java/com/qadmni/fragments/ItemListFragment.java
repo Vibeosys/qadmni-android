@@ -38,6 +38,7 @@ import com.qadmni.R;
 import com.qadmni.adapters.CategoryFragmentAdapter;
 import com.qadmni.adapters.ItemListAdapter;
 import com.qadmni.data.CategoryMasterDTO;
+import com.qadmni.data.ItemInfoCategoryWise;
 import com.qadmni.data.ItemListDetailsDTO;
 import com.qadmni.data.ProducerLocationDetailsDTO;
 import com.qadmni.data.requestDataDTO.AddFavReqDTO;
@@ -74,28 +75,21 @@ import javax.xml.parsers.ParserConfigurationException;
 /**
  * Created by shrinivas on 13-01-2017.
  */
-public class ItemListFragment extends BaseFragment implements ServerSyncManager.OnSuccessResultReceived,
-        ServerSyncManager.OnErrorResultReceived, ItemListAdapter.CustomButtonListener,
+public class ItemListFragment extends BaseFragment implements ItemListAdapter.CustomButtonListener,
         MainActivity.OnFilterApply {
     public static final String ARG_OBJECT = "objectPar";
     private static final String TAG = ItemListFragment.class.getSimpleName();
     private CategoryMasterDTO categoryMasterDTO;
     private ListView mListView;
-    private ArrayList<ProducerLocations> producerLocationses;
-    private ArrayList<ItemInfoList> itemInfoLists;
-    private ArrayList<ProducerLocationDetailsDTO> producerLocationDetailsDTOs;
     private ArrayList<ItemListDetailsDTO> itemListDetailsDTOArrayList = new ArrayList<>();
     private ItemListAdapter itemListAdapter;
     private MainActivity activity;
-    private Location mLastLocation;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = (MainActivity) getActivity();
         activity.setOnFilterApply(this);
-        //activity.setOnSearchClickListener(this);
-        mLastLocation = activity.getLastLocation();
         Bundle args = getArguments();
         if (args != null) {
             if (!isGooglePlayServicesAvailable()) {
@@ -114,12 +108,8 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         // properly.
         View rootView = inflater.inflate(R.layout.fragment_item_list_collection, container, false);
         mListView = (ListView) rootView.findViewById(R.id.item_list);
-        itemListAdapter = new ItemListAdapter(this.itemListDetailsDTOArrayList, getContext(), mSessionManager);
-        itemListAdapter.setCustomButtonListner(this);
-        mListView.setAdapter(itemListAdapter);
+
         Log.d(TAG, "## fragment created View" + categoryMasterDTO.getCategory());
-        mServerSyncManager.setOnStringErrorReceived(this);
-        mServerSyncManager.setOnStringResultReceived(this);
         return rootView;
     }
 
@@ -131,73 +121,11 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
     }
 
     private void callToWebService() {
-        String categoryIdStr = "" + categoryMasterDTO.getCategoryId();
-        GetItemListDTO getItemListDTO = new GetItemListDTO(categoryIdStr);
-        Gson gson = new Gson();
-        String serializedJsonString = gson.toJson(getItemListDTO);
-        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
-        baseRequestDTO.setData(serializedJsonString);
-        mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_GET_ITEM_LIST,
-                mSessionManager.getItemListUrl(), baseRequestDTO);
-
-    }
-
-
-    @Override
-    public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
-        // progressDialog.dismiss();
-        // customAlterDialog(getResources().getString(R.string.str_err_server_err), error.getMessage());
-    }
-
-    @Override
-    public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
-        //  progressDialog.dismiss();
-        //   customAlterDialog(getResources().getString(R.string.str_err_server_err), errorMessage);
-    }
-
-    @Override
-    public void onResultReceived(@NonNull String data, int requestToken) {
-        //   progressDialog.dismiss();
-        switch (requestToken) {
-            case ServerRequestConstants.REQUEST_GET_ITEM_LIST:
-                ItemListResponseDTO itemListResponseDTO = ItemListResponseDTO.deserializeJson(data);
-                itemInfoLists = ItemInfoList.deSerializedToJson(itemListResponseDTO.getItemInfoLists());
-                producerLocationses = ProducerLocations.deSerializedToJson(itemListResponseDTO.getProducerLocations());
-                setData();
-                break;
-            case ServerRequestConstants.REQUEST_ADD_REMOVE_FAV:
-                break;
-        }
-
-    }
-
-
-    public void setData() {
-        Location location = new Location("");
-        try {
-            location.setLatitude(mLastLocation.getLatitude());
-            location.setLongitude(mLastLocation.getLongitude());
-        } catch (NullPointerException e) {
-            FirebaseCrash.log(TAG + " error in current location" + e.getMessage());
-        }
-
-        if (producerLocationses != null) {
-            producerLocationDetailsDTOs = new ArrayList<>();
-            for (int i = 0; i < producerLocationses.size(); i++) {
-                ProducerLocations producerLocations = producerLocationses.get(i);
-
-                Location productLocation = new Location("");
-                productLocation.setLatitude(producerLocations.getBusinessLat());
-                productLocation.setLongitude(producerLocations.getBusinessLong());
-
-                ProducerLocationDetailsDTO producerLocationDetailsDTO = new ProducerLocationDetailsDTO(producerLocations.getProducerId(),
-                        producerLocations.getBusinessName(), producerLocations.getBusinessLat(), producerLocations.getBusinessLong(),
-                        mLastLocation.getLatitude(), mLastLocation.getLongitude());
-                producerLocationDetailsDTOs.add(producerLocationDetailsDTO);
-            }
-            callToPrepareArrayList(producerLocationDetailsDTOs);
-        }
-
+        itemListDetailsDTOArrayList = ItemInfoCategoryWise.getItems(categoryMasterDTO.getCategoryId(),
+                activity.getItemListDtos());
+        itemListAdapter = new ItemListAdapter(this.itemListDetailsDTOArrayList, getContext(), mSessionManager, false);
+        itemListAdapter.setCustomButtonListner(this);
+        mListView.setAdapter(itemListAdapter);
     }
 
 
@@ -211,43 +139,6 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         }
     }
 
-
-    public void callToPrepareArrayList(ArrayList<ProducerLocationDetailsDTO> producerLocationDetailsDTOs) {
-        if (producerLocationDetailsDTOs != null) {
-            //producerLocationDetailsDTOs.size();
-            for (int i = 0; i < producerLocationDetailsDTOs.size(); i++) {
-                ProducerLocationDetailsDTO producerLocationDetailsDTO = producerLocationDetailsDTOs.get(i);
-                if (itemInfoLists != null) {
-                    this.itemListDetailsDTOArrayList.clear();
-                    for (int j = 0; j < itemInfoLists.size(); j++) {
-                        ItemInfoList itemInfoList = itemInfoLists.get(j);
-                        if (producerLocationDetailsDTO.getProducerId() == itemInfoList.getProducerId()) {
-                            int quantity = qadmniHelper.getItemQuantity(itemInfoList.getItemId());
-                            boolean isMyFav = qadmniHelper.getMyFavItem(itemInfoList.getItemId());
-                            ItemListDetailsDTO itemListDetailsDTO = new ItemListDetailsDTO(itemInfoList.getItemId(),
-                                    itemInfoList.getItemDesc(), itemInfoList.getItemName(),
-                                    itemInfoList.getUnitPrice(), itemInfoList.getOfferText(), itemInfoList.getRating(),
-                                    itemInfoList.getImageUrl(), itemInfoList.getProducerId(),
-                                    producerLocationDetailsDTO.getBusinessName(), producerLocationDetailsDTO.getBusinessLat(),
-                                    producerLocationDetailsDTO.getBusinessLong(), producerLocationDetailsDTO.getUserLat(),
-                                    producerLocationDetailsDTO.getUserLon(), "",
-                                    "", itemInfoList.getReviews());
-                            itemListDetailsDTO.setQuantity(quantity);
-                            itemListDetailsDTO.setMyFav(isMyFav);
-                            this.itemListDetailsDTOArrayList.add(itemListDetailsDTO);
-
-                        }
-                    }
-                }
-            }
-                /*Set Adapter*/
-            if (NetworkUtils.isActiveNetworkAvailable(getContext())) {
-                new ApiDirectionsAsyncTask().execute();
-            } else {
-                Log.d("TAG", "No internet connection");
-            }
-        }
-    }
 
     @Override
     public void applyFilterClick() {
@@ -266,7 +157,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                         searchItems.add(itemDetails);
                     } else if (itemDetails.getItemDesc().toLowerCase().contains(query.toLowerCase())) {
                         searchItems.add(itemDetails);
-                    } else if (itemDetails.getBusinessName().toLowerCase().contains(query.toLowerCase())) {
+                    } else if (itemDetails.getProducerDetails().getBusinessName().toLowerCase().contains(query.toLowerCase())) {
                         searchItems.add(itemDetails);
                     }
                 }
@@ -278,108 +169,13 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
         }
     }
 
-    public class ApiDirectionsAsyncTask extends AsyncTask<Void, Integer, Void> {
-        private static final String DIRECTIONS_API_BASE = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric";
-        // API KEY of the project Google Map Api For work
-        //   private static final String API_KEY = "AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0";
-        private final String API_KEY = getContext().getResources().getString(R.string.str_google_map_key);
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            for (int i = 0; i < itemListDetailsDTOArrayList.size(); i++) {
-                Log.i("TAG", "doInBackground of ApiDirectionsAsyncTask");
-                ItemListDetailsDTO itemListDetailsDTO = itemListDetailsDTOArrayList.get(i);
-                HttpURLConnection mUrlConnection = null;
-                StringBuilder mJsonResults = new StringBuilder();
-                double dist = 0.0;
-                double time = 0.0;
-                float fDistance;
-                float fTime;
-                try {
-                    StringBuilder sb = new StringBuilder(DIRECTIONS_API_BASE);
-                    sb.append("&origins=" + URLEncoder.encode(itemListDetailsDTO.getUserLat() + "," + itemListDetailsDTO.getUserLon(), "utf8"));
-                    sb.append("&destinations=" + URLEncoder.encode(itemListDetailsDTO.getBusinessLat() + "," + itemListDetailsDTO.getBusinessLong(), "utf8"));
-                    sb.append("&key=" + API_KEY);
-
-                    URL url = new URL(sb.toString());
-                    mUrlConnection = (HttpURLConnection) url.openConnection();
-                    InputStreamReader in = new InputStreamReader(mUrlConnection.getInputStream());
-
-                    // Load the results into a StringBuilder
-                    int read;
-                    char[] buff = new char[1024];
-                    while ((read = in.read(buff)) != -1) {
-                        mJsonResults.append(buff, 0, read);
-                    }
-
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-
-                        try {
-                            jsonObject = new JSONObject(mJsonResults.toString());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        JSONArray array = jsonObject.getJSONArray("rows");
-
-                        JSONObject routes = array.getJSONObject(0);
-
-                        JSONArray elements = routes.getJSONArray("elements");
-
-                        JSONObject steps = elements.getJSONObject(0);
-
-                        JSONObject duration = steps.getJSONObject("duration");
-                        String strDuration = duration.getString("text");
-
-                        JSONObject distance = steps.getJSONObject("distance");
-                        String strTime = distance.getString("text");
-                        double doubleDistance = distance.getDouble("value");
-
-                        itemListDetailsDTO.setUserTime(strDuration);
-                        itemListDetailsDTO.setUserDistance(strTime);
-                        itemListDetailsDTO.setDoubleDistance(doubleDistance);
-                    } catch (JSONException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                } catch (MalformedURLException e) {
-                    Log.e("TAG", "Error processing Distance Matrix API URL");
-                    //return null;
-
-                } catch (IOException e) {
-                    System.out.println("Error connecting to Distance Matrix");
-                    // return null;
-                } finally {
-                    if (mUrlConnection != null) {
-                        mUrlConnection.disconnect();
-                    }
-                }
-
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            progressDialog.dismiss();
-            itemListAdapter.setItemListDetailsDTOs(itemListDetailsDTOArrayList);
-        }
-    }
 
     @Override
     public void onButtonClickListener(int id, int position, int value, ItemListDetailsDTO itemListDetailsDTOs) {
         if (id == R.id.plus_product) {
             long test = mSessionManager.getProducerId();
             if (mSessionManager.getProducerId() == 0) {
-                mSessionManager.setProducerId(itemListDetailsDTOs.getProducerId());
+                mSessionManager.setProducerId(itemListDetailsDTOs.getProducerDetails().getProducerId());
                 itemListDetailsDTOs.setQuantity(value + 1);
                 boolean result = qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
                 int record = qadmniHelper.getCountCartTable();
@@ -390,7 +186,7 @@ public class ItemListFragment extends BaseFragment implements ServerSyncManager.
                 getActivity().sendBroadcast(mSendIntent);
 
             } else if (mSessionManager.getProducerId() != 0) {
-                if (mSessionManager.getProducerId() == itemListDetailsDTOs.getProducerId()) {
+                if (mSessionManager.getProducerId() == itemListDetailsDTOs.getProducerDetails().getProducerId()) {
                     itemListDetailsDTOs.setQuantity(value + 1);
                     boolean result1 = qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
                     int record = qadmniHelper.getCountCartTable();

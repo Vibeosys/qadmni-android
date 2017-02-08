@@ -12,42 +12,29 @@ public class ItemListDetailsDTO {
     private double unitPrice;
     private String offerText;
     private long reviews;
-
     private double rating;
     private String imageUrl;
-    private long producerId;
-    private String businessName;
-    private double businessLat;
-    private double businessLong;
-    private double userLat;
-    private double userLon;
-    private String userDistance;
-    private String userTime;
+    private ProducerLocationDetailsDTO producerDetails;
     private int quantity;
-    private double doubleDistance;
     private boolean isMyFav;
+    private long categoryId;
 
     public ItemListDetailsDTO(long itemId, String itemDesc, String itemName, double unitPrice,
-                              String offerText, double rating, String imageUrl, long producerId,
-                              String businessName, double businessLat, double businessLong,
-                              double userLat, double userLon, String userDistance, String userTime, long reviews) {
+                              String offerText, long reviews, double rating,
+                              String imageUrl, ProducerLocationDetailsDTO producerDetails,
+                              int quantity, boolean isMyFav, long categoryId) {
         this.itemId = itemId;
         this.itemDesc = itemDesc;
         this.itemName = itemName;
         this.unitPrice = unitPrice;
         this.offerText = offerText;
+        this.reviews = reviews;
         this.rating = rating;
         this.imageUrl = imageUrl;
-        this.producerId = producerId;
-        this.businessName = businessName;
-        this.businessLat = businessLat;
-        this.businessLong = businessLong;
-        this.userLat = userLat;
-        this.userLon = userLon;
-        this.userDistance = userDistance;
-        this.userTime = userTime;
-        this.reviews = reviews;
-        this.quantity = 0;
+        this.producerDetails = producerDetails;
+        this.quantity = quantity;
+        this.isMyFav = isMyFav;
+        this.categoryId = categoryId;
     }
 
     public long getItemId() {
@@ -90,6 +77,14 @@ public class ItemListDetailsDTO {
         this.offerText = offerText;
     }
 
+    public long getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(long reviews) {
+        this.reviews = reviews;
+    }
+
     public double getRating() {
         return rating;
     }
@@ -106,76 +101,12 @@ public class ItemListDetailsDTO {
         this.imageUrl = imageUrl;
     }
 
-    public long getProducerId() {
-        return producerId;
+    public ProducerLocationDetailsDTO getProducerDetails() {
+        return producerDetails;
     }
 
-    public void setProducerId(long producerId) {
-        this.producerId = producerId;
-    }
-
-    public String getBusinessName() {
-        return businessName;
-    }
-
-    public void setBusinessName(String businessName) {
-        this.businessName = businessName;
-    }
-
-    public double getBusinessLat() {
-        return businessLat;
-    }
-
-    public void setBusinessLat(double businessLat) {
-        this.businessLat = businessLat;
-    }
-
-    public double getBusinessLong() {
-        return businessLong;
-    }
-
-    public void setBusinessLong(double businessLong) {
-        this.businessLong = businessLong;
-    }
-
-    public double getUserLat() {
-        return userLat;
-    }
-
-    public void setUserLat(double userLat) {
-        this.userLat = userLat;
-    }
-
-    public double getUserLon() {
-        return userLon;
-    }
-
-    public void setUserLon(double userLon) {
-        this.userLon = userLon;
-    }
-
-    public String getUserDistance() {
-        return userDistance;
-    }
-
-    public void setUserDistance(String userDistance) {
-        this.userDistance = userDistance;
-    }
-
-    public String getUserTime() {
-        return userTime;
-    }
-
-    public void setUserTime(String userTime) {
-        this.userTime = userTime;
-    }
-
-    public long getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(long reviews) {
-        this.reviews = reviews;
+    public void setProducerDetails(ProducerLocationDetailsDTO producerDetails) {
+        this.producerDetails = producerDetails;
     }
 
     public int getQuantity() {
@@ -186,20 +117,20 @@ public class ItemListDetailsDTO {
         this.quantity = quantity;
     }
 
-    public double getDoubleDistance() {
-        return doubleDistance;
-    }
-
-    public void setDoubleDistance(double doubleDistance) {
-        this.doubleDistance = doubleDistance;
-    }
-
     public boolean isMyFav() {
         return isMyFav;
     }
 
     public void setMyFav(boolean myFav) {
         isMyFav = myFav;
+    }
+
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public static class PriceComparator implements Comparator<ItemListDetailsDTO> {
@@ -220,8 +151,8 @@ public class ItemListDetailsDTO {
     public static class DistanceComparator implements Comparator<ItemListDetailsDTO> {
         @Override
         public int compare(ItemListDetailsDTO p1, ItemListDetailsDTO p2) {
-            double doubleDistance1 = p1.getDoubleDistance();
-            double doubleDistance2 = p2.getDoubleDistance();
+            double doubleDistance1 = p1.getProducerDetails().getDoubleDistance();
+            double doubleDistance2 = p2.getProducerDetails().getDoubleDistance();
 
             if (doubleDistance1 == doubleDistance2)
                 return 0;

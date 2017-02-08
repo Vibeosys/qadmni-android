@@ -20,6 +20,7 @@ public class ItemInfoList {
     String imageUrl;
     long producerId;
     long reviews;
+    long categoryId;
 
     public ItemInfoList(long itemId, String itemDesc, String itemName, double unitPrice,
                         String offerText, double rating, String imageUrl, long producerId, long reviews) {
@@ -104,6 +105,14 @@ public class ItemInfoList {
 
     public void setReviews(long reviews) {
         this.reviews = reviews;
+    }
+
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public static ArrayList<ItemInfoList> deSerializedToJson(ItemInfoList[] deSerializedObject) {

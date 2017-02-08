@@ -1,5 +1,6 @@
 package com.qadmni.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -37,6 +38,7 @@ import com.qadmni.utils.NetworkUtils;
 import com.qadmni.utils.OneSignalIdHandler;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
+import com.qadmni.utils.UserAuth;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,14 +57,14 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
         GoogleApiClient.OnConnectionFailedListener, ItemListAdapter.CustomButtonListener {
     private static final String TAG = UserFavListActivity.class.getSimpleName();
     private UserFavResDTO userFavResDTO;
+    private static final int CALL_LOGIN = 32;
     private int EDIT_LOCATION_PERMISSION_CODE = 566;
     private LocationRequest mLocationRequest;
     private Location mLastLocation;
     private GoogleApiClient mGoogleApiClient;
-    private ArrayList<ItemInfoList> itemInfoLists;
-    private ArrayList<ProducerLocationDetailsDTO> producerLocationDetailsDTOs;
-    private ArrayList<ProducerLocations> producerLocationses;
-    private ArrayList<ItemListDetailsDTO> itemListDetailsDTOArrayList = new ArrayList<>();
+    private ArrayList<ItemInfoList> items;
+    private ArrayList<ProducerLocations> producerLocations;
+    private ArrayList<ItemListDetailsDTO> itemListDtos;
     private ItemListAdapter itemListAdapter;
     private ListView mListView;
 
@@ -74,10 +76,11 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
         mListView = (ListView) findViewById(R.id.item_list);
-        itemListAdapter = new ItemListAdapter(this.itemListDetailsDTOArrayList, getApplicationContext(), mSessionManager);
-        itemListAdapter.setCustomButtonListner(this);
-        mListView.setAdapter(itemListAdapter);
-        onRequestGpsPermission();
+        if (!UserAuth.isUserLoggedIn()) {
+            startActivityForResult(new Intent(getApplicationContext(), CustomerLoginActivity.class), CALL_LOGIN);
+        } else {
+            onRequestGpsPermission();
+        }
     }
 
     @Override
@@ -96,9 +99,10 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
         switch (requestToken) {
             case ServerRequestConstants.REQUEST_USER_FAV:
                 userFavResDTO = UserFavResDTO.deserializeJson(data);
-                itemInfoLists = userFavResDTO.getItemInfoList();
-                producerLocationses = userFavResDTO.getProducerLocations();
-                setData();
+                items = userFavResDTO.getItemInfoList();
+                producerLocations = userFavResDTO.getProducerLocations();
+                qadmniHelper.insertFavList(items);
+                prepaireLocationData();
                 break;
             case ServerRequestConstants.REQUEST_ADD_REMOVE_FAV:
                 break;
@@ -145,6 +149,18 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
             Log.d("itemListFragment", "Connection with fused api is failed");
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CALL_LOGIN) {
+            if (resultCode == Activity.RESULT_OK) {
+                boolean chkLogin = data.getExtras().getBoolean(CustomerLoginActivity.LOGIN_RESULT);
+                if (chkLogin) {
+                    onRequestGpsPermission();
+                }
+            }
+        }
+    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -202,77 +218,13 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
                 getString(R.string.location_problem), Toast.LENGTH_SHORT).show();
     }
 
-    public void setData() {
-        Location location = new Location("");
-        try {
-            location.setLatitude(mLastLocation.getLatitude());
-            location.setLongitude(mLastLocation.getLongitude());
-        } catch (NullPointerException e) {
-            FirebaseCrash.log(TAG + " error in current location" + e.getMessage());
-        }
-
-        if (producerLocationses != null) {
-            producerLocationDetailsDTOs = new ArrayList<>();
-            for (int i = 0; i < producerLocationses.size(); i++) {
-                ProducerLocations producerLocations = producerLocationses.get(i);
-
-                Location productLocation = new Location("");
-                productLocation.setLatitude(producerLocations.getBusinessLat());
-                productLocation.setLongitude(producerLocations.getBusinessLong());
-
-                ProducerLocationDetailsDTO producerLocationDetailsDTO = new ProducerLocationDetailsDTO(producerLocations.getProducerId(),
-                        producerLocations.getBusinessName(), producerLocations.getBusinessLat(), producerLocations.getBusinessLong(),
-                        mLastLocation.getLatitude(), mLastLocation.getLongitude());
-                producerLocationDetailsDTOs.add(producerLocationDetailsDTO);
-            }
-            callToPrepareArrayList(producerLocationDetailsDTOs);
-        }
-
-    }
-
-    public void callToPrepareArrayList(ArrayList<ProducerLocationDetailsDTO> producerLocationDetailsDTOs) {
-        if (producerLocationDetailsDTOs != null) {
-            //producerLocationDetailsDTOs.size();
-            for (int i = 0; i < producerLocationDetailsDTOs.size(); i++) {
-                ProducerLocationDetailsDTO producerLocationDetailsDTO = producerLocationDetailsDTOs.get(i);
-                if (itemInfoLists != null) {
-                    this.itemListDetailsDTOArrayList.clear();
-                    for (int j = 0; j < itemInfoLists.size(); j++) {
-                        ItemInfoList itemInfoList = itemInfoLists.get(j);
-                        if (producerLocationDetailsDTO.getProducerId() == itemInfoList.getProducerId()) {
-                            int quantity = qadmniHelper.getItemQuantity(itemInfoList.getItemId());
-                            boolean isFav = qadmniHelper.getMyFavItem(itemInfoList.getItemId());
-                            ItemListDetailsDTO itemListDetailsDTO = new ItemListDetailsDTO(itemInfoList.getItemId(),
-                                    itemInfoList.getItemDesc(), itemInfoList.getItemName(),
-                                    itemInfoList.getUnitPrice(), itemInfoList.getOfferText(), itemInfoList.getRating(),
-                                    itemInfoList.getImageUrl(), itemInfoList.getProducerId(),
-                                    producerLocationDetailsDTO.getBusinessName(), producerLocationDetailsDTO.getBusinessLat(),
-                                    producerLocationDetailsDTO.getBusinessLong(), producerLocationDetailsDTO.getUserLat(),
-                                    producerLocationDetailsDTO.getUserLon(), "",
-                                    "", itemInfoList.getReviews());
-                            itemListDetailsDTO.setQuantity(quantity);
-                            itemListDetailsDTO.setMyFav(isFav);
-                            this.itemListDetailsDTOArrayList.add(itemListDetailsDTO);
-
-                        }
-                    }
-                }
-            }
-                /*Set Adapter*/
-            if (NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
-                new ApiDirectionsAsyncTask().execute();
-            } else {
-                Log.d("TAG", "No internet connection");
-            }
-        }
-    }
 
     @Override
     public void onButtonClickListener(int id, int position, int value, ItemListDetailsDTO itemListDetailsDTOs) {
         if (id == R.id.plus_product) {
             long test = mSessionManager.getProducerId();
             if (mSessionManager.getProducerId() == 0) {
-                mSessionManager.setProducerId(itemListDetailsDTOs.getProducerId());
+                mSessionManager.setProducerId(itemListDetailsDTOs.getProducerDetails().getProducerId());
                 itemListDetailsDTOs.setQuantity(value + 1);
                 boolean result = qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
                 int record = qadmniHelper.getCountCartTable();
@@ -280,7 +232,7 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
 
 
             } else if (mSessionManager.getProducerId() != 0) {
-                if (mSessionManager.getProducerId() == itemListDetailsDTOs.getProducerId()) {
+                if (mSessionManager.getProducerId() == itemListDetailsDTOs.getProducerDetails().getProducerId()) {
                     itemListDetailsDTOs.setQuantity(value + 1);
                     boolean result1 = qadmniHelper.insertOrUpdateCart(itemListDetailsDTOs);
                     int record = qadmniHelper.getCountCartTable();
@@ -336,11 +288,16 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
                 mSessionManager.addOrRemoveFav(), baseRequestDTO);
     }
 
+    private void prepaireLocationData() {
+        new ApiDirectionsAsyncTask().execute();
+    }
+
     public class ApiDirectionsAsyncTask extends AsyncTask<Void, Integer, Void> {
         private static final String DIRECTIONS_API_BASE = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric";
         // API KEY of the project Google Map Api For work
         //   private static final String API_KEY = "AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0";
         private final String API_KEY = getApplicationContext().getResources().getString(R.string.str_google_map_key);
+        private ArrayList<ProducerLocationDetailsDTO> producerDetails = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -350,21 +307,21 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
 
         @Override
         protected Void doInBackground(Void... params) {
-            for (int i = 0; i < itemListDetailsDTOArrayList.size(); i++) {
-                Log.i("TAG", "doInBackground of ApiDirectionsAsyncTask");
-                ItemListDetailsDTO itemListDetailsDTO = itemListDetailsDTOArrayList.get(i);
+            for (ProducerLocations producerLocation : producerLocations) {
                 HttpURLConnection mUrlConnection = null;
                 StringBuilder mJsonResults = new StringBuilder();
                 double dist = 0.0;
                 double time = 0.0;
                 float fDistance;
                 float fTime;
+                String strDuration = "";
+                String strDistance = "";
+                double doubleDistance = 0;
                 try {
                     StringBuilder sb = new StringBuilder(DIRECTIONS_API_BASE);
-                    sb.append("&origins=" + URLEncoder.encode(itemListDetailsDTO.getUserLat() + "," + itemListDetailsDTO.getUserLon(), "utf8"));
-                    sb.append("&destinations=" + URLEncoder.encode(itemListDetailsDTO.getBusinessLat() + "," + itemListDetailsDTO.getBusinessLong(), "utf8"));
+                    sb.append("&origins=" + URLEncoder.encode(mLastLocation.getLatitude() + "," + mLastLocation.getLongitude(), "utf8"));
+                    sb.append("&destinations=" + URLEncoder.encode(producerLocation.getBusinessLat() + "," + producerLocation.getBusinessLong(), "utf8"));
                     sb.append("&key=" + API_KEY);
-
                     URL url = new URL(sb.toString());
                     mUrlConnection = (HttpURLConnection) url.openConnection();
                     InputStreamReader in = new InputStreamReader(mUrlConnection.getInputStream());
@@ -378,33 +335,18 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
 
                     JSONObject jsonObject = new JSONObject();
                     try {
-
-                        try {
-                            jsonObject = new JSONObject(mJsonResults.toString());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        jsonObject = new JSONObject(mJsonResults.toString());
 
                         JSONArray array = jsonObject.getJSONArray("rows");
-
                         JSONObject routes = array.getJSONObject(0);
-
                         JSONArray elements = routes.getJSONArray("elements");
-
                         JSONObject steps = elements.getJSONObject(0);
-
                         JSONObject duration = steps.getJSONObject("duration");
-                        String strDuration = duration.getString("text");
-
+                        strDuration = duration.getString("text");
                         JSONObject distance = steps.getJSONObject("distance");
-                        String strTime = distance.getString("text");
-                        double doubleDistance = distance.getDouble("value");
-
-                        itemListDetailsDTO.setUserTime(strDuration);
-                        itemListDetailsDTO.setUserDistance(strTime);
-                        itemListDetailsDTO.setDoubleDistance(doubleDistance);
+                        strDistance = distance.getString("text");
+                        doubleDistance = distance.getDouble("value");
                     } catch (JSONException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 } catch (MalformedURLException e) {
@@ -419,7 +361,11 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
                         mUrlConnection.disconnect();
                     }
                 }
-
+                ProducerLocationDetailsDTO producerDetail = new ProducerLocationDetailsDTO(
+                        producerLocation.getProducerId(), producerLocation.getBusinessName(),
+                        producerLocation.getBusinessLat(), producerLocation.getBusinessLong(), strDistance,
+                        strDuration, doubleDistance);
+                producerDetails.add(producerDetail);
             }
             return null;
         }
@@ -428,13 +374,23 @@ public class UserFavListActivity extends BaseActivity implements ServerSyncManag
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             progressDialog.dismiss();
-            itemListAdapter.setItemListDetailsDTOs(itemListDetailsDTOArrayList);
+            prepaireItemData(producerDetails);
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        progressDialog.dismiss();
+    private void prepaireItemData(ArrayList<ProducerLocationDetailsDTO> producerDetails) {
+        itemListDtos = new ArrayList<>();
+        for (ItemInfoList item : items) {
+            ProducerLocationDetailsDTO producer = ProducerLocationDetailsDTO.getProducerById(item.getProducerId(), producerDetails);
+            int quantity = qadmniHelper.getItemQuantity(item.getItemId());
+            boolean isFav = qadmniHelper.getMyFavItem(item.getItemId());
+            ItemListDetailsDTO itemDetails = new ItemListDetailsDTO(item.getItemId(), item.getItemDesc()
+                    , item.getItemName(), item.getUnitPrice(), item.getOfferText(), item.getReviews(),
+                    item.getRating(), item.getImageUrl(), producer, quantity, isFav, item.getCategoryId());
+            itemListDtos.add(itemDetails);
+        }
+        itemListAdapter = new ItemListAdapter(itemListDtos, getApplicationContext(), mSessionManager, true);
+        itemListAdapter.setCustomButtonListner(this);
+        mListView.setAdapter(itemListAdapter);
     }
 }
