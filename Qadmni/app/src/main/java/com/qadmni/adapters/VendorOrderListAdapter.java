@@ -82,6 +82,8 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
         holder.customerAddress.setText(vendorOrderDTO.getDeliveryAddress());
         holder.customerName.setText(vendorOrderDTO.getCustomerName());
         String orderCode = vendorOrderDTO.getCurrentStatusCode();
+        //Here actually  checking updatable status with if else
+        //can updatable status is true
         if (vendorOrderDTO.isCanUpdateStatus() == true) {
 
             updatableStatusCodesDTOs = UpdatableStatusCodesDTO.deserializeJson(vendorOrderDTO.getUpdatableStatusCodesDTOs());
@@ -134,7 +136,9 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
                     }
                 }
             });
-        } else {
+
+        }//can updatable status is false
+        else {
             holder.layHide.setVisibility(View.GONE);
         }
         holder.orderStatus.setText(this.orderStatusString.getValueOrderStatus(orderCode));
@@ -150,7 +154,7 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
                 mContext.startActivity(intent);
             }
         });
-        // if (vendorOrderDTO.isCanUpdateStatus()) {
+        //This is fab button actually set the visibility for two different layout
         holder.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,14 +162,29 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
                 if (vendorOrderDTO.isCanUpdateStatus() == true) {
                     holder.layHide.setVisibility(View.VISIBLE);
                     holder.layHide2.setVisibility(View.VISIBLE);
+                    if (vendorOrderDTO.getStageNo() == 1) {
+                        holder.imgTracker.setImageDrawable(mContext.getDrawable(R.drawable.form_wiz_1));
+                    }
+                    if (vendorOrderDTO.getStageNo() == 2) {
+                        holder.imgTracker.setImageDrawable(mContext.getDrawable(R.drawable.form_wiz_2));
+                    }
+                    if (vendorOrderDTO.getStageNo() == 3) {
+                        holder.imgTracker.setImageDrawable(mContext.getDrawable(R.drawable.form_wiz_3));
+                    }
                 } else {
                     holder.layHide2.setVisibility(View.GONE);
+                    if (vendorOrderDTO.getStageNo() == 1) {
+                        holder.imgTracker.setImageDrawable(mContext.getDrawable(R.drawable.form_wiz_1));
+                    }
+                    if (vendorOrderDTO.getStageNo() == 2) {
+                        holder.imgTracker.setImageDrawable(mContext.getDrawable(R.drawable.form_wiz_2));
+                    }
+                    if (vendorOrderDTO.getStageNo() == 3) {
+                        holder.imgTracker.setImageDrawable(mContext.getDrawable(R.drawable.form_wiz_3));
+                    }
                 }
             }
         });
-       /* } else {
-            holder.fab.setVisibility(View.INVISIBLE);
-        }*/
 
     }
 
