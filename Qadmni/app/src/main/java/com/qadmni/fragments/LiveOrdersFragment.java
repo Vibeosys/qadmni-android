@@ -90,6 +90,7 @@ public class LiveOrdersFragment extends BaseFragment implements
                 ArrayList<LiveOrdersResponseDTO> liveOrdersResponseDTO = LiveOrdersResponseDTO.deserializeJson(data);
                 LiveOrdersAdapter liveOrdersAdapter = new LiveOrdersAdapter(liveOrdersResponseDTO, getActivity());
                 liveOrdersAdapter.setOnFeedbackClickListener(this);
+                liveOrdersAdapter.setOnOrderDetailsClick(this);
                 mListView.setAdapter(liveOrdersAdapter);
                 break;
         }

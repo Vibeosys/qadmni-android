@@ -5,13 +5,10 @@ package com.qadmni.data.responseDataDTO;
  */
 public class OrderItems {
     private String name;
-    private long qty;
-    private long price;
+    private int qty;
+    private double price;
 
-    public OrderItems(String name, long qty, long price) {
-        this.name = name;
-        this.qty = qty;
-        this.price = price;
+    public OrderItems() {
     }
 
     public String getName() {
@@ -22,19 +19,19 @@ public class OrderItems {
         this.name = name;
     }
 
-    public long getQty() {
+    public int getQty() {
         return qty;
     }
 
-    public void setQty(long qty) {
+    public void setQty(int qty) {
         this.qty = qty;
     }
 
-    public long getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }

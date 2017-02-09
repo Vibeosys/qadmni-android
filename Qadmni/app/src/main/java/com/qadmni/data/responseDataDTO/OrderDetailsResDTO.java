@@ -1,21 +1,25 @@
 package com.qadmni.data.responseDataDTO;
 
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
+import com.qadmni.data.BaseDTO;
+
+import java.util.ArrayList;
+
 /**
  * Created by shrinivas on 08-02-2017.
  */
-public class OrderDetailsResDTO {
+public class OrderDetailsResDTO extends BaseDTO {
+    private static final String TAG = OrderDetailsResDTO.class.getSimpleName();
     private long orderId;
     private String orderDate;
-    private long totalAmountInSAR;
-    private long totalTaxesAndSurCharges;
-    private OrderItems[]orderItems;
+    private double totalAmountInSAR;
+    private double totalTaxesAndSurcharges;
+    private ArrayList<OrderItems> items;
 
-    public OrderDetailsResDTO(long orderId, String orderDate, long totalAmountInSAR, long totalTaxesAndSurCharges, OrderItems[] orderItems) {
-        this.orderId = orderId;
-        this.orderDate = orderDate;
-        this.totalAmountInSAR = totalAmountInSAR;
-        this.totalTaxesAndSurCharges = totalTaxesAndSurCharges;
-        this.orderItems = orderItems;
+    public OrderDetailsResDTO() {
     }
 
     public long getOrderId() {
@@ -34,29 +38,38 @@ public class OrderDetailsResDTO {
         this.orderDate = orderDate;
     }
 
-    public long getTotalAmountInSAR() {
+    public double getTotalAmountInSAR() {
         return totalAmountInSAR;
     }
 
-    public void setTotalAmountInSAR(long totalAmountInSAR) {
+    public void setTotalAmountInSAR(double totalAmountInSAR) {
         this.totalAmountInSAR = totalAmountInSAR;
     }
 
-    public long getTotalTaxesAndSurCharges() {
-        return totalTaxesAndSurCharges;
+    public double getTotalTaxesAndSurcharges() {
+        return totalTaxesAndSurcharges;
     }
 
-    public void setTotalTaxesAndSurCharges(long totalTaxesAndSurCharges) {
-        this.totalTaxesAndSurCharges = totalTaxesAndSurCharges;
+    public void setTotalTaxesAndSurcharges(double totalTaxesAndSurcharges) {
+        this.totalTaxesAndSurcharges = totalTaxesAndSurcharges;
     }
 
-    public OrderItems[] getOrderItems() {
-        return orderItems;
+    public ArrayList<OrderItems> getItems() {
+        return items;
     }
 
-    public void setOrderItems(OrderItems[] orderItems) {
-        this.orderItems = orderItems;
+    public void setItems(ArrayList<OrderItems> items) {
+        this.items = items;
     }
 
-   
+    public static OrderDetailsResDTO deserializeJson(String serializedString) {
+        Gson gson = new Gson();
+        OrderDetailsResDTO responseDTO = null;
+        try {
+            responseDTO = gson.fromJson(serializedString, OrderDetailsResDTO.class);
+        } catch (JsonParseException e) {
+            Log.d(TAG, "Exception in deserialization OrderDetailsResDTO" + e.toString());
+        }
+        return responseDTO;
+    }
 }

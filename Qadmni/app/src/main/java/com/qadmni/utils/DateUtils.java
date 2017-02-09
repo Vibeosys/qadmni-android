@@ -3,6 +3,8 @@ package com.qadmni.utils;
 
 import android.util.Log;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,6 +41,8 @@ public class DateUtils {
             date = df2.parse(strDate);
         } catch (ParseException e) {
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            FirebaseCrash.log("Null pointer when convert string to date" + e.getMessage());
         }
         return getReadDateInFormat(date);
     }

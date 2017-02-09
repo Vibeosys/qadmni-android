@@ -152,4 +152,8 @@ public class PropertyFileReader {
     public String submitReview() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.SUBMIT_REVIEW_ITEMS);
     }
+
+    public String getOrderDetails() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_ORDER_DETAILS);
+    }
 }

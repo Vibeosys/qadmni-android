@@ -17,13 +17,13 @@ public class LiveOrdersResponseDTO {
     private String producerBusinessName;
     private String paymentMode;
     private String deliveryMode;
-    private long amountInSAR;
+    private double amountInSAR;
     private int stageNo;
     private String currentStatusCode;
     private int deliveryStatus;
 
     public LiveOrdersResponseDTO(long orderId, String orderDate, String producerBusinessName,
-                                 String paymentMode, String deliveryMode, long amountInSAR, int stageNo,
+                                 String paymentMode, String deliveryMode, double amountInSAR, int stageNo,
                                  String currentStatusCode, int deliveryStatus) {
         this.orderId = orderId;
         this.orderDate = orderDate;
@@ -76,11 +76,11 @@ public class LiveOrdersResponseDTO {
         this.deliveryMode = deliveryMode;
     }
 
-    public long getAmountInSAR() {
+    public double getAmountInSAR() {
         return amountInSAR;
     }
 
-    public void setAmountInSAR(long amountInSAR) {
+    public void setAmountInSAR(double amountInSAR) {
         this.amountInSAR = amountInSAR;
     }
 
@@ -108,19 +108,16 @@ public class LiveOrdersResponseDTO {
         this.deliveryStatus = deliveryStatus;
     }
 
-    public static ArrayList<LiveOrdersResponseDTO>deserializeJson (String serializedString)
-    {
-        Gson  gson = new Gson();
+    public static ArrayList<LiveOrdersResponseDTO> deserializeJson(String serializedString) {
+        Gson gson = new Gson();
 
-        LiveOrdersResponseDTO liveOrdersResponseDTO =null;
-        LiveOrdersResponseDTO[] liveOrdersResponseDTOs=null;
-        ArrayList<LiveOrdersResponseDTO>liveOrdersResponseDTOArrayList = new ArrayList<>();
-        try
-        {
-            liveOrdersResponseDTOs= gson.fromJson(serializedString,LiveOrdersResponseDTO[].class);
-            Collections.addAll(liveOrdersResponseDTOArrayList,liveOrdersResponseDTOs);
-        }catch (JsonParseException e)
-        {
+        LiveOrdersResponseDTO liveOrdersResponseDTO = null;
+        LiveOrdersResponseDTO[] liveOrdersResponseDTOs = null;
+        ArrayList<LiveOrdersResponseDTO> liveOrdersResponseDTOArrayList = new ArrayList<>();
+        try {
+            liveOrdersResponseDTOs = gson.fromJson(serializedString, LiveOrdersResponseDTO[].class);
+            Collections.addAll(liveOrdersResponseDTOArrayList, liveOrdersResponseDTOs);
+        } catch (JsonParseException e) {
             Log.d("TAG", "Exception in deserialization LivOrders" + e.toString());
         }
         return liveOrdersResponseDTOArrayList;

@@ -77,6 +77,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.UPDATE_DELIVERY_STATUS, mPropertyFileReader.updateDeliveryStatus());
         editor.putString(PropertyTypeConstants.GET_REVIEW_ITEMS, mPropertyFileReader.getReviewItems());
         editor.putString(PropertyTypeConstants.SUBMIT_REVIEW_ITEMS, mPropertyFileReader.submitReview());
+        editor.putString(PropertyTypeConstants.GET_ORDER_DETAILS, mPropertyFileReader.getOrderDetails());
         editor.putInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, mPropertyFileReader.getDbVersion());
         editor.apply();
         return true;
@@ -364,5 +365,9 @@ public class SessionManager {
 
     public String submitReviewItems() {
         return  mProjectSharedPref.getString(PropertyTypeConstants.SUBMIT_REVIEW_ITEMS,null);
+    }
+
+    public String getOrderDetails() {
+        return  mProjectSharedPref.getString(PropertyTypeConstants.GET_ORDER_DETAILS,null);
     }
 }

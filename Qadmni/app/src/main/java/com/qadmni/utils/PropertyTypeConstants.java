@@ -33,6 +33,7 @@ public class PropertyTypeConstants {
     public static final String UPDATE_DELIVERY_STATUS="api.endpoint.updatedeliverystatus";
     public static final String GET_REVIEW_ITEMS="api.endpoint.reviewitems";
     public static final String SUBMIT_REVIEW_ITEMS="api.endpoint.submitreview";
+    public static final String GET_ORDER_DETAILS="api.endpoint.getorderdetails";
 
     public static final String APP_USER_TYPE = "user.type";
 

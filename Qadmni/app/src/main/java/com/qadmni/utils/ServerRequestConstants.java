@@ -28,4 +28,5 @@ public class ServerRequestConstants {
     public static final int REQUEST_UPDATE_DELIVERY_STATUS = 141;
     public static final int REQUEST_REVIEW_ITEMS = 142;
     public static final int SUBMIT_FEEDBACK = 143;
+    public static final int REQUEST_GET_ORDER_DETAILS = 144;
 }
