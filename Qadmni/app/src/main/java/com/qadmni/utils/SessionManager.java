@@ -79,6 +79,8 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.SUBMIT_REVIEW_ITEMS, mPropertyFileReader.submitReview());
         editor.putString(PropertyTypeConstants.GET_ORDER_DETAILS, mPropertyFileReader.getOrderDetails());
         editor.putInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, mPropertyFileReader.getDbVersion());
+        editor.putString(PropertyTypeConstants.GET_CUSTOMER_PROFILE, mPropertyFileReader.getCustomerEditProfile());
+        editor.putString(PropertyTypeConstants.GET_VENDOR_PROFILE, mPropertyFileReader.getProducerEditProfile());
         editor.apply();
         return true;
     }
@@ -135,6 +137,14 @@ public class SessionManager {
 
     public String getPastOrderUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.PAST_ORDERS, null);
+    }
+
+    public String getEditCustomerProfileUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.GET_CUSTOMER_PROFILE, null);
+    }
+
+    public String getEditProducerProfileUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.GET_VENDOR_PROFILE, null);
     }
 
     public void setVendorId(long vendorId) {
@@ -353,21 +363,21 @@ public class SessionManager {
     public String addOrRemoveFav() {
         return mProjectSharedPref.getString(PropertyTypeConstants.ADD_OR_REMOVE_FAV, null);
     }
-    public String getUpdateOrderStatusUrl()
-    {
-        return  mProjectSharedPref.getString(PropertyTypeConstants.UPDATE_DELIVERY_STATUS,null);
+
+    public String getUpdateOrderStatusUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.UPDATE_DELIVERY_STATUS, null);
     }
 
 
     public String getReviewItems() {
-        return  mProjectSharedPref.getString(PropertyTypeConstants.GET_REVIEW_ITEMS,null);
+        return mProjectSharedPref.getString(PropertyTypeConstants.GET_REVIEW_ITEMS, null);
     }
 
     public String submitReviewItems() {
-        return  mProjectSharedPref.getString(PropertyTypeConstants.SUBMIT_REVIEW_ITEMS,null);
+        return mProjectSharedPref.getString(PropertyTypeConstants.SUBMIT_REVIEW_ITEMS, null);
     }
 
     public String getOrderDetails() {
-        return  mProjectSharedPref.getString(PropertyTypeConstants.GET_ORDER_DETAILS,null);
+        return mProjectSharedPref.getString(PropertyTypeConstants.GET_ORDER_DETAILS, null);
     }
 }

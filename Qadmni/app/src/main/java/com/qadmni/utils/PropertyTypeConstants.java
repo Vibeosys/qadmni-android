@@ -34,6 +34,10 @@ public class PropertyTypeConstants {
     public static final String GET_REVIEW_ITEMS="api.endpoint.reviewitems";
     public static final String SUBMIT_REVIEW_ITEMS="api.endpoint.submitreview";
     public static final String GET_ORDER_DETAILS="api.endpoint.getorderdetails";
+    public static final String GET_CUSTOMER_PROFILE="api.endpoint.updatecustomerprofile";
+    public static final String GET_VENDOR_PROFILE="api.endpoint.updateproducerprofile";
+
+
 
     public static final String APP_USER_TYPE = "user.type";
 
@@ -55,6 +59,7 @@ public class PropertyTypeConstants {
     public static final String CUSTOMER_FILTER_SORT_BY = "user.customer.sortby";
     public static final String CUSTOMER_FILTER_SELECTED_DIST = "user.customer.selecteddistance";
     public static final String CUSTOMER_FILTER_SELECTED_PRICE = "user.customer.selectedprice";
+
 
     public static final String PRODUCER_ID = "item.producer.id";
 }

@@ -26,7 +26,7 @@ import com.qadmni.utils.NetworkUtils;
 public class UserProfileActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView mUpdateProfile;
-    private EditText mUserFirstName, mUserEmailId, mUserPassword;
+    private EditText mUserFirstName, mUserEmailId, mUserPassword, mUserPhoneNumber;
     private ImageView mUserPhoto;
     public static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION_USER = 101;
     private static final int REQUEST_SELECT_PICTURE_USER = 0;
@@ -40,11 +40,14 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
         mUserEmailId = (EditText) findViewById(R.id.userEmailId);
         mUserPassword = (EditText) findViewById(R.id.userPassword);
         mUserPhoto = (ImageView) findViewById(R.id.circleViewUser);
+        mUserPhoneNumber = (EditText) findViewById(R.id.userPhoneNumber);
         mUserEmailId.setEnabled(false);
         String userName = mSessionManager.getCustomerName();
+
         mUserFirstName.setText("" + mSessionManager.getCustomerName());
         mUserEmailId.setText("" + mSessionManager.getUserEmail());
         mUserPassword.setText("" + mSessionManager.getUserPass());
+        mUserPhoneNumber.setText("" + mSessionManager.getCustomerPh());
         mUserPhoto.setOnClickListener(this);
         mUpdateProfile.setOnClickListener(this);
         mUserPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -58,6 +61,16 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
             }
         });
         mUserFirstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    mUserFirstName.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                } else if (!b) {
+                    mUserFirstName.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_create_black_24dp, 0);
+                }
+            }
+        });
+        mUserPhoneNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {

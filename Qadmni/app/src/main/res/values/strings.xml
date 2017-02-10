@@ -26,6 +26,8 @@
 
     <string name="str_name_hint">Name</string>
     <string name="str_user_password">Password</string>
+    <string name="str_user_phone_no_hint">Phone number</string>
+    <string name="str_user_phone_no">Phone No</string>
     <string name="str_confirm_user_password">Confirm Password</string>
     <string name="str_email_hint">Email</string>
     <string name="str_ph_hint">Phone</string>
