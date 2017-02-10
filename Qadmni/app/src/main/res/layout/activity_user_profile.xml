@@ -29,7 +29,7 @@
                         android:layout_width="140dp"
                         android:layout_height="140dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/dummy_image" />
+                        android:src="@drawable/header_icon" />
                 </LinearLayout>
             </FrameLayout>
 

@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,15 +20,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.qadmni.R;
+import com.qadmni.data.requestDataDTO.BaseRequestDTO;
+import com.qadmni.data.requestDataDTO.UserProfileDTO;
+import com.qadmni.data.responseDataDTO.VendorProfileDTO;
 import com.qadmni.utils.NetworkUtils;
+import com.qadmni.utils.ServerRequestConstants;
+import com.qadmni.utils.ServerSyncManager;
 
-public class VendorProfileActivity extends BaseActivity implements View.OnClickListener {
+public class VendorProfileActivity extends BaseActivity implements View.OnClickListener,
+        ServerSyncManager.OnErrorResultReceived, ServerSyncManager.OnSuccessResultReceived {
     private TextView mUpdateProfile;
     private EditText mUserFirstName, mUserEmailId, mUserPassword;
     private ImageView mUserPhoto;
-    public static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
-    private static final int REQUEST_SELECT_PICTURE = 0x01;
+    String userName, userEmail, userPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +50,8 @@ public class VendorProfileActivity extends BaseActivity implements View.OnClickL
         mUserFirstName.setText("" + mSessionManager.getVendorName());
         mUserEmailId.setText("" + mSessionManager.getVendorEmailId());
         mUserPassword.setText("" + mSessionManager.getVendorPassword());
-
-        mUserPhoto.setOnClickListener(this);
+        mServerSyncManager.setOnStringErrorReceived(this);
+        mServerSyncManager.setOnStringResultReceived(this);
         mUpdateProfile.setOnClickListener(this);
         mUserPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -71,20 +79,13 @@ public class VendorProfileActivity extends BaseActivity implements View.OnClickL
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
-            case R.id.circleViewImage:
-                openGallery();
-                break;
             case R.id.saveProfile_vendor:
-               boolean result= callToValidation();
-                if(result)
-                {
-                    if(NetworkUtils.isActiveNetworkAvailable(getApplicationContext()))
-                    {
+                boolean result = callToValidation();
+                if (result) {
+                    if (NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
                         callToWebService();
-                    }
-                    else
-                    {
-                        customAlterDialog(getResources().getString(R.string.str_net_err),getResources().getString(R.string.str_err_net_msg));
+                    } else {
+                        customAlterDialog(getResources().getString(R.string.str_net_err), getResources().getString(R.string.str_err_net_msg));
                     }
 
                 }
@@ -93,13 +94,21 @@ public class VendorProfileActivity extends BaseActivity implements View.OnClickL
     }
 
     private void callToWebService() {
+        progressDialog.show();
+        VendorProfileDTO vendorProfileDTO = new VendorProfileDTO(userEmail, userPassword, userName);
+        Gson gson = new Gson();
+        String serializedJsonString = gson.toJson(vendorProfileDTO);
+        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+        baseRequestDTO.setData(serializedJsonString);
+        mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_VENDOR_UPDATE_PROFILE,
+                mSessionManager.getEditProducerProfileUrl(), baseRequestDTO);
 
     }
 
     private boolean callToValidation() {
-        String userName = mUserFirstName.getText().toString().trim();
-        String userEmail = mUserEmailId.getText().toString().trim();
-        String userPassword = mUserPassword.getText().toString().trim();
+        userName = mUserFirstName.getText().toString().trim();
+        userEmail = mUserEmailId.getText().toString().trim();
+        userPassword = mUserPassword.getText().toString().trim();
         if (TextUtils.isEmpty(userName)) {
             mUserFirstName.requestFocus();
             mUserFirstName.setError(getResources().getString(R.string.str_pro_user));
@@ -118,37 +127,37 @@ public class VendorProfileActivity extends BaseActivity implements View.OnClickL
         return true;
     }
 
-    private void openGallery() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
-                && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(VendorProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_STORAGE_READ_ACCESS_PERMISSION);
-        } else {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            startActivityForResult(Intent.createChooser(intent, getString(R.string.str_select_picture)), VendorProfileActivity.REQUEST_SELECT_PICTURE);
+
+    @Override
+    public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_VENDOR_UPDATE_PROFILE:
+                customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+                break;
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            // Get the cursor
-            Cursor cursor = getApplicationContext().getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            // Move to first row
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String imgString = cursor.getString(columnIndex);
-            cursor.close();
-            mUserPhoto.setImageBitmap(BitmapFactory.decodeFile(imgString));
-            mUserPhoto.requestFocus();
+    public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_VENDOR_UPDATE_PROFILE:
+                customAlterDialog(getString(R.string.str_vendor_profile_err), errorMessage);
+                break;
+        }
+    }
 
+    @Override
+    public void onResultReceived(@NonNull String data, int requestToken) {
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestConstants.REQUEST_VENDOR_UPDATE_PROFILE:
+                mSessionManager.setVendorName(userName);
+                mSessionManager.setVendorPassword(userPassword);
+                mSessionManager.setVendorEmailId(userEmail);
+                customAlterDialog(getString(R.string.str_vendor_profile), getString(R.string.str_profile_success));
+                break;
         }
     }
 }

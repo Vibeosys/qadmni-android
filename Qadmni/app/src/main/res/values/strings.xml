@@ -255,9 +255,16 @@
     <string name="str_pro_user">User name cannot be blank</string>
     <string name="str_pro_password">Password cannot be blank</string>
     <string name="str_pro_email">Email id cannot be blank</string>
+    <string name="str_pro_phone">Phone number cannot be blank</string>
+    <string name="str_pro_phone_invalid">Invalid phone number</string>
     <string name="str_order_no">Order No</string>
     <string name="str_total_taxes">Total Taxes</string>
     <string name="str_hidden_price_hint">Price will be hidden on the receipt</string>
     <string name="str_180_charachters">Characters</string>
     <string name="str_gift_title">This order contains a git</string>
+    <string name="str_update_profile_err">Update profile error</string>
+    <string name="str_profile_success">Profile updated successfully</string>
+    <string name="str_user_profile">User profile</string>
+    <string name="str_vendor_profile_err">Vendor profile</string>
+    <string name="str_vendor_profile">Vendor profile</string>
 </resources>

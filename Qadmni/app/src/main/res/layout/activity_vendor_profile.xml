@@ -29,7 +29,7 @@
                         android:layout_width="140dp"
                         android:layout_height="140dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/dummy_image" />
+                        android:src="@drawable/header_icon" />
                 </LinearLayout>
             </FrameLayout>
 
@@ -70,9 +70,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
+                    android:inputType="none"
                     android:padding="4dp"
                     android:singleLine="true"
-                    android:inputType="none"
                     android:text="@string/str_customer_email"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
