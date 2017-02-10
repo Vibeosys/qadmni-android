@@ -65,6 +65,7 @@
     <string name="str_server_err_title">Server Error</string>
     <string name="str_server_err_desc">Something went wrong on server try again</string>
     <string name="str_login_err_title">Login Error</string>
+    <string name="str_user_name">Name</string>
 
     <string name="str_details">Details</string>
     <string name="str_details_product" translatable="false">delicious ice cream made up of coconut and cream ...</string>
@@ -239,7 +240,7 @@
     </integer-array>
     <string name="str_product_status">Order Status has been updated</string>
     <string name="str_submit">Submit</string>
-    <string name="str_feedback_success">Thanks for giving feedback,Your sugesstions are valuable to us.</string>
+    <string name="str_feedback_success">Thanks for giving feedback,Your suggestions are valuable to us.</string>
 
     <string name="str_profile_save">Save Profile</string>
     <string name="str_customer_name">Simon Jones</string>

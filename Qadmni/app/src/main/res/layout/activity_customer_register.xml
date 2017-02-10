@@ -47,7 +47,7 @@
                         android:background="@android:color/transparent"
                         android:drawablePadding="10dp"
                         android:drawableStart="@drawable/ic_user_name_24"
-                        android:hint="@string/str_user_name_hint"
+                        android:hint="@string/str_user_name"
                         android:inputType="textPersonName"
                         android:paddingStart="8dp"
                         android:singleLine="true"

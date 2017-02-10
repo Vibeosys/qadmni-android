@@ -513,6 +513,8 @@ public class MainActivity extends BaseActivity
         int record = qadmniHelper.getCountCartTable();
         if (record != 0) {
             //updateUIToMainActivity(record);
+        } else if (record == 0) {
+            mSessionManager.setProducerId(0);
         }
     }
 
