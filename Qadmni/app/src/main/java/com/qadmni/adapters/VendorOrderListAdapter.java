@@ -82,6 +82,14 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
         holder.customerAddress.setText(vendorOrderDTO.getDeliveryAddress());
         holder.customerName.setText(vendorOrderDTO.getCustomerName());
         String orderCode = vendorOrderDTO.getCurrentStatusCode();
+
+        if (vendorOrderDTO.isGitWrap() == true) {
+
+            holder.giftlayout.setVisibility(View.VISIBLE);
+            holder.giftMessage.setText(vendorOrderDTO.getGiftMessage());
+        } else {
+            holder.giftlayout.setVisibility(View.GONE);
+        }
         //Here actually  checking updatable status with if else
         //can updatable status is true
         if (vendorOrderDTO.isCanUpdateStatus() == true) {
@@ -141,6 +149,7 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
         else {
             holder.layHide.setVisibility(View.GONE);
         }
+
         holder.orderStatus.setText(this.orderStatusString.getValueOrderStatus(orderCode));
         holder.customerAmount.setText(String.format("SAR %.2f", vendorOrderDTO.getAmountInSAR()));
         holder.showOnMap.setOnClickListener(new View.OnClickListener() {
@@ -195,11 +204,11 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
         protected TextView txtOrderId, txtOrderDate, paymentMode, txtDeliveryMode,
-                customerName, customerAddress, showOnMap, orderStatus, customerAmount;
+                customerName, customerAddress, showOnMap, orderStatus, customerAmount, giftMessage;
         protected Button updateOrderStatus;
         protected Spinner spinnerStatus;
         protected ImageView imgTracker;
-        protected LinearLayout layHide, layHide2;
+        protected LinearLayout layHide, layHide2, giftlayout;
         protected ImageButton fab;
 
         public OrderViewHolder(View itemView) {
@@ -219,6 +228,9 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
             fab = (ImageButton) itemView.findViewById(R.id.fab);
             updateOrderStatus = (Button) itemView.findViewById(R.id.updateOrderStatus);
             spinnerStatus = (Spinner) itemView.findViewById(R.id.spinner_status);
+            giftlayout = (LinearLayout) itemView.findViewById(R.id.giftLay);
+            giftMessage = (TextView) itemView.findViewById(R.id.gift_message);
+
         }
     }
 

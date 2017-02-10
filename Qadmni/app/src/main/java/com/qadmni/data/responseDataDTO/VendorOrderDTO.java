@@ -32,6 +32,8 @@ public class VendorOrderDTO extends BaseDTO {
     // private ArrayList<String> UpdatableStatusCodesDTO;
     private boolean canUpdateStatus;
     private UpdatableStatusCodesDTO[] updatableStatusCodes;
+    private boolean isGiftWrap;
+    private String giftMessage;
 
 
     public VendorOrderDTO() {
@@ -172,6 +174,23 @@ public class VendorOrderDTO extends BaseDTO {
     public void setUpdatableStatusCodes(ArrayList<String> UpdatableStatusCodesDTO) {
         this.UpdatableStatusCodesDTO = UpdatableStatusCodesDTO;
     }*/
+
+    public boolean isGitWrap() {
+        return isGiftWrap;
+    }
+
+    public void setGitWrap(boolean gitWrap) {
+        isGiftWrap = gitWrap;
+    }
+
+    public String getGiftMessage() {
+        return giftMessage;
+    }
+
+    public void setGiftMessage(String giftMessage) {
+        this.giftMessage = giftMessage;
+    }
+
 
     public boolean isCanUpdateStatus() {
         return canUpdateStatus;

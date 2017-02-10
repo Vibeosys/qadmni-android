@@ -256,4 +256,5 @@
     <string name="str_total_taxes">Total Taxes</string>
     <string name="str_hidden_price_hint">Price will be hidden on the receipt</string>
     <string name="str_180_charachters">Characters</string>
+    <string name="str_gift_title">This order contains a git</string>
 </resources>

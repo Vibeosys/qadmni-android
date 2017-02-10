@@ -163,7 +163,8 @@
             android:parentActivityName=".activity.VendorMainActivity" />
         <activity
             android:name=".activity.OrderDetailsActivity"
-            android:parentActivityName=".activity.UserOrderHistoryActivity"></activity>
+            android:parentActivityName=".activity.UserOrderHistoryActivity" />
+        <activity android:name=".activity.TrackMyOrderActivity"></activity>
     </application>
 
 </manifest>
