@@ -100,13 +100,13 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
 
                 String deliveryStaus = updatableStatusCodesDTOs.get(i).getStatusCode();
                 if (deliveryStaus.equals(DeliveryStatusSpinner.PICK_UP)) {
-                    spinnerData.add("Ready to pick up");
+                    spinnerData.add(mContext.getString(R.string.str_order_ready_to_pickup));
                 }
                 if (deliveryStaus.equals(DeliveryStatusSpinner.PICK_UP_TIME)) {
-                    spinnerData.add("Order status waiting");
+                    spinnerData.add(mContext.getString(R.string.str_order_status_waiting));
                 }
                 if (deliveryStaus.equals(DeliveryStatusSpinner.PICK_UP_COMPLETED)) {
-                    spinnerData.add("Order completed");
+                    spinnerData.add(mContext.getString(R.string.str_order_pickup_complete));
                 }
             }
             ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>

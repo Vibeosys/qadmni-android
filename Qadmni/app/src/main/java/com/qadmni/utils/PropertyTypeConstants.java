@@ -36,6 +36,7 @@ public class PropertyTypeConstants {
     public static final String GET_ORDER_DETAILS="api.endpoint.getorderdetails";
     public static final String GET_CUSTOMER_PROFILE="api.endpoint.updatecustomerprofile";
     public static final String GET_VENDOR_PROFILE="api.endpoint.updateproducerprofile";
+    public static final String GET_ORDER_TRACK_DETAILS="api.endpoint.ordertrackdetails";
 
 
 

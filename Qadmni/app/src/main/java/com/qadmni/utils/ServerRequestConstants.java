@@ -29,6 +29,7 @@ public class ServerRequestConstants {
     public static final int REQUEST_REVIEW_ITEMS = 142;
     public static final int SUBMIT_FEEDBACK = 143;
     public static final int REQUEST_GET_ORDER_DETAILS = 144;
-    public static final int REQUEST_USER_UPDATE_PROFILE =145 ;
+    public static final int REQUEST_USER_UPDATE_PROFILE = 145;
     public static final int REQUEST_VENDOR_UPDATE_PROFILE = 146;
+    public static final int REQUEST_GET_ORDER_TRACK_DETAILS = 147;
 }

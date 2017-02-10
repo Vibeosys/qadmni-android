@@ -267,4 +267,6 @@
     <string name="str_user_profile">User profile</string>
     <string name="str_vendor_profile_err">Vendor profile</string>
     <string name="str_vendor_profile">Vendor profile</string>
+    <string name="str_order_status_waiting">Order status waiting</string>
+    <string name="str_order_devliver_progeress">Delivery in progress</string>
 </resources>

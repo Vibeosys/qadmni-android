@@ -81,6 +81,7 @@ public class SessionManager {
         editor.putInt(PropertyTypeConstants.DATABASE_VERSION_NUMBER, mPropertyFileReader.getDbVersion());
         editor.putString(PropertyTypeConstants.GET_CUSTOMER_PROFILE, mPropertyFileReader.getCustomerEditProfile());
         editor.putString(PropertyTypeConstants.GET_VENDOR_PROFILE, mPropertyFileReader.getProducerEditProfile());
+        editor.putString(PropertyTypeConstants.GET_ORDER_TRACK_DETAILS, mPropertyFileReader.getOrderTrackDetails());
         editor.apply();
         return true;
     }
@@ -379,5 +380,9 @@ public class SessionManager {
 
     public String getOrderDetails() {
         return mProjectSharedPref.getString(PropertyTypeConstants.GET_ORDER_DETAILS, null);
+    }
+
+    public String getOrderTrackDetails() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.GET_ORDER_TRACK_DETAILS, null);
     }
 }

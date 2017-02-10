@@ -156,12 +156,16 @@ public class PropertyFileReader {
     public String getOrderDetails() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_ORDER_DETAILS);
     }
-    public String getCustomerEditProfile()
-    {
-        return getEndPointUri()+mProperties.getProperty(PropertyTypeConstants.GET_CUSTOMER_PROFILE);
+
+    public String getCustomerEditProfile() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_CUSTOMER_PROFILE);
     }
-    public String getProducerEditProfile()
-    {
-        return getEndPointUri()+mProperties.getProperty(PropertyTypeConstants.GET_VENDOR_PROFILE);
+
+    public String getProducerEditProfile() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_VENDOR_PROFILE);
+    }
+
+    public String getOrderTrackDetails() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_ORDER_TRACK_DETAILS);
     }
 }

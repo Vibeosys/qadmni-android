@@ -20,6 +20,7 @@ import com.qadmni.R;
 import com.qadmni.activity.AddOrUpdateProductActivity;
 import com.qadmni.activity.FeedBackActivity;
 import com.qadmni.activity.OrderDetailsActivity;
+import com.qadmni.activity.TrackMyOrderActivity;
 import com.qadmni.adapters.LiveOrdersAdapter;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.requestDataDTO.GetItemListDTO;
@@ -119,7 +120,7 @@ public class LiveOrdersFragment extends BaseFragment implements
 
     @Override
     public void onOrderDetails(LiveOrdersResponseDTO liveOrdersResponseDTO) {
-        Intent intent = new Intent(getContext(), OrderDetailsActivity.class);
+        Intent intent = new Intent(getContext(), TrackMyOrderActivity.class);
         Bundle bundle = new Bundle();
         bundle.putLong("orderId", liveOrdersResponseDTO.getOrderId());
         intent.putExtras(bundle);
