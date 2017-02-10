@@ -73,7 +73,7 @@ public class MyCartAdapter extends BaseAdapter {
         final MyCartDTO myCartDTO = myCartDTOs.get(position);
         viewHolder.itemName.setText("" + myCartDTO.getItemName());
         viewHolder.itemQuantity.setText("" + myCartDTO.getItemQuantity() + " " + context.getResources().getString(R.string.cart_one_qty));
-        viewHolder.itemSAR.setText("" + myCartDTO.getUnitPrice());
+        viewHolder.itemSAR.setText(String.format("%.2f", myCartDTO.getUnitPrice()));
         if (aBoolean) {
             viewHolder.mSetSelectedValue.setVisibility(View.VISIBLE);
             final MyCartSpinnerItem myCartSpinnerItem = new MyCartSpinnerItem(context);

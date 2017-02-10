@@ -6,11 +6,11 @@ package com.qadmni.data;
 public class MyCartDTO {
     private long producerId;
     private int itemQuantity;
-    private String unitPrice;
+    private double unitPrice;
     private String ItemName;
     private long productId;
 
-    public MyCartDTO(long producerId, int itemQuantity, String unitPrice,
+    public MyCartDTO(long producerId, int itemQuantity, double unitPrice,
                      String itemName, long productId) {
         this.producerId = producerId;
         this.itemQuantity = itemQuantity;
@@ -35,11 +35,11 @@ public class MyCartDTO {
         this.itemQuantity = itemQuantity;
     }
 
-    public String getUnitPrice() {
+    public double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(String unitPrice) {
+    public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
     }
 

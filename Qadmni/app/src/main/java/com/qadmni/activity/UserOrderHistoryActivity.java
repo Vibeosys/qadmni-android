@@ -20,6 +20,7 @@ public class UserOrderHistoryActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_order_history);
+        setTitle(getString(R.string.str_my_orders));
         if (!UserAuth.isUserLoggedIn()) {
             startActivityForResult(new Intent(getApplicationContext(), CustomerLoginActivity.class), CALL_TO_LOGIN);
         }

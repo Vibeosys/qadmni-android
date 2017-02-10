@@ -48,7 +48,7 @@ public class VendorItemAdapter extends RecyclerView.Adapter<VendorItemAdapter.It
         final VendorItemResDTO item = mData.get(position);
         holder.txtItemName.setText(item.getItemName());
         holder.txtDetails.setText(item.getItemDesc());
-        holder.txtAmount.setText(String.format("%.0f", item.getPrice()));
+        holder.txtAmount.setText(String.format("%.2f", item.getPrice()));
         holder.txtCategory.setText(item.getCategory());
         int isAvail = item.getAvailableForSell();
         if (isAvail == 1) {

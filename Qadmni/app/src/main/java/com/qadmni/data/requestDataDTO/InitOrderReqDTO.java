@@ -16,6 +16,8 @@ public class InitOrderReqDTO extends BaseDTO {
     private String deliveryMethod;
     private long deliverySchedule;
     private String paymentMethod;
+    private boolean isGift;
+    private String giftMessage;
 
     public InitOrderReqDTO(ArrayList<OrderItemDTO> productInfo, String deliveryAddress,
                            double deliveryLat, double deliveryLong, String deliveryMethod,
@@ -83,5 +85,21 @@ public class InitOrderReqDTO extends BaseDTO {
 
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    public boolean isGift() {
+        return isGift;
+    }
+
+    public void setGift(boolean gift) {
+        isGift = gift;
+    }
+
+    public String getGiftMessage() {
+        return giftMessage;
+    }
+
+    public void setGiftMessage(String giftMessage) {
+        this.giftMessage = giftMessage;
     }
 }

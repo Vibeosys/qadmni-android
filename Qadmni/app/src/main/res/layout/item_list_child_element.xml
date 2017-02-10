@@ -33,7 +33,7 @@
                     android:id="@+id/imgProduct"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/test_profile_image"
+                    android:background="@drawable/default_img"
                     android:scaleType="centerCrop" />
 
                 <RelativeLayout
@@ -187,9 +187,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/white"
                     android:orientation="horizontal"
                     android:padding="4dp"
-                    android:background="@android:color/white"
                     android:weightSum="2">
 
                     <LinearLayout
@@ -275,9 +275,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/white"
                     android:orientation="horizontal"
                     android:padding="4dp"
-                    android:background="@android:color/white"
                     android:weightSum="2">
 
                     <LinearLayout
@@ -314,8 +314,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="end"
                         android:background="@android:color/white"
+                        android:gravity="end"
                         android:orientation="horizontal">
 
                         <LinearLayout

@@ -254,4 +254,6 @@
     <string name="str_pro_email">Email id cannot be blank</string>
     <string name="str_order_no">Order No</string>
     <string name="str_total_taxes">Total Taxes</string>
+    <string name="str_hidden_price_hint">Price will be hidden on the receipt</string>
+    <string name="str_180_charachters">Characters</string>
 </resources>

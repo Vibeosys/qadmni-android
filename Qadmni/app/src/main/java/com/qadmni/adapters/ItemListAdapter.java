@@ -100,7 +100,7 @@ public class ItemListAdapter extends BaseAdapter {
         viewHolder.ProducerName.setText(itemListDetailsDTO.getProducerDetails().getBusinessName());
         viewHolder.itemDistances.setText("" + itemListDetailsDTO.getProducerDetails().getUserDistance());
         viewHolder.itemTime.setText("" + itemListDetailsDTO.getProducerDetails().getUserTime());
-        viewHolder.itemSar.setText("" + itemListDetailsDTO.getUnitPrice());
+        viewHolder.itemSar.setText(String.format("%.2f", itemListDetailsDTO.getUnitPrice()));
         viewHolder.itemReviews.setText("" + itemListDetailsDTO.getReviews() + "\t" + context.getResources().getString(R.string.str_reviews));
         viewHolder.itemQuantity.setText("" + itemListDetailsDTO.getQuantity());
         viewHolder.simpleRatingBar.setIndicator(true);

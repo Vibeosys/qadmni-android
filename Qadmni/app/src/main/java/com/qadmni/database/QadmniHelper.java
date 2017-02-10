@@ -170,7 +170,7 @@ public class QadmniHelper extends SQLiteOpenHelper {
                             int producerId = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlMyCart.PRODUCER_ID));
                             String productName = cursor.getString(cursor.getColumnIndex(SqlContract.SqlMyCart.PRODUCT_NAME));
                             int productQyt = cursor.getInt(cursor.getColumnIndex(SqlContract.SqlMyCart.PRODUCT_QTY));
-                            String productUnitPrice = cursor.getString(cursor.getColumnIndex(SqlContract.SqlMyCart.ITEM_UNIT_PRICE));
+                            double productUnitPrice = cursor.getDouble(cursor.getColumnIndex(SqlContract.SqlMyCart.ITEM_UNIT_PRICE));
 
                             MyCartDTO myCartDTO = new MyCartDTO(producerId, productQyt, productUnitPrice, productName, productId);
                             myCartDTOs.add(myCartDTO);

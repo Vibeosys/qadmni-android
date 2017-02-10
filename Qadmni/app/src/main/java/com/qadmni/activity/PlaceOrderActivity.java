@@ -11,7 +11,9 @@ import android.location.Geocoder;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -46,6 +48,8 @@ import com.qadmni.utils.PaymentMethods;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
 
+import org.androidannotations.annotations.TextChange;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,8 +61,9 @@ public class PlaceOrderActivity extends BaseActivity implements
         OnMapReadyCallback, View.OnClickListener, ServerSyncManager.OnErrorResultReceived,
         ServerSyncManager.OnSuccessResultReceived, CompoundButton.OnCheckedChangeListener {
     public static final int LOCATION_RESULT = 1;
+    private int MAX_GIFT_CHARACHTERS = 180;
     private static final String TAG = PlaceOrderActivity.class.getSimpleName();
-    private TextView txtAddL1, txtAddL2, txtScheduleDate;
+    private TextView txtAddL1, txtAddL2, txtScheduleDate, txtRemainCharacters;
     private LinearLayout btnSearchAdd, btnPlaceOrder;
     private RadioGroup radGrpDeliveryType;
     private MapView mMapView;
@@ -72,6 +77,7 @@ public class PlaceOrderActivity extends BaseActivity implements
     long deliverySchedule;
     private EditText edtGiftMsg;
     private CheckBox chkGift;
+    LinearLayout layGift;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +88,7 @@ public class PlaceOrderActivity extends BaseActivity implements
         mMapView = (MapView) findViewById(R.id.mapView);
         txtAddL1 = (TextView) findViewById(R.id.txt_address_line1);
         txtAddL2 = (TextView) findViewById(R.id.txt_address_line2);
+        txtRemainCharacters = (TextView) findViewById(R.id.txt_remain_characters);
         edtGiftMsg = (EditText) findViewById(R.id.edt_message);
         radGrpDeliveryType = (RadioGroup) findViewById(R.id.radio_grp_delivery_type);
         btnSearchAdd = (LinearLayout) findViewById(R.id.btn_search_address);
@@ -92,7 +99,9 @@ public class PlaceOrderActivity extends BaseActivity implements
         chkCash = (CheckBox) findViewById(R.id.chk_cash);
         chkGift = (CheckBox) findViewById(R.id.chk_gift_Wrap_delivery);
         txtScheduleDate = (TextView) findViewById(R.id.txt_pick_date);
+        layGift = (LinearLayout) findViewById(R.id.isGiftMsg);
 
+        txtRemainCharacters.setText(MAX_GIFT_CHARACHTERS + " " + getString(R.string.str_180_charachters));
         btnSearchAdd.setOnClickListener(this);
         btnPlaceOrder.setOnClickListener(this);
         txtScheduleDate.setOnClickListener(this);
@@ -113,7 +122,23 @@ public class PlaceOrderActivity extends BaseActivity implements
             e.printStackTrace();
         }
         mMapView.getMapAsync(this);
+        edtGiftMsg.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                int remainChar = MAX_GIFT_CHARACHTERS - charSequence.length();
+                txtRemainCharacters.setText(remainChar + " " + getString(R.string.str_180_charachters));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     @Override
@@ -180,6 +205,8 @@ public class PlaceOrderActivity extends BaseActivity implements
                 InitOrderReqDTO initOrderReqDTO = new InitOrderReqDTO(itemList, address1 +
                         "," + address2, selectedLatLng.latitude, selectedLatLng.longitude,
                         deliveryMethod, deliverySchedule, paymentMethod);
+                initOrderReqDTO.setGift(chkGift.isChecked());
+                initOrderReqDTO.setGiftMessage(msg);
                 Gson gson = new Gson();
                 String serializedJsonString = gson.toJson(initOrderReqDTO);
                 BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
@@ -278,9 +305,9 @@ public class PlaceOrderActivity extends BaseActivity implements
                 break;
             case R.id.chk_gift_Wrap_delivery:
                 if (value) {
-                    edtGiftMsg.setVisibility(View.VISIBLE);
+                    layGift.setVisibility(View.VISIBLE);
                 } else {
-                    edtGiftMsg.setVisibility(View.GONE);
+                    layGift.setVisibility(View.GONE);
                 }
                 break;
         }
