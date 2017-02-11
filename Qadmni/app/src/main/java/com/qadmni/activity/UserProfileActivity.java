@@ -23,12 +23,14 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.qadmni.MainActivity;
 import com.qadmni.R;
 import com.qadmni.data.requestDataDTO.BaseRequestDTO;
 import com.qadmni.data.requestDataDTO.UserProfileDTO;
 import com.qadmni.utils.NetworkUtils;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
+import com.qadmni.utils.UserAuth;
 import com.qadmni.utils.Validator;
 
 public class UserProfileActivity extends BaseActivity implements View.OnClickListener,
@@ -41,11 +43,15 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
     String userEmail;
     String userPassword;
     String phone;
+    private static final int CALL_TO_LOGIN_FROM_PROFILE = 55;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        if (!UserAuth.isUserLoggedIn()) {
+            startActivityForResult(new Intent(getApplicationContext(), CustomerLoginActivity.class), CALL_TO_LOGIN_FROM_PROFILE);
+        }
         mUpdateProfile = (TextView) findViewById(R.id.saveProfile);
         mUserFirstName = (EditText) findViewById(R.id.userName);
         mUserEmailId = (EditText) findViewById(R.id.userEmailId);
@@ -189,5 +195,22 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
                 customAlterDialog(getString(R.string.str_user_profile), getString(R.string.str_profile_success));
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CALL_TO_LOGIN_FROM_PROFILE) {
+            if (requestCode == Activity.RESULT_OK) {
+
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        finish();
     }
 }

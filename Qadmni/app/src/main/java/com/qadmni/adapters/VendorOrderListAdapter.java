@@ -119,13 +119,13 @@ public class VendorOrderListAdapter extends RecyclerView.Adapter<VendorOrderList
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     String selectedVal = adapterView.getItemAtPosition(i).toString();
-                    if (selectedVal.equals("Ready to pick up")) {
+                    if (selectedVal.equals(mContext.getString(R.string.str_order_ready_to_pickup))) {
                         sendSelectedId = 5;
                     }
-                    if (selectedVal.equals("Order status waiting")) {
+                    if (selectedVal.equals(mContext.getString(R.string.str_order_status_waiting))) {
                         sendSelectedId = 6;
                     }
-                    if (selectedVal.equals("Order completed")) {
+                    if (selectedVal.equals(mContext.getString(R.string.str_order_pickup_complete))) {
                         sendSelectedId = 7;
                     }
                 }

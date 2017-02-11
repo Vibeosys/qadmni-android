@@ -149,7 +149,7 @@ public class VendorMainActivity extends BaseActivity
 
     private void callToLogOut() {
         UserAuth.CleanVendorAuthenticationInfo();
-        Intent intent = new Intent(getApplicationContext(), VendorLoginActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MainLoginActivity.class);
         startActivity(intent);
         finish();
     }

@@ -141,9 +141,15 @@ public class MainActivity extends BaseActivity
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
         progressDialog.show();
-        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
-        mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_USER_FAV,
-                mSessionManager.getUserFavItem(), baseRequestDTO);
+        if (UserAuth.isUserLoggedIn()) {
+
+            BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+            mServerSyncManager.uploadDataToServer(ServerRequestConstants.REQUEST_USER_FAV,
+                    mSessionManager.getUserFavItem(), baseRequestDTO);
+        } else {
+            callToGetItemList();
+        }
+
 
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -592,6 +598,8 @@ public class MainActivity extends BaseActivity
                 } catch (IOException e) {
                     System.out.println("Error connecting to Distance Matrix");
                     // return null;
+                } catch (Exception e) {
+                    Log.e("TAG", "Error processing Distance Matrix API URL");
                 } finally {
                     if (mUrlConnection != null) {
                         mUrlConnection.disconnect();

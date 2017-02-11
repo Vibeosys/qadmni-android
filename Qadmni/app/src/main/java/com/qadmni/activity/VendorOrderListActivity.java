@@ -57,11 +57,13 @@ public class VendorOrderListActivity extends BaseActivity implements ServerSyncM
     @Override
     public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
         progressDialog.dismiss();
+        customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
     }
 
     @Override
     public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
         progressDialog.dismiss();
+        customAlterDialog(getString(R.string.str_vendor_dashboard), errorMessage);
     }
 
     @Override
