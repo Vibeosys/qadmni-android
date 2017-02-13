@@ -26,8 +26,8 @@
 
     <string name="str_name_hint">Name</string>
     <string name="str_user_password">Password</string>
-    <string name="str_user_phone_no_hint">Phone number</string>
-    <string name="str_user_phone_no">Phone No</string>
+    <string name="str_user_phone_no_hint" translatable="false">Phone number</string>
+    <string name="str_user_phone_no" translatable="false">Phone No</string>
     <string name="str_confirm_user_password">Confirm Password</string>
     <string name="str_email_hint">Email</string>
     <string name="str_ph_hint">Phone</string>
@@ -67,7 +67,7 @@
     <string name="str_server_err_title">Server Error</string>
     <string name="str_server_err_desc">Something went wrong on server try again</string>
     <string name="str_login_err_title">Login Error</string>
-    <string name="str_user_name">Name</string>
+    <string name="str_user_name" translatable="false">Name</string>
 
     <string name="str_details">Details</string>
     <string name="str_details_product" translatable="false">delicious ice cream made up of coconut and cream ...</string>
@@ -227,7 +227,7 @@
     <string name="str_gift_wrap" translatable="false">Gift wrapping</string>
     <string name="str_mesg_hint" translatable="false">Card Message</string>
     <string name="str_err_msg_empty" translatable="false">Please enter the gift message</string>
-    <string name="str_update_product_success">Product updated successfully</string>
+    <string name="str_update_product_success" translatable="false">Product updated successfully</string>
     <integer-array name="choices">
         <item>1</item>
         <item>2</item>
@@ -240,33 +240,33 @@
         <item>9</item>
         <item>10</item>
     </integer-array>
-    <string name="str_product_status">Order Status has been updated</string>
-    <string name="str_submit">Submit</string>
-    <string name="str_feedback_success">Thanks for giving feedback,Your suggestions are valuable to us.</string>
+    <string name="str_product_status" translatable="false">Order Status has been updated</string>
+    <string name="str_submit" translatable="false">Submit</string>
+    <string name="str_feedback_success" translatable="false">Thanks for giving feedback,Your suggestions are valuable to us.</string>
 
-    <string name="str_profile_save">Save Profile</string>
-    <string name="str_customer_name">Simon Jones</string>
-    <string name="str_first_name">First Name</string>
-    <string name="str_customer_email">simon.jones@test.com</string>
-    <string name="str_user_address"><![CDATA[3602 Al Farawi St, Al Murabba, Riyadh 12612 8214, Saudi Arabia]]></string>
-    <string name="str_address">Address</string>
-    <string name="permission_read_storage_rationale">Storage read permission is needed to pick files.</string>
-    <string name="str_select_picture">Select Picture</string>
-    <string name="str_pro_user">User name cannot be blank</string>
-    <string name="str_pro_password">Password cannot be blank</string>
-    <string name="str_pro_email">Email id cannot be blank</string>
-    <string name="str_pro_phone">Phone number cannot be blank</string>
-    <string name="str_pro_phone_invalid">Invalid phone number</string>
-    <string name="str_order_no">Order No</string>
-    <string name="str_total_taxes">Total Taxes</string>
-    <string name="str_hidden_price_hint">Price will be hidden on the receipt</string>
-    <string name="str_180_charachters">Characters</string>
-    <string name="str_gift_title">This order contains a git</string>
-    <string name="str_update_profile_err">Update profile error</string>
-    <string name="str_profile_success">Profile updated successfully</string>
-    <string name="str_user_profile">User profile</string>
-    <string name="str_vendor_profile_err">Vendor profile</string>
-    <string name="str_vendor_profile">Vendor profile</string>
-    <string name="str_order_status_waiting">Order status waiting</string>
-    <string name="str_order_devliver_progeress">Delivery in progress</string>
+    <string name="str_profile_save" translatable="false">Save Profile</string>
+    <string name="str_customer_name" translatable="false">Simon Jones</string>
+    <string name="str_first_name" translatable="false">First Name</string>
+    <string name="str_customer_email" translatable="false">simon.jones@test.com</string>
+    <string name="str_user_address" translatable="false"><![CDATA[3602 Al Farawi St, Al Murabba, Riyadh 12612 8214, Saudi Arabia]]></string>
+    <string name="str_address" translatable="false">Address</string>
+    <string name="permission_read_storage_rationale" translatable="false">Storage read permission is needed to pick files.</string>
+    <string name="str_select_picture" translatable="false">Select Picture</string>
+    <string name="str_pro_user" translatable="false">User name cannot be blank</string>
+    <string name="str_pro_password" translatable="false">Password cannot be blank</string>
+    <string name="str_pro_email" translatable="false">Email id cannot be blank</string>
+    <string name="str_pro_phone" translatable="false">Phone number cannot be blank</string>
+    <string name="str_pro_phone_invalid" translatable="false">Invalid phone number</string>
+    <string name="str_order_no" translatable="false">Order No</string>
+    <string name="str_total_taxes" translatable="false">Total Taxes</string>
+    <string name="str_hidden_price_hint" translatable="false">Price will be hidden on the receipt</string>
+    <string name="str_180_charachters" translatable="false">Characters</string>
+    <string name="str_gift_title" translatable="false">This order contains a git</string>
+    <string name="str_update_profile_err" translatable="false">Update profile error</string>
+    <string name="str_profile_success" translatable="false">Profile updated successfully</string>
+    <string name="str_user_profile" translatable="false">User profile</string>
+    <string name="str_vendor_profile_err" translatable="false">Vendor profile</string>
+    <string name="str_vendor_profile" translatable="false">Vendor profile</string>
+    <string name="str_order_status_waiting" translatable="false">Order status waiting</string>
+    <string name="str_order_devliver_progeress" translatable="false">Delivery in progress</string>
 </resources>
