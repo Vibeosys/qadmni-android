@@ -93,9 +93,9 @@ public class UserProfileActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
-                    mUserFirstName.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                    mUserPhoneNumber.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                 } else if (!b) {
-                    mUserFirstName.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_create_black_24dp, 0);
+                    mUserPhoneNumber.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_create_black_24dp, 0);
                 }
             }
         });
