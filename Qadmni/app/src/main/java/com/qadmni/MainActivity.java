@@ -288,16 +288,25 @@ public class MainActivity extends BaseActivity
             Intent intent = new Intent(getApplicationContext(), UserMyCartActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_myOrders) {
-            Intent intent = new Intent(getApplicationContext(), UserOrderHistoryActivity.class);
-            startActivity(intent);
+            if (UserAuth.isUserLoggedIn()) {
+                Intent intent = new Intent(getApplicationContext(), UserOrderHistoryActivity.class);
+                startActivity(intent);
+            }
+
 
         } else if (id == R.id.nav_favourite) {
-            Intent intent = new Intent(getApplicationContext(), UserFavListActivity.class);
-            startActivity(intent);
+            if (UserAuth.isUserLoggedIn()) {
+                Intent intent = new Intent(getApplicationContext(), UserFavListActivity.class);
+                startActivity(intent);
+            }
+
 
         } else if (id == R.id.nav_profile) {
-            Intent intent = new Intent(getApplicationContext(), UserProfileActivity.class);
-            startActivity(intent);
+            if (UserAuth.isUserLoggedIn()) {
+                Intent intent = new Intent(getApplicationContext(), UserProfileActivity.class);
+                startActivity(intent);
+            }
+
 
         } else if (id == R.id.nav_language) {
             Intent intent = new Intent(getApplicationContext(), SelectLanguageActivity.class);
