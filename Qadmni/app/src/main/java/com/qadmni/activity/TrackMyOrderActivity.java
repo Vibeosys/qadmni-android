@@ -18,6 +18,7 @@ import com.qadmni.utils.DeliveryStatusSpinner;
 import com.qadmni.utils.NetworkUtils;
 import com.qadmni.utils.ServerRequestConstants;
 import com.qadmni.utils.ServerSyncManager;
+import com.qadmni.views.CircularProgressBar;
 
 public class TrackMyOrderActivity extends BaseActivity implements ServerSyncManager.OnSuccessResultReceived,
         ServerSyncManager.OnErrorResultReceived {
@@ -26,6 +27,7 @@ public class TrackMyOrderActivity extends BaseActivity implements ServerSyncMana
     private ImageView imgStatus;
     private LinearLayout layOrderDetails;
     private long orderId;
+    private CircularProgressBar circularProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +36,10 @@ public class TrackMyOrderActivity extends BaseActivity implements ServerSyncMana
         txtOrderId = (TextView) findViewById(R.id.txt_order_id);
         txtAddress = (TextView) findViewById(R.id.txt_address);
         txtOrderStatus = (TextView) findViewById(R.id.txt_order_status);
-       // txtTempAddress = (TextView) findViewById(R.id.txt_temp_address);
+        // txtTempAddress = (TextView) findViewById(R.id.txt_temp_address);
         imgStatus = (ImageView) findViewById(R.id.img_status);
         layOrderDetails = (LinearLayout) findViewById(R.id.layOrderDetails);
+        circularProgressBar = (CircularProgressBar) findViewById(R.id.progress_status);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             orderId = bundle.getLong("orderId");
@@ -130,6 +133,20 @@ public class TrackMyOrderActivity extends BaseActivity implements ServerSyncMana
                 if (deliveryStaus.equals(DeliveryStatusSpinner.DELIVERED)) {
                     txtOrderStatus.setText(getString(R.string.str_order_devlivered));
                 }
+
+                circularProgressBar.setMax(60);
+                String strmin = ""+13;//orderTrackResDTO.getTimeRequiredInMinutes();
+                if (strmin != null) {
+                    circularProgressBar.setTitle(strmin);
+                    circularProgressBar.setSubTitle(getString(R.string.str_min));
+                    int min = Integer.parseInt(strmin);
+                    circularProgressBar.setProgress(circularProgressBar.getMax() - min);
+                } else {
+                    circularProgressBar.setProgress(circularProgressBar.getMax());
+                    circularProgressBar.setTitle(getResources().getString(R.string.str_not));
+                    circularProgressBar.setSubTitle(getResources().getString(R.string.str_available));
+                }
+
                 break;
         }
     }

@@ -14,7 +14,6 @@ public class OrderTrackResDTO extends BaseDTO {
     private static final String TAG = OrderTrackResDTO.class.getSimpleName();
     private long orderId;
     private String deliveryAddress;
-    //private String TempAddress;
     private String timeRequiredInMinutes;
     private String currentStatusCode;
     private int stageNo;
@@ -40,13 +39,6 @@ public class OrderTrackResDTO extends BaseDTO {
         this.deliveryAddress = deliveryAddress;
     }
 
-   /* public String getTempAddress() {
-        return TempAddress;
-    }
-
-    public void setTempAddress(String tempAddress) {
-        TempAddress = tempAddress;
-    }*/
 
     public String getTimeRequiredInMinutes() {
         return timeRequiredInMinutes;
