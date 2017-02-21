@@ -4,16 +4,25 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.qadmni.R;
 
 public class SplashActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 3000;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        imageView = (ImageView) findViewById(R.id.logo_image);
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_effect);
+        animation.setFillEnabled(true);
+        animation.setFillAfter(true);
+        imageView.startAnimation(animation);
         new Handler().postDelayed(new Runnable() {
 
             /*
