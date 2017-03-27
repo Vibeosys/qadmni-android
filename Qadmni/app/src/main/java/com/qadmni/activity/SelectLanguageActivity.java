@@ -37,6 +37,12 @@ public class SelectLanguageActivity extends BaseActivity {
                 (android.R.layout.simple_spinner_dropdown_item);
 
         mSpinner.setAdapter(dataAdapter);
+        String strSelectedLang = mSessionManager.getUserSelectedLang();
+        if (strSelectedLang.equals("En")) {
+            mSpinner.setSelection(0);
+        } else if (strSelectedLang.equals("Ar")) {
+            mSpinner.setSelection(1);
+        }
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -69,6 +75,7 @@ public class SelectLanguageActivity extends BaseActivity {
 
             }
         });
+
     }
 
     @Override

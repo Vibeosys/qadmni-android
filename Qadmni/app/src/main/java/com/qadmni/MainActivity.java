@@ -40,6 +40,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 import com.qadmni.activity.BaseActivity;
+import com.qadmni.activity.CustomerLoginActivity;
 import com.qadmni.activity.FilterUserListActivity;
 import com.qadmni.activity.MainLoginActivity;
 import com.qadmni.activity.SelectLanguageActivity;
@@ -84,6 +85,7 @@ public class MainActivity extends BaseActivity
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final int FILTER_LIST = 101;
+    private static final int CALL_LOGIN = 32;
     private CategoryFragmentAdapter categoryFragmentAdapter;
     private ViewPager mViewPager;
     private ArrayList<CategoryListResponseDTO> categoryListResponseDTOs;
@@ -291,6 +293,8 @@ public class MainActivity extends BaseActivity
             if (UserAuth.isUserLoggedIn()) {
                 Intent intent = new Intent(getApplicationContext(), UserOrderHistoryActivity.class);
                 startActivity(intent);
+            } else {
+                startActivityForResult(new Intent(getApplicationContext(), CustomerLoginActivity.class), CALL_LOGIN);
             }
 
 
@@ -298,6 +302,8 @@ public class MainActivity extends BaseActivity
             if (UserAuth.isUserLoggedIn()) {
                 Intent intent = new Intent(getApplicationContext(), UserFavListActivity.class);
                 startActivity(intent);
+            } else {
+                startActivityForResult(new Intent(getApplicationContext(), CustomerLoginActivity.class), CALL_LOGIN);
             }
 
 
@@ -305,6 +311,8 @@ public class MainActivity extends BaseActivity
             if (UserAuth.isUserLoggedIn()) {
                 Intent intent = new Intent(getApplicationContext(), UserProfileActivity.class);
                 startActivity(intent);
+            } else {
+                startActivityForResult(new Intent(getApplicationContext(), CustomerLoginActivity.class), CALL_LOGIN);
             }
 
 

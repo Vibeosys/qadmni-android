@@ -42,7 +42,7 @@ public class VendorMainActivity extends BaseActivity
         setContentView(R.layout.activity_vendor_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle(getResources().getString(R.string.str_vendor_dashboard));
+        setTitle(getResources().getString(R.string.app_name));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         addProductTitle = (LinearLayout) findViewById(R.id.addProductTitle);

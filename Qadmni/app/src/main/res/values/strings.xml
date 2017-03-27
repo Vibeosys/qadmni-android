@@ -216,18 +216,18 @@
     <string name="str_past_order_error">Past Order error</string>
     <string name="str_live_order_error">Live Order error</string>
     <string name="str_cart_validation">You cannot add from another vendor</string>
-    <string name="str_email_send_msg" translatable="false">Credentials  is send to register email id</string>
+    <string name="str_email_send_msg">Credentials  is send to register email id</string>
 
     <string name="str_vendor_forgot_pwd">Vendor forgot password</string>
     <string name="str_customer_forgot_pwd">Customer forgot password</string>
     <string name="str_email_error">Email Not Available</string>
     <string name="str_cash_mode">Cash</string>
     <string name="str_empty_cart">Your cart is empty,please select the products</string>
-    <string name="str_packing" translatable="false">PACKING</string>
-    <string name="str_gift_wrap" translatable="false">Gift wrapping</string>
-    <string name="str_mesg_hint" translatable="false">Card Message</string>
-    <string name="str_err_msg_empty" translatable="false">Please enter the gift message</string>
-    <string name="str_update_product_success" translatable="false">Product updated successfully</string>
+    <string name="str_packing">SEND AS GIFT?</string>
+    <string name="str_gift_wrap">Gift wrap</string>
+    <string name="str_mesg_hint">Card Message</string>
+    <string name="str_err_msg_empty">Please enter the gift message</string>
+    <string name="str_update_product_success">Product updated successfully</string>
     <integer-array name="choices">
         <item>1</item>
         <item>2</item>
@@ -240,36 +240,36 @@
         <item>9</item>
         <item>10</item>
     </integer-array>
-    <string name="str_product_status" translatable="false">Order Status has been updated</string>
-    <string name="str_submit" translatable="false">Submit</string>
-    <string name="str_feedback_success" translatable="false">Thanks for giving feedback,Your suggestions are valuable to us.</string>
+    <string name="str_product_status">Order Status has been updated</string>
+    <string name="str_submit">Submit</string>
+    <string name="str_feedback_success">Thanks for giving feedback,Your suggestions are valuable to us.</string>
 
-    <string name="str_profile_save" translatable="false">Save Profile</string>
+    <string name="str_profile_save">Save Profile</string>
     <string name="str_customer_name" translatable="false">Simon Jones</string>
-    <string name="str_first_name" translatable="false">First Name</string>
+    <string name="str_first_name">First Name</string>
     <string name="str_customer_email" translatable="false">simon.jones@test.com</string>
     <string name="str_user_address" translatable="false"><![CDATA[3602 Al Farawi St, Al Murabba, Riyadh 12612 8214, Saudi Arabia]]></string>
-    <string name="str_address" translatable="false">Address</string>
+    <string name="str_address">Address</string>
     <string name="permission_read_storage_rationale" translatable="false">Storage read permission is needed to pick files.</string>
-    <string name="str_select_picture" translatable="false">Select Picture</string>
-    <string name="str_pro_user" translatable="false">User name cannot be blank</string>
-    <string name="str_pro_password" translatable="false">Password cannot be blank</string>
-    <string name="str_pro_email" translatable="false">Email id cannot be blank</string>
-    <string name="str_pro_phone" translatable="false">Phone number cannot be blank</string>
-    <string name="str_pro_phone_invalid" translatable="false">Invalid phone number</string>
-    <string name="str_order_no" translatable="false">Order No</string>
-    <string name="str_total_taxes" translatable="false">Total Taxes</string>
-    <string name="str_hidden_price_hint" translatable="false">Price will be hidden on the receipt</string>
-    <string name="str_180_charachters" translatable="false">Characters</string>
-    <string name="str_gift_title" translatable="false">This order contains a git</string>
-    <string name="str_update_profile_err" translatable="false">Update profile error</string>
-    <string name="str_profile_success" translatable="false">Profile updated successfully</string>
-    <string name="str_user_profile" translatable="false">User profile</string>
-    <string name="str_vendor_profile_err" translatable="false">Vendor profile</string>
-    <string name="str_vendor_profile" translatable="false">Vendor profile</string>
-    <string name="str_order_status_waiting" translatable="false">Order status waiting</string>
-    <string name="str_order_devliver_progeress" translatable="false">Delivery in progress</string>
-    <string name="str_not" translatable="false">Not</string>
-    <string name="str_available" translatable="false">Available</string>
-    <string name="str_min" translatable="false">Min</string>
+    <string name="str_select_picture">Select Picture</string>
+    <string name="str_pro_user">User name cannot be blank</string>
+    <string name="str_pro_password">Password cannot be blank</string>
+    <string name="str_pro_email">Email id cannot be blank</string>
+    <string name="str_pro_phone">Phone number cannot be blank</string>
+    <string name="str_pro_phone_invalid">Invalid phone number</string>
+    <string name="str_order_no">Order No</string>
+    <string name="str_total_taxes">Total Taxes</string>
+    <string name="str_hidden_price_hint">Price will be hidden on the receipt</string>
+    <string name="str_180_charachters">Characters</string>
+    <string name="str_gift_title">This order contains a gift</string>
+    <string name="str_update_profile_err">Update profile error</string>
+    <string name="str_profile_success">Profile updated successfully</string>
+    <string name="str_user_profile">User profile</string>
+    <string name="str_vendor_profile_err">Vendor profile</string>
+    <string name="str_vendor_profile">Vendor profile</string>
+    <string name="str_order_status_waiting">Order status waiting</string>
+    <string name="str_order_devliver_progeress">Delivery in progress</string>
+    <string name="str_not">Not</string>
+    <string name="str_available">Available</string>
+    <string name="str_min">Min</string>
 </resources>
