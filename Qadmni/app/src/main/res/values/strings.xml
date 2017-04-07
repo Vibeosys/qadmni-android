@@ -272,4 +272,6 @@
     <string name="str_not">Not</string>
     <string name="str_available">Available</string>
     <string name="str_min">Min</string>
+    <string name="str_more_than">More than 100 miles</string>
+    <string name="str_na">N/A</string>
 </resources>

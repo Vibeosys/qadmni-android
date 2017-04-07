@@ -74,7 +74,7 @@
     <string name="str_settings">اعدادات </string>
     <string name="str_shop_details">تفاصيل المتجر</string>
     <string name="str_shop_location_hint">موقع المتجر </string>
-    <string name="str_sort">بالنوع</string>
+    <string name="str_sort">.. اختيار التصفيه بــ </string>
     <string name="str_start_quickly">ابدأ بسرعة</string>
     <string name="str_subscribe_btn">ابدأ بسرعة</string>
     <string name="str_total">المجموع</string>

@@ -110,7 +110,7 @@ public class MainActivity extends BaseActivity
         setSupportActionBar(toolbar);
         filter = new IntentFilter();
         filter.addAction(Constants.SEND_BROADCAST_SIGNAL);
-        setTitle(getString(R.string.app_name));
+        setTitle(""/*getString(R.string.app_name)*/);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -552,7 +552,7 @@ public class MainActivity extends BaseActivity
     }
 
     public class ApiDirectionsAsyncTask extends AsyncTask<Void, Integer, Void> {
-        private static final String DIRECTIONS_API_BASE = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric";
+        private final String DIRECTIONS_API_BASE = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&language=" + mSessionManager.getUserSelectedLang().toString().toLowerCase();
         // API KEY of the project Google Map Api For work
         //   private static final String API_KEY = "AIzaSyBPyqI2_jmK7TOBS0x5uF35x7vSBvP6JX0";
         private final String API_KEY = getApplicationContext().getResources().getString(R.string.str_google_map_key);
@@ -607,6 +607,9 @@ public class MainActivity extends BaseActivity
                         doubleDistance = distance.getDouble("value");
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        strDistance = getString(R.string.str_more_than);
+                        doubleDistance = 0;
+                        strDuration = getString(R.string.str_na);
                     }
                 } catch (MalformedURLException e) {
                     Log.e("TAG", "Error processing Distance Matrix API URL");
