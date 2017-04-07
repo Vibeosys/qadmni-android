@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.qadmni.R;
 import com.qadmni.activity.BaseActivity;
+import com.qadmni.data.OrderStatusString;
 import com.qadmni.data.responseDataDTO.LiveOrdersResponseDTO;
 import com.qadmni.data.responseDataDTO.PastOrderResponseDTO;
 import com.qadmni.utils.DateUtils;
@@ -29,10 +30,12 @@ public class LiveOrdersAdapter extends BaseAdapter {
     Context context;
     private OnFeedbackClickListener listener;
     private OnOrderDetailsClickListener onOrderDetailsClickListener;
+    private OrderStatusString orderStatusString;
 
     public LiveOrdersAdapter(ArrayList<LiveOrdersResponseDTO> liveOrdersResponseDTO, Context context) {
         this.liveOrdersResponseDTO = liveOrdersResponseDTO;
         this.context = context;
+        this.orderStatusString = new OrderStatusString(context);
     }
 
     @Override
@@ -68,6 +71,7 @@ public class LiveOrdersAdapter extends BaseAdapter {
             viewHolder.paymentMode = (TextView) row.findViewById(R.id.paymentMode);
             viewHolder.layFeedback = (LinearLayout) row.findViewById(R.id.lay_feedback);
             viewHolder.trackOrders = (TextView) row.findViewById(R.id.trackOrders);
+            viewHolder.currentStatusCode = (TextView) row.findViewById(R.id.txtStatus);
             row.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) row.getTag();
@@ -100,7 +104,8 @@ public class LiveOrdersAdapter extends BaseAdapter {
         viewHolder.orderId.setText("" + liveOrdersResponseDTOS.getOrderId());
         viewHolder.producerName.setText("" + liveOrdersResponseDTOS.getProducerBusinessName());
         viewHolder.amountInSAR.setText("" + liveOrdersResponseDTOS.getAmountInSAR());
-
+        viewHolder.currentStatusCode.setText(this.orderStatusString.getValueOrderStatus
+                (liveOrdersResponseDTOS.getCurrentStatusCode()));
         DateUtils dateUtils = new DateUtils();
         Date tempDate = dateUtils.getFormattedDate(liveOrdersResponseDTOS.getOrderDate());
         String stringYear = (String) android.text.format.DateFormat.format("dd-MM-yyyy", tempDate);
