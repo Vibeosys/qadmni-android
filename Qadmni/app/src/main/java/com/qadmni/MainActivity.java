@@ -78,6 +78,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, ServerSyncManager.OnSuccessResultReceived,
@@ -372,6 +373,9 @@ public class MainActivity extends BaseActivity
             case ServerRequestConstants.REQUEST_GET_CATEGORY: {
                 ArrayList<CategoryListResponseDTO> categoryListResponseDTOs = CategoryListResponseDTO.deSerializedToJson(data);
                 ArrayList<ItemListFragment> itemList = new ArrayList<ItemListFragment>();
+                if (mSessionManager.getUserSelectedLang().equals("Ar")) {
+                    Collections.reverse(categoryListResponseDTOs);
+                }
                 for (CategoryListResponseDTO category : categoryListResponseDTOs) {
                     CategoryMasterDTO categoryMasterDTO = new CategoryMasterDTO(category);
                     ItemListFragment fragment = new ItemListFragment();
@@ -385,6 +389,11 @@ public class MainActivity extends BaseActivity
                         getSupportFragmentManager(), itemList);
                 //mViewPager.setOffscreenPageLimit(1);
                 mViewPager.setAdapter(categoryFragmentAdapter);
+                if (mSessionManager.getUserSelectedLang().equals("Ar")) {
+                    mViewPager.setCurrentItem(categoryFragmentAdapter.getCount(), true);
+                    mViewPager.getAdapter().notifyDataSetChanged();
+                }
+
             }
 
             break;

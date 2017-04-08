@@ -48,14 +48,14 @@ public class ConfirmAndPayActivity extends BaseActivity implements
         View.OnClickListener {
 
     public static final java.lang.String ORDER_INIT_DETAILS = "orderInitDetails";
-    private RecyclerView itemList, chargeList;
+    private RecyclerView itemList /*chargeList*/;
     private LinearLayout payLay;
     private TextView txtAmountSar, txtAmountUsd;
     private ConfirmChargeAdapter confirmListAdapter;
     private UserConfirmListAdapter userConfirmListAdapter;
     private String data;
     private ArrayList<OrderItemResDTO> orderedItems = new ArrayList<>();
-    private ArrayList<OrderChargesResDTO> orderCharges = new ArrayList<>();
+   // private ArrayList<OrderChargesResDTO> orderCharges = new ArrayList<>();
     private long orderId;
     private double amountInSAR, amountInUSD;
     private static PayPalConfiguration config;
@@ -67,7 +67,7 @@ public class ConfirmAndPayActivity extends BaseActivity implements
         setContentView(R.layout.activity_confirm_and_pay);
 
         itemList = (RecyclerView) findViewById(R.id.item_list);
-        chargeList = (RecyclerView) findViewById(R.id.charge_list);
+        //chargeList = (RecyclerView) findViewById(R.id.charge_list);
         payLay = (LinearLayout) findViewById(R.id.payLay);
         txtAmountSar = (TextView) findViewById(R.id.txt_total_sar);
         txtAmountUsd = (TextView) findViewById(R.id.txt_total_amount_usd);
@@ -78,7 +78,7 @@ public class ConfirmAndPayActivity extends BaseActivity implements
             data = bundle.getString(ORDER_INIT_DETAILS);
             InitOrderResDTO orderResDTO = InitOrderResDTO.deserializeJson(data);
             orderedItems = orderResDTO.getOrderedItems();
-            orderCharges = orderResDTO.getChargeBreakup();
+            //orderCharges = orderResDTO.getChargeBreakup();
             orderId = orderResDTO.getOrderId();
             amountInSAR = orderResDTO.getTotalAmountInSAR();
             amountInUSD = orderResDTO.getTotalAmountInUSD();
@@ -97,10 +97,10 @@ public class ConfirmAndPayActivity extends BaseActivity implements
 
         LinearLayoutManager chargeLayManager = new LinearLayoutManager(this);
         chargeLayManager.setOrientation(LinearLayoutManager.VERTICAL);
-        chargeList.setLayoutManager(chargeLayManager);
+        //chargeList.setLayoutManager(chargeLayManager);
 
-        confirmListAdapter = new ConfirmChargeAdapter(getApplicationContext(), orderCharges);
-        chargeList.setAdapter(confirmListAdapter);
+        //confirmListAdapter = new ConfirmChargeAdapter(getApplicationContext(), orderCharges);
+        //chargeList.setAdapter(confirmListAdapter);
 
         userConfirmListAdapter = new UserConfirmListAdapter(getApplicationContext(), orderedItems);
         itemList.setAdapter(userConfirmListAdapter);

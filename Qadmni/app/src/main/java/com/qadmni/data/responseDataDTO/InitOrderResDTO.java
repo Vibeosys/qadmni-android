@@ -16,7 +16,7 @@ public class InitOrderResDTO extends BaseDTO {
     private static final String TAG = InitOrderResDTO.class.getSimpleName();
     private long orderId;
     private ArrayList<OrderItemResDTO> orderedItems;
-    private ArrayList<OrderChargesResDTO> chargeBreakup;
+   // private ArrayList<OrderChargesResDTO> chargeBreakup;
     private double totalAmountInSAR;
     private double totalAmountInUSD;
 
@@ -39,13 +39,13 @@ public class InitOrderResDTO extends BaseDTO {
         this.orderedItems = orderedItems;
     }
 
-    public ArrayList<OrderChargesResDTO> getChargeBreakup() {
+   /* public ArrayList<OrderChargesResDTO> getChargeBreakup() {
         return chargeBreakup;
     }
 
     public void setChargeBreakup(ArrayList<OrderChargesResDTO> chargeBreakup) {
         this.chargeBreakup = chargeBreakup;
-    }
+    }*/
 
     public double getTotalAmountInSAR() {
         return totalAmountInSAR;
