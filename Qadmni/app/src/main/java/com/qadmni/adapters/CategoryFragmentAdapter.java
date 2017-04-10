@@ -44,6 +44,7 @@ public class CategoryFragmentAdapter extends FragmentStatePagerAdapter {
             name = this.itemListFragments.get(position).getCategoryMasterDTO().getCategory();
         } catch (NullPointerException e) {
             name = "";
+            Log.e(TAG, "## error in get page title");
             FirebaseCrash.log("Error in " + TAG + " catch block " + e.getMessage());
         }
         return name;

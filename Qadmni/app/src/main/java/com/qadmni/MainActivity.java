@@ -375,6 +375,7 @@ public class MainActivity extends BaseActivity
                 ArrayList<ItemListFragment> itemList = new ArrayList<ItemListFragment>();
                 if (mSessionManager.getUserSelectedLang().equals("Ar")) {
                     Collections.reverse(categoryListResponseDTOs);
+                    //mViewPager.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
                 }
                 for (CategoryListResponseDTO category : categoryListResponseDTOs) {
                     CategoryMasterDTO categoryMasterDTO = new CategoryMasterDTO(category);
@@ -389,9 +390,14 @@ public class MainActivity extends BaseActivity
                         getSupportFragmentManager(), itemList);
                 //mViewPager.setOffscreenPageLimit(1);
                 mViewPager.setAdapter(categoryFragmentAdapter);
+
                 if (mSessionManager.getUserSelectedLang().equals("Ar")) {
-                    mViewPager.setCurrentItem(categoryFragmentAdapter.getCount(), true);
-                    mViewPager.getAdapter().notifyDataSetChanged();
+                    mViewPager.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mViewPager.setCurrentItem(categoryFragmentAdapter.getCount(), true);
+                        }
+                    });
                 }
 
             }

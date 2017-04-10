@@ -9,8 +9,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.qadmni.R;
+import com.qadmni.helpers.LocaleHelper;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
     private static int SPLASH_TIME_OUT = 3000;
     private ImageView imageView;
 
@@ -19,6 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         imageView = (ImageView) findViewById(R.id.logo_image);
+        LocaleHelper.setLocale(getApplicationContext(), mSessionManager.getUserSelectedLang().toLowerCase());
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_effect);
         animation.setFillEnabled(true);
         animation.setFillAfter(true);
